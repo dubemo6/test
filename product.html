@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Object with Text</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Universal Box Sizing for consistent layout */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            overflow-x: hidden; /* Prevent horizontal overflow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh; /* Use min-height to allow content to push body height */
+            background-color: #f2f2f2; /* Changed to #f2f2f2 */
+        }
+
+        /* --- NAVBAR STYLES --- */
+        header {
+            background-color: #f2f2f2; /* Changed to #f2f2f2 */
+            padding: 3rem 0; /* Adjusted: Reduced padding to bring it closer */
+            border-bottom: 1px solid white; /* Added thin line separator, changed to white */
+            box-shadow: none; /* No shadow as per image */
+            position: relative; /* Changed to relative to allow scrolling past it */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px; /* Adjusted: Changed from 1.5rem to 20px to match main content padding */
+            display: flex; /* Always flex */
+            justify-content: space-between; /* Space between hamburger and call-now on mobile, and other items on desktop */
+            align-items: center;
+            /* On mobile, only hamburger and call-now-text will be direct flex items visible */
+        }
+
+        .main-nav {
+            display: none; /* Hidden by default (mobile) */
+        }
+
+        .main-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .main-nav ul li a {
+            color: #333; /* Dark text color */
+            text-decoration: none;
+            font-weight: 400;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .main-nav ul li a:hover {
+            color: #f97316; /* Orange hover color */
+        }
+
+        .main-nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            width: 100%; /* Underline for active link */
+            height: 2px;
+            background: #f97316; /* Orange underline */
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+
+        .call-now-text {
+            /* Default: It will be visible on mobile, positioned by flex */
+            background-color: transparent;
+            color: #333; /* Dark text color */
+            padding: 0;
+            text-decoration: none;
+            font-weight: 400;
+            white-space: nowrap;
+        }
+
+        .call-now-text:hover {
+            color: #f97316; /* Orange hover color */
+        }
+
+        .hamburger-btn {
+            display: block; /* Shown by default (mobile) */
+            background: none;
+            border: none;
+            color: #333; /* Dark icon color */
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent light grey */
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            opacity: 0; /* Start hidden for transition */
+            pointer-events: none; /* Disable interaction when hidden */
+            overflow-y: auto;
+        }
+
+        .mobile-menu-overlay.active {
+            display: flex; /* Show when active */
+            opacity: 1; /* Fade in */
+            pointer-events: auto; /* Enable interaction */
+        }
+
+        .mobile-menu-overlay .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #333; /* Dark icon color */
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .mobile-menu-overlay nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-menu-overlay nav ul li {
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-overlay nav ul li a {
+            color: #333; /* Dark text color */
+            text-decoration: none;
+            font-size: 2.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay nav ul li a:hover {
+            color: #f97316; /* Orange hover color */
+        }
+
+        /* --- END NAVBAR STYLES --- */
+
+        /* --- HERO SECTION STYLES --- */
+        #hero-section {
+            width: 100%;
+            padding: 8px 0;
+            background-color: #f2f2f2;
+            text-align: center;
+            color: #333;
+            margin-top: 0;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* Applying the new H1/H2 style */
+        #hero-section h1,
+        #tailored-solutions-column h2,
+        .secondary-content h2 {
+            font-size: 3.5rem; /* Increased font size for all h1 and h2 */
+            font-weight: 700; /* Bold font weight */
+            color: #333; /* Dark grey color */
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        /* End new H1/H2 style */
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        .hero-full-width-image {
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+            height: auto;
+            display: block;
+            margin-top: 20px;
+            border-radius: 0;
+            box-shadow: none;
+        }
+        /* --- END HERO SECTION STYLES --- */
+
+        /* --- NEW MAIN LAYOUT SECTION --- */
+        .main-layout-container {
+            display: flex;
+            flex-direction: row; /* Default for desktop: Left and Right columns */
+            width: 100%;
+            max-width: 1200px; /* Constrain overall width */
+            margin: 50px auto; /* Space from sections above/below */
+            padding: 0 20px; /* Add padding to the container to control overall layout */
+            gap: 80px; /* Increased space between columns to push right column further */
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+        }
+
+        #tailored-solutions-column {
+            min-width: 300px; /* Minimum width before wrapping */
+            text-align: left;
+            color: #333;
+            padding: 20px; /* Default padding for all sides */
+        }
+
+        /* Specific styles for desktop (laptop screen) layout */
+        @media (min-width: 1024px) {
+            .navbar-container {
+                display: grid; /* Use grid for desktop navbar */
+                grid-template-columns: 1fr auto 1fr; /* Flexible left, auto width for nav, flexible right */
+                justify-content: unset; /* Reset flex alignment */
+            }
+            .main-nav {
+                display: flex; /* Show desktop nav */
+                grid-column: 2; /* Place in the middle column */
+                justify-self: center; /* Center horizontally within its grid cell */
+                /* flex-grow: unset; -- this line is not needed as it's a grid item */
+            }
+            .call-now-text {
+                display: block; /* Ensure it's block on desktop */
+                grid-column: 3; /* Place in the right column */
+                justify-self: end; /* Align to the end of the grid cell */
+            }
+            .hamburger-btn {
+                display: none; /* Hide hamburger on desktop */
+            }
+
+            #tailored-solutions-column {
+                flex: 1; /* Make product details column equal width */
+                border-right: 1px solid white; /* White thin line divider */
+                /* Adjusted padding for desktop */
+                padding: 20px 40px 20px 0; /* top, right (gap from divider), bottom, left (no padding) */
+            }
+            #product-details-column {
+                flex: 1; /* Make product details column equal width */
+                /* Adjusted padding for desktop */
+                padding: 20px 0 20px 40px; /* top, right (no padding), bottom, left (gap from divider) */
+            }
+        }
+
+        #tailored-solutions-column p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        #tailored-solutions-column .content-image {
+            width: 100%; /* Make image responsive within its column */
+            height: auto;
+            max-width: 400px; /* Limit max width of this image */
+            margin: 20px 0; /* Space above and below image */
+            border-radius: 8px; /* Rounded corners for the image */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #product-details-column {
+            min-width: 300px; /* Minimum width before wrapping */
+            display: flex;
+            flex-direction: column; /* Stack content inside this column */
+            align-items: flex-start; /* Align content to the left */
+            text-align: left;
+            color: #333;
+            padding: 20px; /* Default padding for all sides */
+            background-color: #f2f2f2; /* Same background as body */
+        }
+
+        #product-details-column h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        #product-details-column > p { /* Target the direct paragraph child for "we specialise in" */
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        #scene-container-wrapper {
+            width: 90%; /* Adjusted width to be square relative to its column, and allow some padding */
+            height: unset; /* Remove fixed height */
+            aspect-ratio: 1 / 1; /* Force 1:1 aspect ratio */
+            margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #e0e0e0; /* Light grey background for 3D area */
+            border-radius: 8px; /* Rounded corners for the container */
+            overflow: hidden; /* Hide anything outside the container */
+        }
+
+        #scene-container {
+            width: 100%; /* Make canvas fill the wrapper */
+            height: 100%; /* Make canvas fill the wrapper */
+        }
+
+        #product-details-column h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .measurements-grid {
+            display: grid;
+            grid-template-columns: auto auto auto; /* Three columns: Label, 9 inches, 6 inches */
+            gap: 1px; /* Minimal gap for borders */
+            font-size: 1rem;
+            margin-bottom: 30px; /* Space before the button */
+            width: 100%; /* Ensure the grid takes full width of its container */
+            border: 1px solid #ccc; /* Outer border for the grid */
+            border-radius: 8px; /* Rounded corners for the grid */
+            overflow: hidden; /* Ensures borders and background clip correctly to border-radius */
+        }
+        /* Style for all cells within the grid */
+        .measurements-grid > div {
+            padding: 10px; /* Padding for cell content */
+            border: 1px solid #eee; /* Inner borders for cells */
+            background-color: #f9f9f9; /* Light background for cells */
+            display: flex; /* Use flex to center content if needed */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            text-align: center; /* Default text alignment for data */
+        }
+
+        /* Style for the header row of the grid */
+        .measurements-grid .grid-header {
+            font-weight: 700;
+            background-color: #e0e0e0; /* Slightly darker background for headers */
+        }
+        /* Style for the first column (labels) of the grid */
+        .measurements-grid .grid-label {
+            font-weight: 600;
+            text-align: left; /* Align labels to the left */
+            justify-content: flex-start; /* Align content to the start for labels */
+        }
+        /* Style for the data cells */
+        .measurements-grid .grid-data {
+            text-align: center; /* Center the data values */
+        }
+
+
+        .place-order-btn {
+            background-color: #4a4a4a; /* Dark grey button */
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 9999px; /* Fully rounded corners */
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            align-self: center; /* Center button within the column */
+        }
+
+        .place-order-btn:hover {
+            background-color: #222;
+        }
+
+        /* --- END NEW MAIN LAYOUT SECTION --- */
+
+
+        /* New section below main-content - renamed and repurposed from engineered-section */
+        #secondary-content-section { /* Renamed from engineered-section */
+            width: 100%;
+            background-color: #f2f2f2; /* Changed to #f2f2f2 */
+            padding: 50px 20px;
+            display: flex;
+            flex-direction: row; /* Default to row for desktop */
+            align-items: flex-start; /* Changed from center to flex-start for top alignment */
+            justify-content: space-between; /* Distribute space between items */
+            gap: 40px; /* Space between image and text */
+        }
+
+        .secondary-image-container { /* Renamed from engineered-image-container */
+            flex: 0 0 40%; /* Flex-grow: 0, flex-shrink: 0, flex-basis: 40% */
+            display: flex;
+            justify-content: flex-start; /* Align image to the left within its container */
+            align-items: center;
+            max-width: 40%; /* Ensure it doesn't grow beyond 40% */
+        }
+
+        .secondary-image-container img {
+            max-width: 100%; /* Ensure image fits within its container */
+            height: auto;
+            border-radius: 8px; /* Rounded corners for the image */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .secondary-content { /* Renamed from engineered-content */
+            flex: 0 0 55%; /* Flex-grow: 0, flex-shrink: 0, flex-basis: 55% (leaving 5% for gap/padding) */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Align text to the left */
+            text-align: left;
+            color: #333;
+            max-width: 55%; /* Limit content width */
+        }
+
+        .secondary-content p { /* Style for the new paragraph */
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem; /* Space between text and button */
+        }
+
+        .secondary-button { /* Renamed from engineered-button */
+            background-color: #4a4a4a; /* Dark grey button */
+            color: #fff;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 9999px; /* Fully rounded corners */
+            transition: background-color 0.3s ease;
+            white-space: nowrap;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .secondary-button:hover {
+            background-color: #222;
+        }
+
+        /* Footer Styling */
+        footer {
+            background-color: #333; /* Dark gray background as per image */
+            color: white;
+            padding: 20px 20px; /* Adjusted: Increased vertical padding to increase height */
+            margin-top: auto; /* Pushes footer to the bottom */
+            width: 100%; /* Ensure footer takes full width */
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            justify-content: space-between;
+            align-items: flex-start; /* Align items to the top */
+            gap: 10px; /* Reduced space between columns */
+        }
+
+        .footer-column {
+            flex: 1; /* Distribute space */
+            min-width: 250px; /* Minimum width for columns before wrapping */
+            text-align: left;
+        }
+
+        .footer-left {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Reduced gap */
+        }
+
+        .footer-left .company-name-large {
+            font-size: 1em; /* Slightly smaller font size */
+            font-weight: 700;
+            margin-bottom: 5px; /* Reduced margin */
+        }
+
+        .footer-left a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8em; /* Slightly smaller font size */
+            transition: color 0.3s ease;
+        }
+
+        .footer-left a:hover {
+            color: #f97316; /* Orange on hover */
+        }
+
+        .footer-center {
+            display: flex;
+            flex-direction: column;
+            gap: 5px; /* Reduced gap */
+        }
+
+        .footer-center p,
+        .footer-center a {
+            color: white;
+            text-decoration: none;
+            font-size: 0.8em; /* Slightly smaller font size */
+            line-height: 1.2; /* Reduced line height */
+        }
+
+        .footer-center a:hover {
+            color: #f97316;
+        }
+
+        .footer-social-icons {
+            display: flex;
+            gap: 10px; /* Reduced gap */
+            margin-top: 10px; /* Reduced margin */
+        }
+
+        .footer-social-icons a {
+            color: white;
+            font-size: 1em; /* Slightly smaller icon size */
+            transition: color 0.3s ease;
+        }
+
+        .footer-social-icons a:hover {
+            color: #f97316;
+        }
+
+        .footer-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px; /* Reduced gap */
+        }
+
+        .footer-right .footer-logo-box {
+            background-color: white; /* White background for logo box */
+            padding: 5px 10px; /* Reduced padding */
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .footer-right .footer-logo-box img {
+            width: 60px; /* Reduced size as needed */
+            height: auto;
+            display: block;
+            margin: 0 auto 2px auto; /* Reduced margin */
+        }
+
+        .footer-right .footer-logo-box .main-text {
+            font-size: 1rem; /* Reduced font size */
+            font-weight: 700;
+            color: #333;
+            line-height: 1;
+        }
+
+        .footer-right .footer-logo-box .sub-text {
+            font-size: 0.6rem; /* Reduced font size */
+            color: #555;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        /* Removed .footer-copyright CSS as it will be removed from HTML */
+
+        /* Scroll Reveal Styles */
+        .scroll-reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .scroll-reveal-text.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1023px) { /* Apply these styles on screens smaller than 1024px */
+            .main-nav {
+                display: none; /* Hide desktop nav on mobile */
+            }
+            .hamburger-btn {
+                display: block; /* Show hamburger on mobile */
+            }
+            
+            #hero-section {
+                padding: 10px 20px 20px; /* Adjusted: Reduced padding for mobile */
+                margin-top: 0; /* Removed margin-top as navbar is no longer fixed */
+            }
+            /* Applying the new H1/H2 style for mobile responsiveness */
+            #hero-section h1,
+            #tailored-solutions-column h2,
+            .secondary-content h2 {
+                font-size: 2.2rem; /* Adjusted smaller font size for mobile */
+                white-space: normal;
+                text-overflow: clip;
+                padding: 0 10px; /* Adjust padding for mobile */
+                text-align: center; /* Center on mobile for better readability */
+            }
+            /* End new H1/H2 style for mobile */
+
+            .hero-content p {
+                font-size: 1.0rem; /* Smaller paragraph on mobile */
+            }
+
+            .main-layout-container {
+                flex-direction: column; /* Stack columns vertically on mobile */
+                gap: 30px;
+                margin-top: 20px;
+            }
+
+            #tailored-solutions-column,
+            #product-details-column {
+                min-width: unset; /* Remove min-width on mobile */
+                width: 100%; /* Full width on mobile */
+                padding: 15px 0; /* Adjusted: 15px top/bottom, 0px left/right */
+                align-items: center; /* Center content when stacked */
+                text-align: center;
+            }
+
+            #product-details-column ul {
+                text-align: left; /* Keep list items left-aligned within centered container */
+                margin: 0 auto; /* Center the ul itself */
+            }
+
+            #product-details-column .place-order-btn {
+                align-self: center; /* Ensure button is centered on mobile too */
+            }
+
+            #secondary-content-section {
+                flex-direction: column; /* Stack vertically on mobile */
+                padding: 30px 20px; /* Adjust padding for mobile */
+            }
+            .secondary-image-container {
+                max-width: 100%; /* Full width on mobile */
+                flex-basis: auto; /* Reset flex-basis */
+                justify-content: center; /* Center image on mobile */
+            }
+            .secondary-content {
+                align-items: center; /* Center text content on mobile */
+                text-align: center;
+                max-width: 100%; /* Full width on mobile */
+                flex-basis: auto; /* Reset flex-basis */
+            }
+
+            /* Responsive font size for very small phones on mobile menu */
+            @media (max-width: 480px) {
+                .mobile-menu-overlay nav ul li a {
+                    font-size: 1.8rem;
+                }
+            }
+            
+        }
+
+    </style>
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.139.0/build/three.module.js",
+                "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.139.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <div class="navbar-container">
+            <!-- Hamburger button on the left for mobile -->
+            <button class="hamburger-btn" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5em; height: 1.5em;">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Call now text on the right for mobile -->
+            <a href="tel:123-456-7890" class="call-now-text">Call Us Anytime 123-456-7890</a>
+        </div>
+    </header>
+
+    <div class="mobile-menu-overlay">
+        <button class="close-btn" aria-label="Close Navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5em; height: 1.5em;">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="scroll-reveal-text">Home</a></li>
+                <li><a href="product.html" class="scroll-reveal-text">Products</a></li>
+                <li><a href="about.html" class="scroll-reveal-text">About Us</a></li>
+                <li><a href="contact.html" class="scroll-reveal-text">Contact</a></li>
+                <li><a href="tel:123-456-7890" class="scroll-reveal-text">Call Us Anytime 123-456-7890</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <section id="hero-section">
+        <div class="hero-content">
+            <h1 class="scroll-reveal-text">Construction of Block Bricks</h1>
+            <p class="scroll-reveal-text">Oneco Construction is your premier choice for construction projects, specialising in the meticulous construction of block bricks. Our team is dedicated to providing tailored building solutions that align with your vision and budget. With a skilled workforce, we guarantee top-notch workmanship on every project.</p>
+        </div>
+        <img src="images/316c42f5024b486da473f3ca84f714ec.webp" alt="Building Bricks" class="hero-full-width-image">
+    </section>
+
+    <div class="main-layout-container">
+        <div id="tailored-solutions-column">
+            <h2 class="scroll-reveal-text">Tailored Construction Solutions</h2>
+            <p class="scroll-reveal-text">Oneco Construction provides bespoke building solutions crafted precisely to your needs. From initial concept to final execution, we ensure every detail aligns with your vision, budget, and timeline. Our commitment to excellence means you receive a personalized service that delivers outstanding results.</p>
+            <img src="images/67b8424e-4012-44a8-b72a-955ef8da6320.avif" alt="Construction detail" class="content-image scroll-reveal-text">
+            <p class="scroll-reveal-text">Whether you're embarking on a residential development, a commercial complex, or a large-scale infrastructure project, our expertise in block brick construction ensures a solid foundation. We integrate innovative techniques with traditional craftsmanship to deliver structures that are not only durable but also aesthetically superior.</p>
+        </div>
+
+        <div id="product-details-column">
+            <h3 class="scroll-reveal-text">OUR PRODUCT</h3>
+            <p class="scroll-reveal-text">We specialise in the manufacturing and supply of high-quality block bricks tailored for various construction needs. Our range includes:</p>
+            
+            <div id="scene-container-wrapper" class="scroll-reveal-text">
+                <div id="scene-container"></div>
+            </div>
+
+            <h4 class="scroll-reveal-text">Description of our blocks:</h4>
+            <div class="measurements-grid scroll-reveal-text">
+                <div class="grid-header scroll-reveal-text"></div>
+                <div class="grid-header scroll-reveal-text">9 inches</div>
+                <div class="grid-header scroll-reveal-text">6 inches</div>
+
+                <div class="grid-label scroll-reveal-text">Length</div>
+                <div class="grid-data scroll-reveal-text">450 mm</div>
+                <div class="grid-data scroll-reveal-text">450 mm</div>
+
+                <div class="grid-label scroll-reveal-text">Height</div>
+                <div class="grid-data scroll-reveal-text">225 mm</div>
+                <div class="grid-data scroll-reveal-text">225 mm</div>
+
+                <div class="grid-label scroll-reveal-text">Base (b)</div>
+                <div class="grid-data scroll-reveal-text">225 mm</div>
+                <div class="grid-data scroll-reveal-text">150 mm</div>
+            </div>
+
+            <a href="contact.html"> <button class="place-order-btn scroll-reveal-text">Place order</button></a>
+        </div>
+    </div>
+
+    <section id="secondary-content-section">
+        <div class="secondary-image-container scroll-reveal-text">
+            <img src="images/Screenshot 2025-05-29 045522.png" alt="Construction Mixer">
+        </div>
+        <div class="secondary-content">
+            <h2 class="scroll-reveal-text">Engineered for your Project</h2>
+            <p class="scroll-reveal-text">Every successful project begins with precision engineering. We specialize in custom-crafted solutions that meet your exact specifications, ensuring durability, efficiency, and a perfect fit for your unique vision. Our commitment to excellence means you receive a personalized service that delivers outstanding results.</p>
+            <a href="contact.html"> <button class="secondary-button scroll-reveal-text">Get in Touch</button></a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column footer-left">
+                <h4 class="scroll-reveal-text company-name-large">Oneco Construction<br>Enterprises</h4>
+                <p class="scroll-reveal-text"><a href="#">Privacy Policy</a></p>
+                <p class="scroll-reveal-text"><a href="#">Accessibility Statement</a></p>
+            </div>
+            <div class="footer-column footer-center">
+                <div class="contact-info">
+                    <p class="scroll-reveal-text">123-456-7890</p>
+                    <p class="scroll-reveal-text">oneco.exec@gmail.com</p>
+                    <p class="scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Container Bus-Stop, Awoyaya, Lagos</p>
+                </div>
+                <div class="footer-social-icons">
+                    <a href="#" aria-label="LinkedIn" class="scroll-reveal-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Facebook" class="scroll-reveal-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
+                        </svg>
+                    </a>
+                    <a href="#" aria-label="Twitter" class="scroll-reveal-text">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-column footer-right">
+                <div class="footer-logo-box">
+                    <img src="images/Screenshot 2025-05-26 224232.png" alt="ONECO Logo" class="footer-logo scroll-reveal-text">
+                    <div class="main-text scroll-reveal-text">ONECO</div>
+                    <div class="sub-text scroll-reveal-text">CONSTRUCTION</div>
+                </div>
+            </div>
+        </div>
+        </footer>
+    <script type="module">
+        // --- Import Three.js modules at the top level ---
+        import * as THREE from 'three';
+        import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+        import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+
+        // Ensure all other JavaScript runs after the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Scene Setup ---
+            const scene = new THREE.Scene();
+            const container = document.getElementById('scene-container');
+            
+            // Check if the container exists before proceeding with Three.js setup
+            if (!container) {
+                console.error("Scene container not found.");
+                return; // Exit if the container is missing
+            }
+
+            // Set up camera
+            const camera = new THREE.PerspectiveCamera(75, container.offsetWidth / container.offsetHeight, 0.1, 1000);
+            
+            // Set up renderer
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // alpha: true for transparent background
+            renderer.setSize(container.offsetWidth, container.offsetHeight);
+            renderer.setClearColor(0xf2f2f2); // Changed to #f2f2f2
+
+            container.appendChild(renderer.domElement);
+
+            // Position camera
+            camera.position.set(0, 0.2, 0.5); /* Adjusted camera position to be closer to the object for more zoom */
+            camera.lookAt(scene.position);
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
+            scene.add(ambientLight);
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+            directionalLight.position.set(1, 1, 2);
+            scene.add(directionalLight);
+
+            // Load 3D model
+            const gltfloader = new GLTFLoader();
+            let brick;
+            // Using the local path for the GLB model as requested.
+            gltfloader.load('./models/brick.glb', 
+                (gltf) => {
+                    brick = gltf.scene;
+                    const boundingBox = new THREE.Box3().setFromObject(brick);
+                    const center = new THREE.Vector3();
+                    boundingBox.getCenter(center);
+                    brick.position.x = -center.x;
+                    brick.position.y = -center.y;
+                    brick.position.z = -center.z;
+
+                    // You might need to adjust the scale depending on the size of your brick.glb
+                    // For example: brick.scale.set(0.1, 0.1, 0.1); if it's too large
+                    scene.add(brick);
+
+                    const controls = new OrbitControls(camera, renderer.domElement);
+                    controls.enableDamping = true;
+                    controls.dampingFactor = 0.1;
+                    controls.enableZoom = false; /* Set to false to disable zoom */
+                    controls.enablePan = false; /* Optionally disable panning as well for a fixed view */
+                    controls.enableRotate = true; /* Keep rotation enabled if desired */
+                    controls.target.set(0, 0, 0);
+                    controls.minDistance = 0.3; /* Adjusted minimum zoom distance */
+                    controls.maxDistance = 1.0; /* Adjusted maximum zoom distance */
+                    controls.update();
+
+                    function animate() {
+                        requestAnimationFrame(animate);
+                        if (brick) {
+                            // Apply rotation to the loaded 3D model
+                            brick.rotation.y += 0.01;
+                            brick.rotation.x += 0.01;
+                        }
+                        controls.update();
+                        renderer.render(scene, camera);
+                    }
+
+                    animate();
+                    // Call updateRendererSize after the model is loaded and the scene is set up
+                    // This ensures the renderer is sized correctly based on the container's final dimensions
+                    updateRendererSize(); 
+
+                    // --- Handle Resizing ---
+                    function updateRendererSize() {
+                        const containerWidth = container.offsetWidth;
+                        const containerHeight = container.offsetHeight;
+
+                        camera.aspect = containerWidth / containerHeight;
+                        camera.updateProjectionMatrix();
+                        renderer.setSize(containerWidth, containerHeight);
+                    }
+                    window.addEventListener('resize', updateRendererSize, false);
+                },
+                (xhr) => {
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                (error) => {
+                    console.error('Failed to load model:', error);
+                    const errorDiv = document.createElement('div');
+                    errorDiv.style.position = 'absolute';
+                    errorDiv.style.top = '50%';
+                    errorDiv.style.left = '50%';
+                    errorDiv.style.transform = 'translate(-50%, -50%)';
+                    errorDiv.style.backgroundColor = 'red';
+                    errorDiv.style.color = 'white';
+                    errorDiv.style.padding = '20px';
+                    errorDiv.style.zIndex = '1000';
+                    errorDiv.textContent = 'Failed to load 3D model. Check the console for details.';
+                    container.appendChild(errorDiv);
+                }
+            );
+
+            // --- Mobile Menu JavaScript ---
+            const hamburgerBtn = document.querySelector(".hamburger-btn");
+            const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
+            const closeMenuBtn = document.querySelector(".mobile-menu-overlay .close-btn");
+            const mobileMenuLinks = mobileMenuOverlay.querySelectorAll("a");
+
+            function toggleMobileMenu() {
+                mobileMenuOverlay.classList.toggle("active");
+                document.body.style.overflow = mobileMenuOverlay.classList.contains("active") ? "hidden" : "";
+            }
+
+            // Check if elements exist before adding event listeners
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener("click", toggleMobileMenu);
+            }
+            if (closeMenuBtn) {
+                closeMenuBtn.addEventListener("click", toggleMobileMenu);
+            }
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener("click", toggleMobileMenu);
+            });
+
+            // Close mobile menu when clicking outside of it (but not on the hamburger button itself)
+            document.addEventListener('click', (event) => {
+                if (mobileMenuOverlay.classList.contains('active') &&
+                    !mobileMenuOverlay.contains(event.target) &&
+                    hamburgerBtn && !hamburgerBtn.contains(event.target)) { // Added null check for hamburgerBtn
+                    toggleMobileMenu();
+                }
+            });
+
+            // Close mobile menu if resized to desktop view
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 1024) { // Changed breakpoint to 1024px to match CSS
+                    mobileMenuOverlay.classList.remove('active');
+                    document.body.style.overflow = ''; // Ensure scrolling is re-enabled
+                }
+            });
+
+            // --- Scroll Reveal JavaScript ---
+            const scrollRevealElements = document.querySelectorAll('.scroll-reveal-text');
+
+            const observerOptions = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px',
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        // No need to unobserve if we want it to re-reveal on subsequent scrolls if it goes out of view and comes back
+                        // If it should only reveal once, uncomment the line below:
+                        // observer.unobserve(entry.target); 
+                    } else {
+                        // Optional: remove 'revealed' class if it scrolls out of view
+                        // entry.target.classList.remove('revealed'); 
+                    }
+                });
+            }, observerOptions);
+
+            scrollRevealElements.forEach(element => {
+                observer.observe(element);
+            });
+        }); // End DOMContentLoaded listener
+    </script>
+</body>
+</html>

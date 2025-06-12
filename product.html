@@ -491,7 +491,16 @@
                 text-align: center; /* Center on mobile for better readability */
                   margin-bottom: 1.9rem; 
             }
-
+#tailored-solutions-column .content-image {
+            width: 440px; /* Make image responsive within its column */
+            height: 530px;
+            max-width: 440px; /* Limit max width of this image */
+            margin: 20px 0; /* Space above and below image */
+            border-radius: 8px; /* Rounded corners for the image */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
+            height: 350px; /* Increased height again */
+            object-fit: cover; /* Ensure image covers the area */
+        }
                .secondary-content p {
             font-size: 1.1rem;
             line-height: 1.6;

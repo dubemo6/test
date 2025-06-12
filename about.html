@@ -25,30 +25,43 @@
     </style>
 </head>
 <body class="bg-[#f2f2f2] min-h-screen flex flex-col">
+    <!-- Navigation Bar -->
+    <!-- Increased vertical padding to make the navbar taller. -->
     <nav class="bg-[#f2f2f2] py-16 shadow-sm relative">
-        <div class="container mx-auto px-4 flex items-center justify-between relative">
-            <div id="desktop-nav-content" class="hidden md:flex md:flex-row md:space-x-8 md:items-center md:mx-auto w-full md:w-auto">
+        <div class="container mx-auto px-4 flex items-center relative">
+            <!-- Mobile Menu Toggle Button (visible only on mobile) -->
+            <!-- Redesigned menu icon with background, rounded corners, and shadow -->
+            <button id="menu-toggle" class="md:hidden focus:outline-none">
+                <div class="bg-gray-200 rounded-xl p-2.5 shadow-md flex items-center justify-center">
+                    <svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </div>
+            </button>
+
+            <!-- Mobile Phone Number Display (visible only on mobile) -->
+            <div class="text-gray-700 font-semibold text-lg md:hidden ml-auto">
+                <a href="+2347030326642" class="text-gray-700 hover:text-gray-900 transition duration-300">+2347030326642</a>
+            </div>
+
+            <!-- Desktop Navigation Links - Truly centered using absolute positioning -->
+            <!-- This div will be absolutely positioned to span the container and center its content -->
+            <div id="desktop-nav-links-container" class="absolute left-0 right-0 hidden md:flex justify-center items-center h-full">
                 <div class="flex space-x-8 text-gray-700 font-medium">
                     <a href="index.html" class="hover:text-gray-900 transition duration-300">Home</a>
                     <a href="product.html" class="hover:text-gray-900 transition duration-300">Products</a>
-                    <a href="about.html" class="border-b-2 border-gray-700 pb-1 hover:text-gray-900 transition duration-300">About Us</a>
+                    <a href="about.html" class="hover:text-gray-900 transition duration-300">About Us</a>
                     <a href="contact.html" class="hover:text-gray-900 transition duration-300">Contact</a>
-                </div>
-                <div class="text-gray-700 font-semibold text-lg ml-8">
-                    Call Us Anytime <span class="text-gray-700">123-456-7890</span>
                 </div>
             </div>
 
-            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
-            <div class="text-gray-700 font-semibold text-lg md:hidden">
-                <span class="text-gray-700">123-456-7890</span>
+            <!-- Desktop Call Us Anytime - Pushed to the far right using ml-auto -->
+            <div id="desktop-call-us-anytime" class="hidden md:flex text-gray-700 font-semibold text-lg ml-auto">
+                Call Us Anytime <a href="tel:+2347030326642" class="text-gray-700 hover:text-gray-900 transition duration-300 ml-1">+2347030326642</a>
             </div>
         </div>
 
+        <!-- Mobile Navigation Menu (hidden by default, shown on toggle) -->
         <div id="mobile-nav-menu" class="hidden fixed inset-0 bg-[#f2f2f2] z-50 flex flex-col items-center justify-center text-gray-800">
             <button id="close-toggle" class="absolute top-8 right-8 text-gray-700 focus:outline-none">
                 <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -64,13 +77,14 @@
             </div>
 
             <div class="absolute bottom-8 text-gray-700 font-semibold text-xl">
-                Call Us Anytime <span class="text-gray-700">123-456-7890</span>
+                Call Us Anytime <a href="tel:+2347030326642" class="text-gray-700">+2347030326642</a>
             </div>
         </div>
     </nav>
     <div class="w-full h-0.5 bg-white"></div>
 
-    <header class="bg-[#f2f2f2] py-12 shadow-md scroll-reveal">
+    <!-- Header Section -->
+    <header class="bg-[#f2f2f2] py-8 shadow-md scroll-reveal">
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
                 Construction of Block Bricks
@@ -81,14 +95,18 @@
         </div>
     </header>
 
+    <!-- Hero Image Section -->
     <section class="relative w-full overflow-hidden flex-grow flex items-center justify-center min-h-[600px]">
         <img
             src="images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp"
-            alt="Construction site background"
+            alt="Construction site background with bricks"
             class="absolute inset-0 w-full h-full object-cover"
-          >
+            onerror="this.src='https://placehold.co/1200x800/e0e0e0/555555?text=Image+Not+Found';"
+            aria-label="Background image of a construction site with block bricks"
+        >
     </section>
 
+    <!-- Why Oneco Construction Section -->
     <section class="bg-[#f2f2f2] py-16 scroll-reveal">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
             <div class="w-full md:w-1/3 text-center md:text-left">
@@ -104,9 +122,11 @@
         </div>
     </section>
 
+    <!-- Features Section with SVG Icons -->
     <section class="bg-[#f2f2f2] py-16">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap justify-around items-start gap-8">
+                <!-- Craftsmanship Guarantee SVG -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -124,6 +144,7 @@
                     </svg>
                 </div>
 
+                <!-- Masonry Expertise SVG -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -141,6 +162,7 @@
                     </svg>
                 </div>
 
+                <!-- Unparalleled Quality SVG -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -158,6 +180,7 @@
                     </svg>
                 </div>
 
+                <!-- Licensed Bricklayers SVG -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -178,11 +201,13 @@
         </div>
     </section>
 
+    <!-- Horizontal Rule -->
     <section class="bg-[#f2f2f2] py-8 scroll-reveal">
         <div class="w-full h-0.5 bg-black rounded-full shadow-md"></div>
     </section>
 
-    <section class="bg-[#f2f2f2] py-16 scroll-reveal">
+    <!-- Our Reach Section - Now hidden on medium and larger screens (laptops) -->
+    <section class="bg-[#f2f2f2] py-16 scroll-reveal md:hidden">
         <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start gap-8">
             <div class="w-full md:w-2/5 text-center md:text-left">
                 <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
@@ -196,12 +221,12 @@
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Visit Our Office</h3>
                     <p class="text-lg text-gray-700">
-                        14/17 Lateef Eletu, Off Olowu Eletu Street,  Awoyaya, Lagos
+                        14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos
                     </p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Get in Touch</h3>
-                    <p class="text-lg text-gray-700">123-456-7890</p>
+                    <p class="text-lg text-gray-700">+2347030326642</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
@@ -211,13 +236,15 @@
         </div>
     </section>
 
+    <!-- Build with Oneco Construction Section -->
     <section class="bg-[#f2f2f2] py-16 scroll-reveal">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="w-full md:w-1/2 flex justify-center md:justify-start">
                 <img
-                    src="images/Screenshot 2025-05-27 060356.png"
-                    alt="Construction blocks"
+                    src="images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif"
+                    alt="Construction blocks ready for use"
                     class="rounded-lg shadow-lg w-full max-w-sm md:max-w-none"
+                    onerror="this.src='https://placehold.co/600x400/e0e0e0/555555?text=Image+Not+Found';"
                 >
             </div>
             <div class="w-full md:w-1/2 text-center md:text-right space-y-6">
@@ -227,14 +254,15 @@
                 <p class="text-gray-600 text-lg md:text-xl">
                     Let's build something great together. Contact us today to get started on your next project. We turn blueprints into lasting realities.
                 </p>
-                
-<button>  <a href="contact.html" class="px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+                <!-- Corrected "Connect with Us" button structure -->
+                <a href="contact.html" class="inline-block px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
                     Connect with Us
-                </a>    </button> 
+                </a>
             </div>
         </div>
     </section>
 
+    <!-- Footer Section -->
     <footer class="bg-[#333] text-white py-10 px-4 w-full scroll-reveal">
         <div class="container mx-auto flex flex-wrap justify-between items-start gap-8">
             <div class="flex-1 min-w-[150px] text-left">
@@ -244,9 +272,9 @@
             </div>
             <div class="flex-1 min-w-[150px] text-left">
                 <div class="contact-info">
-                    <p class="text-sm leading-tight mb-1">123-456-7890</p>
+                    <p class="text-sm leading-tight mb-1">+2347030326642</p>
                     <p class="text-sm leading-tight mb-1">oneco.exec@gmail.com</p>
-                    <p class="text-sm leading-tight">14/17 Lateef Eletu, Off Olowu Eletu Street,  Awoyaya, Lagos</p>
+                    <p class="text-sm leading-tight">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
                 <div class="flex gap-3 mt-4">
                     <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300">
@@ -267,13 +295,13 @@
                 </div>
             </div>
             <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <img src="images/Screenshot 2025-05-26 224232.png" alt="ONECO Logo" class="max-w-[150px] h-auto block">
+                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[100px] block" onerror="this.src='https://placehold.co/150x150/e0e0e0/555555?text=Logo+Not+Found';">
             </div>
         </div>
     </footer>
- <script>
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Options for the Intersection Observer
+            // Options for the Intersection Observer for scroll-reveal effect
             const observerOptions = {
                 root: null, // Use the viewport as the root
                 rootMargin: '0px', // No margin around the root
@@ -301,51 +329,57 @@
             const menuToggle = document.getElementById('menu-toggle');
             const closeToggle = document.getElementById('close-toggle');
             const mobileNavMenu = document.getElementById('mobile-nav-menu');
-            const desktopNavContent = document.getElementById('desktop-nav-content');
+            // Select the desktop navigation links container
+            const desktopNavLinksContainer = document.getElementById('desktop-nav-links-container');
+            // Select the desktop "Call Us Anytime" container
+            const desktopCallUsAnytime = document.getElementById('desktop-call-us-anytime');
+            // Select the mobile-specific phone number div
+            const mobilePhoneNumber = document.querySelector('nav > .container > .md\\:hidden.text-gray-700.font-semibold.text-lg');
 
             menuToggle.addEventListener('click', () => {
                 mobileNavMenu.classList.remove('hidden');
-                // Hide the main nav content and mobile phone number when menu is open
-                desktopNavContent.classList.add('hidden');
-                menuToggle.classList.add('hidden');
-                // Hide mobile phone number if present
-                const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
-                if (mobilePhone) mobilePhone.classList.add('hidden');
+                // Hide desktop navigation elements when mobile menu is open
+                if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
+                if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
+                menuToggle.classList.add('hidden'); // Hide hamburger icon
+                if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Mobile phone number hidden
             });
 
             closeToggle.addEventListener('click', () => {
                 mobileNavMenu.classList.add('hidden');
-                // Restore visibility based on screen size
-                if (window.innerWidth >= 768) {
-                    desktopNavContent.classList.remove('hidden');
+                // Restore visibility based on screen size after closing mobile menu
+                if (window.innerWidth >= 768) { // md breakpoint in Tailwind is 768px
+                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.remove('hidden'); // Show desktop navigation links
+                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.remove('hidden'); // Show desktop phone number
                     menuToggle.classList.add('hidden'); // Ensure hamburger is hidden on desktop
+                    if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Ensure mobile phone number is hidden on desktop
                 } else {
-                    menuToggle.classList.remove('hidden');
-                    // Show mobile phone number if present
-                    const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
-                    if (mobilePhone) mobilePhone.classList.remove('hidden');
+                    menuToggle.classList.remove('hidden'); // Show hamburger icon on mobile
+                    // Ensure desktop nav elements are hidden on mobile
+                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
+                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
+                    if (mobilePhoneNumber) mobilePhoneNumber.classList.remove('hidden'); // Show mobile phone number
                 }
             });
 
-            // Handle resize to ensure menu state is correct on desktop
+            // Handle resize to ensure menu state is correct on desktop and mobile
             window.addEventListener('resize', () => {
                 if (window.innerWidth >= 768) { // md breakpoint in Tailwind is 768px
                     mobileNavMenu.classList.add('hidden'); // Hide mobile menu
-                    menuToggle.classList.add('hidden'); // Hide hamburger
+                    menuToggle.classList.add('hidden'); // Hide hamburger icon
                     closeToggle.classList.add('hidden'); // Hide close icon
-                    desktopNavContent.classList.remove('hidden'); // Ensure desktop nav is visible
-                    // Hide mobile phone number if present
-                    const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
-                    if (mobilePhone) mobilePhone.classList.add('hidden');
+                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.remove('hidden'); // Show desktop navigation links
+                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.remove('hidden'); // Show desktop phone number
+                    if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Ensure mobile phone number is hidden on desktop
                 } else {
                     // On mobile, ensure only one icon is visible if menu is closed
                     if (mobileNavMenu.classList.contains('hidden')) {
-                        menuToggle.classList.remove('hidden');
-                        closeToggle.classList.add('hidden');
-                        desktopNavContent.classList.add('hidden'); // Ensure desktop nav is hidden on mobile
-                        // Show mobile phone number if present
-                        const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
-                        if (mobilePhone) mobilePhone.classList.remove('hidden');
+                        menuToggle.classList.remove('hidden'); // Show hamburger
+                        closeToggle.classList.add('hidden'); // Hide close icon
+                        // Ensure desktop nav elements are hidden on mobile
+                        if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
+                        if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
+                        if (mobilePhoneNumber) mobilePhoneNumber.classList.remove('hidden'); // Show mobile phone number
                     }
                 }
             });

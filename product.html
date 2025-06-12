@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Object with Text</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Universal Box Sizing for consistent layout */
         *, *::before, *::after {
@@ -25,7 +27,7 @@
         /* --- NAVBAR STYLES --- */
         header {
             background-color: #f2f2f2; /* Changed to #f2f2f2 */
-            padding: 3rem 0; /* Adjusted: Reduced padding to bring it closer */
+            padding: 4rem 0; /* Adjusted: Reduced padding to bring it closer */
             border-bottom: 1px solid white; /* Added thin line separator, changed to white */
             box-shadow: none; /* No shadow as per image */
             position: relative; /* Changed to relative to allow scrolling past it */
@@ -182,7 +184,7 @@
         #hero-section h1,
         #tailored-solutions-column h2,
         .secondary-content h2 {
-            font-size: 3.5rem; /* Increased font size for all h1 and h2 */
+            font-size: 2.5rem; /* Increased font size for all h1 and h2 */
             font-weight: 700; /* Bold font weight */
             color: #333; /* Dark grey color */
             line-height: 1.2;
@@ -277,12 +279,14 @@
         }
 
         #tailored-solutions-column .content-image {
-            width: 100%; /* Make image responsive within its column */
-            height: auto;
-            max-width: 400px; /* Limit max width of this image */
+            width: 540px; /* Make image responsive within its column */
+            height: 530px;
+            max-width: 537px; /* Limit max width of this image */
             margin: 20px 0; /* Space above and below image */
             border-radius: 8px; /* Rounded corners for the image */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
+            height: 350px; /* Increased height again */
+            object-fit: cover; /* Ensure image covers the area */
         }
 
         #product-details-column {
@@ -302,18 +306,23 @@
             margin-bottom: 0.5rem;
         }
         
-        #product-details-column > p { /* Target the direct paragraph child for "we specialise in" */
+        /* Updated paragraph for "we specialise in" and added new lines for product range */
+        #product-details-column > p:first-of-type { 
             font-size: 1.1rem;
             line-height: 1.5;
-            margin-bottom: 1.5rem;
+            margin-bottom: 0.5rem; /* Reduced margin to bring "Our range includes" closer */
+        }
+        #product-details-column p span { /* Style for the plus sign */
+            font-weight: bold;
+            margin-right: 0.25em; /* Space between plus and text */
         }
 
         #scene-container-wrapper {
-            width: 90%; /* Adjusted width to be square relative to its column, and allow some padding */
+            width: 70%; /* Adjusted width to be square relative to its column, and allow some padding */
             height: unset; /* Remove fixed height */
             aspect-ratio: 1 / 1; /* Force 1:1 aspect ratio */
             margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
-            display: flex;
+            display:flex;
             justify-content: center;
             align-items: center;
             background-color: #e0e0e0; /* Light grey background for 3D area */
@@ -346,7 +355,7 @@
         }
         /* Style for all cells within the grid */
         .measurements-grid > div {
-            padding: 10px; /* Padding for cell content */
+            padding: 8px; /* Padding for cell content */
             border: 1px solid #eee; /* Inner borders for cells */
             background-color: #f9f9f9; /* Light background for cells */
             display: flex; /* Use flex to center content if needed */
@@ -357,12 +366,12 @@
 
         /* Style for the header row of the grid */
         .measurements-grid .grid-header {
-            font-weight: 700;
+            font-weight: 675;
             background-color: #e0e0e0; /* Slightly darker background for headers */
         }
         /* Style for the first column (labels) of the grid */
         .measurements-grid .grid-label {
-            font-weight: 600;
+            font-weight: 575;
             text-align: left; /* Align labels to the left */
             justify-content: flex-start; /* Align content to the start for labels */
         }
@@ -415,8 +424,9 @@
         }
 
         .secondary-image-container img {
-            max-width: 100%; /* Ensure image fits within its container */
-            height: auto;
+            width: 4000px; /* Ensure image fits within its container */
+            height: 500px; /* Increased height for the construction mixer image */
+            object-fit: cover; /* Ensure image covers the area */
             border-radius: 8px; /* Rounded corners for the image */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
@@ -430,11 +440,13 @@
             color: #333;
             max-width: 55%; /* Limit content width */
         }
-
-        .secondary-content p { /* Style for the new paragraph */
+.secondary-content h2{
+    margin-bottom: 5.8rem;
+}
+        .secondary-content p {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 1.5rem; /* Space between text and button */
+            margin-bottom: 5.8rem; /* Space between text and button */
         }
 
         .secondary-button { /* Renamed from engineered-button */
@@ -453,137 +465,6 @@
 
         .secondary-button:hover {
             background-color: #222;
-        }
-
-        /* Footer Styling */
-        footer {
-            background-color: #333; /* Dark gray background as per image */
-            color: white;
-            padding: 20px 20px; /* Adjusted: Increased vertical padding to increase height */
-            margin-top: auto; /* Pushes footer to the bottom */
-            width: 100%; /* Ensure footer takes full width */
-        }
-
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
-            justify-content: space-between;
-            align-items: flex-start; /* Align items to the top */
-            gap: 10px; /* Reduced space between columns */
-        }
-
-        .footer-column {
-            flex: 1; /* Distribute space */
-            min-width: 250px; /* Minimum width for columns before wrapping */
-            text-align: left;
-        }
-
-        .footer-left {
-            display: flex;
-            flex-direction: column;
-            gap: 5px; /* Reduced gap */
-        }
-
-        .footer-left .company-name-large {
-            font-size: 1em; /* Slightly smaller font size */
-            font-weight: 700;
-            margin-bottom: 5px; /* Reduced margin */
-        }
-
-        .footer-left a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.8em; /* Slightly smaller font size */
-            transition: color 0.3s ease;
-        }
-
-        .footer-left a:hover {
-            color: #f97316; /* Orange on hover */
-        }
-
-        .footer-center {
-            display: flex;
-            flex-direction: column;
-            gap: 5px; /* Reduced gap */
-        }
-
-        .footer-center p,
-        .footer-center a {
-            color: white;
-            text-decoration: none;
-            font-size: 0.8em; /* Slightly smaller font size */
-            line-height: 1.2; /* Reduced line height */
-        }
-
-        .footer-center a:hover {
-            color: #f97316;
-        }
-
-        .footer-social-icons {
-            display: flex;
-            gap: 10px; /* Reduced gap */
-            margin-top: 10px; /* Reduced margin */
-        }
-
-        .footer-social-icons a {
-            color: white;
-            font-size: 1em; /* Slightly smaller icon size */
-            transition: color 0.3s ease;
-        }
-
-        .footer-social-icons a:hover {
-            color: #f97316;
-        }
-
-        .footer-right {
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            gap: 5px; /* Reduced gap */
-        }
-
-        .footer-right .footer-logo-box {
-            background-color: white; /* White background for logo box */
-            padding: 5px 10px; /* Reduced padding */
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .footer-right .footer-logo-box img {
-            width: 60px; /* Reduced size as needed */
-            height: auto;
-            display: block;
-            margin: 0 auto 2px auto; /* Reduced margin */
-        }
-
-        .footer-right .footer-logo-box .main-text {
-            font-size: 1rem; /* Reduced font size */
-            font-weight: 700;
-            color: #333;
-            line-height: 1;
-        }
-
-        .footer-right .footer-logo-box .sub-text {
-            font-size: 0.6rem; /* Reduced font size */
-            color: #555;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-        }
-        /* Removed .footer-copyright CSS as it will be removed from HTML */
-
-        /* Scroll Reveal Styles */
-        .scroll-reveal-text {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-
-        .scroll-reveal-text.revealed {
-            opacity: 1;
-            transform: translateY(0);
         }
 
         /* Media queries for responsiveness */
@@ -608,7 +489,13 @@
                 text-overflow: clip;
                 padding: 0 10px; /* Adjust padding for mobile */
                 text-align: center; /* Center on mobile for better readability */
+                  margin-bottom: 1.9rem; 
             }
+               .secondary-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem; /* Space between text and button */
+        }
             /* End new H1/H2 style for mobile */
 
             .hero-content p {
@@ -692,7 +579,7 @@
                 </ul>
             </nav>
             <!-- Call now text on the right for mobile -->
-            <a href="tel:123-456-7890" class="call-now-text">Call Us Anytime 123-456-7890</a>
+            <a href="tel:+2347030326642" class="call-now-text">Call Us Anytime +2347030326642</a>
         </div>
     </header>
 
@@ -708,7 +595,7 @@
                 <li><a href="product.html" class="scroll-reveal-text">Products</a></li>
                 <li><a href="about.html" class="scroll-reveal-text">About Us</a></li>
                 <li><a href="contact.html" class="scroll-reveal-text">Contact</a></li>
-                <li><a href="tel:123-456-7890" class="scroll-reveal-text">Call Us Anytime 123-456-7890</a></li>
+                <li><a href="tel:+2347030326642" class="scroll-reveal-text">Call Us Anytime +2347030326642</a></li>
             </ul>
         </nav>
     </div>
@@ -716,7 +603,7 @@
     <section id="hero-section">
         <div class="hero-content">
             <h1 class="scroll-reveal-text">Construction of Block Bricks</h1>
-            <p class="scroll-reveal-text">Oneco Construction is your premier choice for construction projects, specialising in the meticulous construction of block bricks. Our team is dedicated to providing tailored building solutions that align with your vision and budget. With a skilled workforce, we guarantee top-notch workmanship on every project.</p>
+            <p class="scroll-reveal-text">Oneco Construction is your premier choice for construction projects, specialising in the meticulous construction of block bricks. With a skilled workforce, we guarantee top-notch workmanship on every project.</p>
         </div>
         <img src="images/316c42f5024b486da473f3ca84f714ec.webp" alt="Building Bricks" class="hero-full-width-image">
     </section>
@@ -730,8 +617,12 @@
         </div>
 
         <div id="product-details-column">
-            <h3 class="scroll-reveal-text">OUR PRODUCT</h3>
-            <p class="scroll-reveal-text">We specialise in the manufacturing and supply of high-quality block bricks tailored for various construction needs. Our range includes:</p>
+            <h3 class="scroll-reveal-text">Our Products</h3>
+            <!-- Updated paragraph for "we specialise in" and added new lines for product range -->
+            <p class="scroll-reveal-text">We specialise in the manufacturing and supply of high-quality block bricks tailored for various construction needs.</p>
+            <p class="scroll-reveal-text">Our range includes:</p>
+            <p class="scroll-reveal-text"><span>+</span> 9 inches</p>
+            <p class="scroll-reveal-text"><span>+</span> 6 inches</p>
             
             <div id="scene-container-wrapper" class="scroll-reveal-text">
                 <div id="scene-container"></div>
@@ -771,46 +662,44 @@
         </div>
     </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-column footer-left">
-                <h4 class="scroll-reveal-text company-name-large">Oneco Construction<br>Enterprises</h4>
-                <p class="scroll-reveal-text"><a href="#">Privacy Policy</a></p>
-                <p class="scroll-reveal-text"><a href="#">Accessibility Statement</a></p>
+    <!-- New Footer HTML with Tailwind Classes and Scroll Reveal -->
+    <footer class="bg-[#333] text-white py-5 px-4 w-full">
+        <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
+            <div class="flex-1 min-w-[200px] text-center md:text-left">
+                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
             </div>
-            <div class="footer-column footer-center">
+            <div class="flex-1 min-w-[200px] text-center md:text-left">
                 <div class="contact-info">
-                    <p class="scroll-reveal-text">123-456-7890</p>
-                    <p class="scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Container Bus-Stop, Awoyaya, Lagos</p>
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
+                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
-                <div class="footer-social-icons">
-                    <a href="#" aria-label="LinkedIn" class="scroll-reveal-text">
+                <div class="flex justify-center md:justify-start gap-3 mt-2">
+                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook" class="scroll-reveal-text">
+                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Twitter" class="scroll-reveal-text">
+                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
                         </svg>
                     </a>
                 </div>
             </div>
-            <div class="footer-column footer-right">
-                <div class="footer-logo-box">
-                    <img src="images/Screenshot 2025-05-26 224232.png" alt="ONECO Logo" class="footer-logo scroll-reveal-text">
-                    <div class="main-text scroll-reveal-text">ONECO</div>
-                    <div class="sub-text scroll-reveal-text">CONSTRUCTION</div>
-                </div>
+            <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
+                <!-- Placeholder image for the logo -->
+                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-auto block scroll-reveal-text">
             </div>
         </div>
-        </footer>
+    </footer>
     <script type="module">
         // --- Import Three.js modules at the top level ---
         import * as THREE from 'three';

@@ -16,12 +16,14 @@
             min-height: 100vh; /* Ensure body takes full viewport height */
             display: flex;
             flex-direction: column;
+            line-height: 1.6;
+            color: #333;
         }
 
         /* Header/Navbar Styling */
         header {
             background-color: #f2f2f2; /* Matches the new body background */
-            padding: 2.5rem 0; /* Increased padding to make the navbar taller */
+            padding: 4rem 0; /* Increased padding to make the navbar taller */
             border-bottom: none;
             box-shadow: none;
             z-index: 1000;
@@ -33,14 +35,15 @@
             padding: 0 1.5rem;
             display: flex;
             align-items: center;
-            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+            justify-content: space-between; /* Distributes space between items */
+            position: relative; /* Needed for absolute positioning of main-nav */
         }
 
+        /* Main Navigation Links (Home, Products, etc.) */
         .main-nav {
-            flex-grow: 1; /* Allows the nav to take up available space */
-            display: flex;
+            display: flex; /* Default to flex for desktop */
             justify-content: center; /* Centers the nav links within its own space */
-            margin: 0; /* Reset margin as flex-grow handles spacing */
+            /* These properties will be overridden by media queries for desktop/mobile */
         }
 
         .main-nav ul {
@@ -76,6 +79,7 @@
             transition: width 0.3s ease;
         }
 
+        /* Call Now Text */
         .call-now-text {
             background-color: transparent;
             color: #333;
@@ -83,23 +87,36 @@
             text-decoration: none;
             font-weight: 400;
             white-space: nowrap; /* Prevents wrapping */
-            margin-left: auto; /* Pushes it to the far right */
+            /* Positioning for desktop will be set in media query */
         }
 
         .call-now-text:hover {
             color: #f97316;
         }
 
+        /* Hamburger Button */
         .hamburger-btn {
-            display: none; /* Hidden by default on desktop */
-            background: none;
-            border: none;
-            color: #333;
-            font-size: 2rem;
+            display: none; /* Hidden by default on desktop, shown on mobile */
+            width: 48px; /* Fixed width for the button */
+            height: 48px; /* Fixed height for the button */
+            background-color: #e0e0e0; /* Light grey background from screenshot */
+            border-radius: 8px; /* Rounded corners from screenshot */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.5); /* Subtle shadow and embossed effect */
+            border: none; /* Remove default button border */
+            color: #333; /* Color for the SVG lines */
+            font-size: 2rem; /* Size of the icon inside if using em units */
             cursor: pointer;
-            padding: 0.5rem;
+            display: flex; /* Use flex to center the SVG inside */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
+        }
+        
+        .hamburger-btn svg {
+            width: 1.5em; /* Ensure SVG size is consistent */
+            height: 1.5em;
         }
 
+        /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             display: none; /* Hidden by default */
             position: fixed;
@@ -390,88 +407,81 @@
         footer {
             background-color: #333;
             color: white;
-            padding: 10px 20px; /* Further reduced padding to make the footer even shorter */
-            box-sizing: border-box;
+            padding: 0.75rem 1rem; /* Reduced padding to reduce footer height */
             width: 100%;
+            box-sizing: border-box;
         }
 
-        footer .footer-content {
-            max-width: 1200px;
+        footer .footer-container { /* Renamed from .footer-content for clarity */
+            max-width: 1200px; /* container mx-auto */
             margin: 0 auto;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 10px; /* Further reduced gap between columns */
+            flex-wrap: wrap; /* flex-wrap */
+            justify-content: space-between; /* justify-between */
+            align-items: flex-start; /* items-start */
+            gap: 2rem; /* gap-8 */
         }
 
         footer .footer-column {
-            flex: 1;
-            min-width: 150px; /* Adjusted min-width for even smaller footer */
-            text-align: left;
+            flex: 1; /* flex-1 */
+            min-width: 150px; /* min-w-[150px] */
+            text-align: left; /* text-left */
         }
 
-        footer .footer-column.company-info {
-            flex: 1.5;
-        }
-
-        footer .footer-column.contact-details {
-            flex: 2;
-        }
-
-        footer .footer-column.logo-column {
-            flex: 0.5;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        footer h4 {
-            font-size: 1em; /* Slightly smaller font for headings */
-            font-weight: 700;
-            margin-top: 0;
-            margin-bottom: 8px; /* Reduced margin */
+        footer .footer-column h4 {
+            font-size: 1.25rem; /* text-xl */
+            font-weight: 700; /* font-bold */
+            margin-bottom: 0.5rem; /* mb-2 */
             line-height: 1.2;
         }
 
-        footer .contact-info p,
-        footer .legal-links p {
-            margin-bottom: 3px; /* Reduced margin */
-            font-size: 0.8em; /* Slightly smaller font for text */
-            line-height: 1.3;
+        footer .footer-column p {
+            font-size: 0.875rem; /* text-sm */
+            line-height: 1.25; /* leading-tight */
+            margin-bottom: 0.25rem; /* mb-1 */
         }
 
-        footer .contact-info a,
-        footer .legal-links a {
-            color: white;
+        footer .footer-column p:last-of-type {
+            margin-bottom: 0; /* Remove margin from last paragraph for tighter spacing */
+        }
+
+        footer .footer-column a {
+            color: white; /* text-white */
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease; /* transition duration-300 */
         }
 
-        footer .contact-info a:hover,
-        footer .legal-links a:hover {
-            color: #f97316;
+        footer .footer-column a:hover {
+            color: #d1d5db; /* hover:text-gray-300 */
         }
 
         footer .social-icons {
-            margin-top: 8px; /* Reduced margin */
-            display: flex;
-            gap: 5px; /* Reduced gap */
+            display: flex; /* flex */
+            gap: 0.75rem; /* gap-3 */
+            margin-top: 1rem; /* mt-4 */
         }
 
         footer .social-icons a {
             color: white;
-            font-size: 1em; /* Slightly smaller icons */
+            font-size: 1em; /* SVG icon size is already defined by width/height, but for consistency */
             transition: color 0.3s ease;
         }
 
         footer .social-icons a:hover {
-            color: #f97316;
+            color: #d1d5db;
+        }
+
+        footer .footer-logo-wrapper { /* New wrapper for logo column */
+            flex: none; /* flex-none */
+            width: 100%; /* w-full */
+            display: flex; /* flex */
+            justify-content: center; /* justify-center */
         }
 
         footer .footer-logo {
-            max-width: 80px; /* Smaller logo size */
-            height: auto;
-            display: block;
+            max-width: 150px; /* max-w-[150px] */
+            height: auto; /* h-auto */
+            display: block; /* block */
         }
 
         footer .bottom-footer {
@@ -480,9 +490,6 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            margin-top: 15px; /* Reduced margin */
-            padding-top: 8px; /* Reduced padding */
-            border-top: 1px solid #555;
         }
 
         footer .bottom-footer .legal-links {
@@ -515,19 +522,30 @@
         }
 
         .scroll-reveal-text.animated {
-            animation: fadeInSlideUp 3s ease-out forwards;
+            animation: fadeInSlideUp 1s ease-out forwards; /* Adjusted animation duration */
         }
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
             .hamburger-btn {
-                display: none;
+                display: none; /* Hide hamburger on desktop */
             }
             .main-nav {
-                display: flex;
+                display: flex; /* Show main nav on desktop */
+                position: absolute; /* Absolute positioning for perfect centering */
+                left: 50%;
+                transform: translateX(-50%);
+                justify-content: center; /* Center its content */
             }
             .navbar-container {
-                flex-wrap: nowrap;
+                /* Removed flex-wrap: wrap; for desktop */
+                justify-content: space-between; /* Ensures call-now-text is at the end */
+            }
+            .call-now-text {
+                margin-left: auto; /* Push it to the far right on desktop */
+                position: static; /* Remove absolute positioning */
+                top: auto; /* Reset top */
+                transform: none; /* Reset transform */
             }
             .hero-content h1 {
                 font-size: 4rem;
@@ -573,22 +591,31 @@
                 text-align: left;
                 padding: 80px; /* Increased padding for the form container to make it larger */
             }
+
+            /* Footer Responsive Adjustments - Desktop */
+            footer .footer-logo-wrapper {
+                width: auto; /* md:w-auto */
+                justify-content: flex-end; /* md:justify-end */
+            }
         }
 
         @media (max-width: 767px) {
+            /* Mobile Navbar Layout */
             .main-nav {
-                display: none;
+                display: none; /* Hide main nav on mobile */
             }
             .hamburger-btn {
-                display: block;
-                margin-left: auto;
+                display: block; /* Show hamburger on mobile */
+                order: 1; /* Place hamburger on the left */
             }
             .call-now-text {
-                margin-left: 0;
+                order: 2; /* Place call text on the right */
+                margin-left: auto; /* Push call text to the right */
             }
             .navbar-container {
-                justify-content: space-between;
+                justify-content: space-between; /* Space out hamburger and call text */
             }
+
             .hero-content h1 {
                 font-size: 2.5rem; /* Smaller font size for mobile */
             }
@@ -617,7 +644,15 @@
                 flex-direction: column; /* Stack items vertically on mobile */
                 gap: 30px;
             }
-            #get-in-touch-section .image-column,
+            #get-in-touch-section .image-column {
+                min-width: unset;
+                max-width: 100%;
+                text-align: center; /* Center content on mobile */
+            }
+            #get-in-touch-section .image-column img {
+                min-height: 350px; /* Increased height for architectural plan image on mobile */
+                object-fit: cover; /* Ensure image covers the area */
+            }
             #get-in-touch-section .form-column {
                 min-width: unset;
                 max-width: 100%;
@@ -631,22 +666,19 @@
             #get-in-touch-section .form-group label {
                 text-align: left; /* Keep labels left-aligned on mobile within their group */
             }
-           /* #get-in-touch-section .submit-button {
-                 Ensure button remains centered or full width on mobile 
-            }*/
 
-            /* Footer Responsive Adjustments */
-            footer .footer-content {
+            /* Footer Responsive Adjustments - Mobile */
+            footer .footer-container {
                 flex-direction: column;
                 align-items: center;
-                gap: 10px; /* Adjusted gap for mobile */
+                gap: 1rem; /* Adjusted gap for mobile */
             }
             footer .footer-column {
                 min-width: unset;
                 width: 100%;
                 text-align: center;
             }
-            footer .footer-column.logo-column {
+            footer .footer-logo-wrapper { /* New wrapper for logo column */
                 justify-content: center;
             }
             footer .contact-info,
@@ -667,20 +699,20 @@
 <body>
     <header>
         <div class="navbar-container">
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="index.html" class=" scroll-reveal-text">Home</a></li>
-                    <li><a href="product.html" class="scroll-reveal-text">Products</a></li>
-                    <li><a href="about.html" class="scroll-reveal-text">About Us</a></li>
-                    <li><a href="contact.html" class="scroll-reveal-text">Contact</a></li>
-                </ul>
-            </nav>
-            <a href="tel:123-456-7890" class="call-now-text scroll-reveal-text">Call Us Anytime 123-456-7890</a>
             <button class="hamburger-btn" aria-label="Toggle Navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5em; height: 1.5em;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <a href="tel:+2347030326642" class="call-now-text">Call Us Anytime +2347030326642</a>
         </div>
     </header>
 
@@ -698,7 +730,7 @@
                 <li><a href="product.html">Products</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="tel:123-456-7890">Call Us Anytime 123-456-7890</a></li>
+                <li><a href="tel:123-456-7890">Call Us Anytime +2347030326642</a></li>
             </ul>
         </nav>
     </div>
@@ -715,11 +747,11 @@
         <div class="contact-info-container">
             <div class="contact-item">
                 <span class="label scroll-reveal-text">Visit Us</span>
-                <span class="value scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street,  Awoyaya, Lagos</span>
+                <span class="value scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</span>
             </div>
             <div class="contact-item">
                 <span class="label scroll-reveal-text">Call Us</span>
-                <span class="value scroll-reveal-text">555-123-4567</span>
+                <span class="value scroll-reveal-text">+2347030326642</span>
             </div>
             <div class="contact-item">
                 <span class="label scroll-reveal-text">Email Us</span>
@@ -760,50 +792,62 @@
         </div>
     </section>
 
-      <footer style="background-color: #333; color: white; padding: 20px 20px; box-sizing: border-box; width: 100%;">
-        <div class="footer-content" style="max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 10px;">
-            <div class="footer-column company-info" style="flex: 1.5; min-width: 150px; text-align: left;">
-                <h4 class="scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="scroll-reveal-text" style="margin-bottom: 3px; font-size: 0.8em; line-height: 1.3;"><a href="#" style="color: white; text-decoration: none; transition: color 0.3s ease;">Privacy Policy</a></p>
-                <p class="scroll-reveal-text" style="margin-bottom: 3px; font-size: 0.8em; line-height: 1.3;"><a href="#" style="color: white; text-decoration: none; transition: color 0.3s ease;">Accessibility Statement</a></p>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Oneco Construction<br>Enterprises</h4>
+                <p><a href="#">Privacy Policy</a></p>
+                <p><a href="#">Accessibility Statement</a></p>
             </div>
-            <div class="footer-column contact-details" style="flex: 2; min-width: 150px; text-align: left;">
+            <div class="footer-column">
                 <div class="contact-info">
-                    <p class="scroll-reveal-text" style="margin-bottom: 3px; font-size: 0.8em; line-height: 1.3;">123-456-7890</p>
-                    <p class="scroll-reveal-text" style="margin-bottom: 3px; font-size: 0.8em; line-height: 1.3;">oneco.exec@gmail.com</p>
-                    <p class="scroll-reveal-text" style="margin-bottom: 3px; font-size: 0.8em; line-height: 1.3;">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    <p>+2347030326642</p>
+                    <p>oneco.exec@gmail.com</p>
+                    <p>14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
-                <div class="social-icons" style="margin-top: 8px; display: flex; gap: 5px;">
-                    <a href="#" aria-label="LinkedIn" style="color: white; font-size: 1em; transition: color 0.3s ease;">
+                <div class="social-icons">
+                    <a href="#" aria-label="LinkedIn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook" style="color: white; font-size: 1em; transition: color 0.3s ease;">
+                    <a href="#" aria-label="Facebook">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Twitter" style="color: white; font-size: 1em; transition: color 0.3s ease;">
+                    <a href="#" aria-label="Twitter">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
                         </svg>
                     </a>
                 </div>
             </div>
-            <div class="footer-column logo-column" style="flex: 0.5; min-width: 150px; text-align: left; display: flex; justify-content: flex-end;">
-                <img src="images/Screenshot 2025-05-26 224232.png" alt="ONECO Logo" class="footer-logo" style="max-width: 150px; height: auto; display: block;">
+            <div class="footer-logo-wrapper">
+                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="footer-logo" onerror="this.src='https://placehold.co/150x50/e0e0e0/555555?text=Logo+Not+Found';">
             </div>
         </div>
-        </footer>
- 
+        <div class="bottom-footer">
+            <div class="legal-links">
+                <!-- Content removed as per request -->
+            </div>
+            <div class="copyright">
+                <!-- Content removed as per request -->
+            </div>
+        </div>
+    </footer>
+    
     <script>
+        // Get references to DOM elements
         const hamburgerBtn = document.querySelector(".hamburger-btn");
         const mobileMenuOverlay = document.querySelector(".mobile-menu-overlay");
         const closeMenuBtn = document.querySelector(".mobile-menu-overlay .close-btn");
         const mobileMenuLinks = mobileMenuOverlay.querySelectorAll("a");
+        const scrollRevealElements = document.querySelectorAll(".scroll-reveal-text");
 
-        // Function to toggle mobile menu visibility
+        /**
+         * Toggles the visibility of the mobile menu overlay and prevents/allows body scrolling.
+         */
         function toggleMobileMenu() {
             mobileMenuOverlay.classList.toggle("active");
             // Prevent scrolling when mobile menu is open
@@ -814,7 +858,7 @@
         hamburgerBtn.addEventListener("click", toggleMobileMenu);
         closeMenuBtn.addEventListener("click", toggleMobileMenu);
 
-        // Close mobile menu when a link is clicked
+        // Close mobile menu when a link inside it is clicked
         mobileMenuLinks.forEach(link => {
             link.addEventListener("click", toggleMobileMenu);
         });
@@ -846,8 +890,6 @@
         });
 
         // Intersection Observer for scroll reveal effect
-        const scrollRevealElements = document.querySelectorAll('.scroll-reveal-text');
-
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -860,6 +902,7 @@
             threshold: 0.1 // Trigger when 10% of the element is visible
         });
 
+        // Observe all elements with the 'scroll-reveal-text' class
         scrollRevealElements.forEach(element => {
             observer.observe(element);
         });

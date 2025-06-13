@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Object with Text</title>
+    <title>Oneco Construction</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -99,13 +99,29 @@
 
         .hamburger-btn {
             display: block; /* Shown by default (mobile) */
-            background: none;
+            background-color: #ececec; /* Light grey background for the button matching image */
             border: none;
-            color: #333; /* Dark icon color */
+            color: #555555; /* Dark icon color matching image */
             font-size: 2rem;
             cursor: pointer;
-            padding: 0.5rem;
+            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
+            border-radius: 0.5rem; /* Rounded corners as in the image */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .hamburger-btn:hover {
+            background-color: #d0d0d0; /* Slightly darker on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+        }
+
+        .hamburger-btn svg {
+            width: 1.5em;
+            height: 1.5em;
+            stroke: currentColor; /* Ensure SVG lines inherit button color */
+            stroke-width: 1.5;
+        }
+
 
         /* Mobile Menu Overlay */
         .mobile-menu-overlay {
@@ -249,7 +265,6 @@
                 display: flex; /* Show desktop nav */
                 grid-column: 2; /* Place in the middle column */
                 justify-self: center; /* Center horizontally within its grid cell */
-                /* flex-grow: unset; -- this line is not needed as it's a grid item */
             }
             .call-now-text {
                 display: block; /* Ensure it's block on desktop */
@@ -279,13 +294,12 @@
         }
 
         #tailored-solutions-column .content-image {
-            width: 540px; /* Make image responsive within its column */
-            height: 530px;
-            max-width: 537px; /* Limit max width of this image */
+            width: 100%; /* Make image responsive within its column */
+            height: 350px; /* Consistent height */
+            max-width: 537px; /* Limit max width for desktop */
             margin: 20px 0; /* Space above and below image */
             border-radius: 8px; /* Rounded corners for the image */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
-            height: 350px; /* Increased height again */
             object-fit: cover; /* Ensure image covers the area */
         }
 
@@ -381,11 +395,16 @@
         }
 
 
+        .place-order-link-wrapper {
+            align-self: center; /* Center the link itself within the flex column parent */
+            text-decoration: none; /* Ensure no underline on the link wrapper */
+        }
+
         .place-order-btn {
             background-color: #4a4a4a; /* Dark grey button */
             color: #fff;
             padding: 1rem 2rem;
-            text-decoration: none;
+            text-decoration: none; /* Keep text-decoration: none on button */
             font-weight: 600;
             border-radius: 9999px; /* Fully rounded corners */
             transition: background-color 0.3s ease;
@@ -393,7 +412,8 @@
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            align-self: center; /* Center button within the column */
+            /* Removed display: block; and margin: 0 auto; from here */
+            /* align-self is now on the parent link, so it's not needed here */
         }
 
         .place-order-btn:hover {
@@ -424,8 +444,8 @@
         }
 
         .secondary-image-container img {
-            width: 4000px; /* Ensure image fits within its container */
-            height: 500px; /* Increased height for the construction mixer image */
+            width: 100%; /* Ensure image fits within its container */
+            height: 350px; /* Reduced height for laptop and matches mobile request */
             object-fit: cover; /* Ensure image covers the area */
             border-radius: 8px; /* Rounded corners for the image */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -440,13 +460,13 @@
             color: #333;
             max-width: 55%; /* Limit content width */
         }
-.secondary-content h2{
-    margin-bottom: 5.8rem;
-}
+        .secondary-content h2{
+            margin-bottom: 3.5rem;
+        }
         .secondary-content p {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 5.8rem; /* Space between text and button */
+            margin-bottom: 3.5rem; /* Space between text and button */
         }
 
         .secondary-button { /* Renamed from engineered-button */
@@ -477,7 +497,7 @@
             }
             
             #hero-section {
-                padding: 10px 20px 20px; /* Adjusted: Reduced padding for mobile */
+                padding: 10px 0; /* Adjusted: Removed horizontal padding for mobile */
                 margin-top: 0; /* Removed margin-top as navbar is no longer fixed */
             }
             /* Applying the new H1/H2 style for mobile responsiveness */
@@ -489,23 +509,20 @@
                 text-overflow: clip;
                 padding: 0 10px; /* Adjust padding for mobile */
                 text-align: center; /* Center on mobile for better readability */
-                  margin-bottom: 1.9rem; 
+                margin-bottom: 1.9rem; 
             }
-#tailored-solutions-column .content-image {
-            width: 440px; /* Make image responsive within its column */
-            height: 530px;
-            max-width: 440px; /* Limit max width of this image */
-            margin: 20px 0; /* Space above and below image */
-            border-radius: 8px; /* Rounded corners for the image */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
-            height: 350px; /* Increased height again */
-            object-fit: cover; /* Ensure image covers the area */
-        }
-               .secondary-content p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem; /* Space between text and button */
-        }
+            /* Mobile styles for construction detail image */
+            #tailored-solutions-column .content-image {
+                width: 470px; /* Increased width to 400px for phone screens */
+                height: 400px; /* Set height to match width for a square shape */
+                margin: 20px auto; /* Center horizontally */
+                object-fit: cover; /* Make the image fill the square area, cropping if necessary */
+            }
+            .secondary-content p {
+                font-size: 1.1rem;
+                line-height: 1.6;
+                margin-bottom: 2rem; /* Space between text and button */
+            }
             /* End new H1/H2 style for mobile */
 
             .hero-content p {
@@ -517,16 +534,6 @@
                 gap: 30px;
                 margin-top: 20px;
             }
-  #tailored-solutions-column .content-image {
-            width: 440px; /* Make image responsive within its column */
-            height: 530px;
-            max-width: 440px; /* Limit max width of this image */
-            margin: 20px 0; /* Space above and below image */
-            border-radius: 8px; /* Rounded corners for the image */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
-            height: 350px; /* Increased height again */
-            object-fit: cover; /* Ensure image covers the area */
-        }
             #tailored-solutions-column,
             #product-details-column {
                 min-width: unset; /* Remove min-width on mobile */
@@ -548,11 +555,18 @@
             #secondary-content-section {
                 flex-direction: column; /* Stack vertically on mobile */
                 padding: 30px 20px; /* Adjust padding for mobile */
+                align-items: center; /* Added to center content horizontally */
             }
             .secondary-image-container {
                 max-width: 100%; /* Full width on mobile */
                 flex-basis: auto; /* Reset flex-basis */
                 justify-content: center; /* Center image on mobile */
+            }
+            /* Mobile styles for construction mixer image */
+            .secondary-image-container img {
+                height: 400px; /* Set height to match width for a square shape */
+                width: 400px; /* Increased width to 400px for phone screens */
+                object-fit: cover; /* Make the image fill the square area, cropping if necessary */
             }
             .secondary-content {
                 align-items: center; /* Center text content on mobile */
@@ -606,8 +620,8 @@
         <button class="close-btn" aria-label="Close Navigation">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5em; height: 1.5em;">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-        </button>
+                </svg>
+            </button>
         <nav>
             <ul>
                 <li><a href="index.html" class="scroll-reveal-text">Home</a></li>
@@ -637,11 +651,10 @@
 
         <div id="product-details-column">
             <h3 class="scroll-reveal-text">Our Products</h3>
-            <!-- Updated paragraph for "we specialise in" and added new lines for product range -->
             <p class="scroll-reveal-text">We specialise in the manufacturing and supply of high-quality block bricks tailored for various construction needs.</p>
             <p class="scroll-reveal-text">Our range includes:</p>
-            <p class="scroll-reveal-text"><span>+</span> 9 inches</p>
-            <p class="scroll-reveal-text"><span>+</span> 6 inches</p>
+            <p class="scroll-reveal-text"><span>+</span> 9 inches hollow blocks</p>
+            <p class="scroll-reveal-text"><span>+</span> 6 inches hollow blocks</p>
             
             <div id="scene-container-wrapper" class="scroll-reveal-text">
                 <div id="scene-container"></div>
@@ -666,7 +679,7 @@
                 <div class="grid-data scroll-reveal-text">150 mm</div>
             </div>
 
-            <a href="contact.html"> <button class="place-order-btn scroll-reveal-text">Place order</button></a>
+            <a href="contact.html" class="place-order-link-wrapper"> <button class="place-order-btn scroll-reveal-text">Place order</button></a>
         </div>
     </div>
 
@@ -718,7 +731,12 @@
                 <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-auto block scroll-reveal-text">
             </div>
         </div>
+        <div class="text-center text-xs md:text-sm text-gray-400 mt-8 scroll-reveal-text">
+            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
+        </div>
     </footer>
+
+
     <script type="module">
         // --- Import Three.js modules at the top level ---
         import * as THREE from 'three';

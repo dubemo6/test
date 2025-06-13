@@ -22,66 +22,79 @@
             opacity: 1; /* Fully visible */
             transform: translateY(0); /* Original position */
         }
+        /* Added for the new footer content, inheriting scroll-reveal */
+        .scroll-reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+        }
+        .scroll-reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+            z-index: 100; /* Ensure text is above other elements during scroll reveal */
+        }
+        /* Styles for the mobile menu overlay transitions */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease-out; /* Smooth transition for opacity */
+        }
+
+        .mobile-menu-overlay.hidden {
+            opacity: 0;
+            pointer-events: none; /* Disable interactions when hidden */
+        }
     </style>
 </head>
-<body class="bg-[#f2f2f2] min-h-screen flex flex-col">
-    <!-- Navigation Bar -->
-    <!-- Increased vertical padding to make the navbar taller. -->
-    <nav class="bg-[#f2f2f2] py-16 shadow-sm relative">
-        <div class="container mx-auto px-4 flex items-center relative">
-            <!-- Mobile Menu Toggle Button (visible only on mobile) -->
-            <!-- Redesigned menu icon with background, rounded corners, and shadow -->
-            <button id="menu-toggle" class="md:hidden focus:outline-none">
-                <div class="bg-gray-200 rounded-xl p-2.5 shadow-md flex items-center justify-center">
-                    <svg class="w-8 h-8 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                    </svg>
-                </div>
-            </button>
-
-            <!-- Mobile Phone Number Display (visible only on mobile) -->
-            <div class="text-gray-700 font-semibold text-lg md:hidden ml-auto">
-                <a href="+2347030326642" class="text-gray-700 hover:text-gray-900 transition duration-300">+2347030326642</a>
-            </div>
-
-            <!-- Desktop Navigation Links - Truly centered using absolute positioning -->
-            <!-- This div will be absolutely positioned to span the container and center its content -->
-            <div id="desktop-nav-links-container" class="absolute left-0 right-0 hidden md:flex justify-center items-center h-full">
-                <div class="flex space-x-8 text-gray-700 font-medium">
-                    <a href="index.html" class="hover:text-gray-900 transition duration-300">Home</a>
-                    <a href="product.html" class="hover:text-gray-900 transition duration-300">Products</a>
-                    <a href="about.html" class="hover:text-gray-900 transition duration-300">About Us</a>
-                    <a href="contact.html" class="hover:text-gray-900 transition duration-300">Contact</a>
-                </div>
-            </div>
-
-            <!-- Desktop Call Us Anytime - Pushed to the far right using ml-auto -->
-            <div id="desktop-call-us-anytime" class="hidden md:flex text-gray-700 font-semibold text-lg ml-auto">
-                Call Us Anytime <a href="tel:+2347030326642" class="text-gray-700 hover:text-gray-900 transition duration-300 ml-1">+2347030326642</a>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Menu (hidden by default, shown on toggle) -->
-        <div id="mobile-nav-menu" class="hidden fixed inset-0 bg-[#f2f2f2] z-50 flex flex-col items-center justify-center text-gray-800">
-            <button id="close-toggle" class="absolute top-8 right-8 text-gray-700 focus:outline-none">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+<body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
+    <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
+        <!-- The main container for header elements -->
+        <!-- justify-between ensures items are at the ends for both mobile and desktop. -->
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
+            <!-- Hamburger button for mobile - positioned left -->
+            <!-- Changed hamburger button color to match screenshot -->
+            <button id="menu-toggle" class="hamburger-btn md:hidden bg-gray-200 p-2 rounded-md shadow-sm text-gray-400 transition-colors duration-300 hover:text-[#f97316]" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
 
-            <div class="flex flex-col items-center space-y-6 text-2xl font-bold">
-                <a href="index.html" class="hover:text-gray-900 transition duration-300">Home</a>
-                <a href="product.html" class="hover:text-gray-900 transition duration-300">Products</a>
-                <a href="about.html" class="hover:text-gray-900 transition duration-300">About Us</a>
-                <a href="contact.html" class="hover:text-gray-900 transition duration-300">Contact</a>
-            </div>
+            <!-- Main navigation - Centered for desktop, hidden for mobile -->
+            <!-- Using absolute positioning to center the nav element for desktop -->
+            <nav class="main-nav hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
+                <ul class="list-none m-0 p-0 flex gap-8">
+                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 active">Home</a></li>
+                    <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
+                    <li><a href="about.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">About Us</a></li>
+                    <li><a href="contact.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Contact</a></li>
+                </ul>
+            </nav>
 
-            <div class="absolute bottom-8 text-gray-700 font-semibold text-xl">
-                Call Us Anytime <a href="tel:+2347030326642" class="text-gray-700">+2347030326642</a>
-            </div>
+            <!-- Call Us Anytime - positioned right -->
+            <!-- Changed text color to match screenshot's dimmed effect -->
+            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-gray-400 px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base md:ml-auto">Call Us Anytime +2347030326642</a>
         </div>
-    </nav>
-    <div class="w-full h-0.5 bg-white"></div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <!-- Changed background to match screenshot's specific grey tone with opacity, adjusted z-index for full overlay -->
+    <div id="mobile-nav-menu" class="mobile-menu-overlay hidden bg-[#cccccc] bg-opacity-75 fixed inset-0 w-full h-full z-[999] flex-col items-center justify-center opacity-0 pointer-events-none">
+        <!-- Changed text color for close button to match screenshot -->
+        <button id="close-toggle" class="close-btn absolute top-6 right-6 bg-none border-none text-gray-400 text-4xl cursor-pointer hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <nav>
+                <ul class="list-none p-0 text-center">
+                    <!-- Changed text color for navigation links to match screenshot -->
+                    <li class="mb-10"><a href="index.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Home</a></li>
+                    <li class="mb-10"><a href="product.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Products</a></li>
+                    <li class="mb-10"><a href="about.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">About Us</a></li>
+                    <li class="mb-10"><a href="contact.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Contact</a></li>
+                    <!-- Changed text color for Call Us Anytime link to match screenshot -->
+                    <li class="mb-10"><a href="tel:+2347030326642" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Call Us Anytime<br>+2347030326642</a></li>
+                </ul>
+            </nav>
+        </div>
 
     <!-- Header Section -->
     <header class="bg-[#f2f2f2] py-8 shadow-md scroll-reveal">
@@ -203,7 +216,8 @@
 
     <!-- Horizontal Rule -->
     <section class="bg-[#f2f2f2] py-8 scroll-reveal">
-        <div class="w-full h-0.5 bg-black rounded-full shadow-md"></div>
+        <!-- Changed h-0.5 to h-px for a thinner line -->
+        <div class="w-full h-px bg-black rounded-full shadow-md"></div>
     </section>
 
     <!-- Our Reach Section - Now hidden on medium and larger screens (laptops) -->
@@ -226,7 +240,7 @@
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Get in Touch</h3>
-                    <p class="text-lg text-gray-700">+2347030326642</p>
+                    <p class="text-lg text-gray-700">123-456-7890</p>
                 </div>
                 <div>
                     <h3 class="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
@@ -252,7 +266,7 @@
                     Build with Oneco Construction
                 </h2>
                 <p class="text-gray-600 text-lg md:text-xl">
-                    Let's build something great together. Contact us today to get started on your next project. We turn blueprints into lasting realities.
+                    Let's build something great together. Contact us today to get started on your next project. Let us build you vision brick by brick.
                 </p>
                 <!-- Corrected "Connect with Us" button structure -->
                 <a href="contact.html" class="inline-block px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
@@ -263,40 +277,56 @@
     </section>
 
     <!-- Footer Section -->
-    <footer class="bg-[#333] text-white py-10 px-4 w-full scroll-reveal">
-        <div class="container mx-auto flex flex-wrap justify-between items-start gap-8">
-            <div class="flex-1 min-w-[150px] text-left">
-                <h4 class="text-white text-xl font-bold mb-2">Oneco Construction<br>Enterprises</h4>
-                <p class="text-sm leading-tight mb-1"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-sm leading-tight"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+    <footer class="bg-[#333] text-white py-5 px-4 w-full">
+        <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
+            <!-- Left Column: Company Name & Policies (Default text-left, md:text-left) -->
+            <!-- Visible on all screens, arranged for desktop -->
+            <div class="flex-1 min-w-[200px] text-left">
+                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
             </div>
-            <div class="flex-1 min-w-[150px] text-left">
+
+            <!-- Right Column: Contact Info & Social Icons -->
+            <!-- For desktop, it's text-left and social icons are justify-start -->
+            <!-- For mobile, it's text-right and social icons are justify-end -->
+            <div class="flex-1 min-w-[200px] text-right md:text-left">
                 <div class="contact-info">
-                    <p class="text-sm leading-tight mb-1">+2347030326642</p>
-                    <p class="text-sm leading-tight mb-1">oneco.exec@gmail.com</p>
-                    <p class="text-sm leading-tight">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    <!-- Phone number is clickable -->
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="tel:+2347030326642" class="text-white hover:text-gray-300 transition duration-300">+234 7030326642</a></p>
+                    <!-- Email is clickable -->
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="mailto:oneco.exec@gmail.com" class="text-white hover:text-gray-300 transition duration-300">oneco.exec@gmail.com</a></p>
+                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
-                <div class="flex gap-3 mt-4">
-                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300">
+                <!-- Social icons: justify-end for mobile, md:justify-start for desktop -->
+                <div class="flex gap-3 mt-2 justify-end md:justify-start">
+                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300">
+                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300">
+                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
                         </svg>
                     </a>
                 </div>
             </div>
-            <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[100px] block" onerror="this.src='https://placehold.co/150x150/e0e0e0/555555?text=Logo+Not+Found';">
+            <!-- Logo Section - Centered for mobile, flex-none for desktop -->
+            <!-- The order on desktop remains the same as previous request. On mobile, it's centered below columns. -->
+            <div class="flex-none w-full flex justify-center mt-8 md:w-auto md:order-none md:mt-0">
+                <!-- Using placeholder for now, replace with actual image if available -->
+                <img src="https://placehold.co/150x50/CCCCCC/FFFFFF?text=ONECO+Logo" alt="ONECO Logo" class="max-w-[150px] h-auto block scroll-reveal-text">
             </div>
+        </div>
+        <!-- Copyright Section - Centered for both mobile and desktop. On desktop, it takes first order. -->
+        <div class="text-center text-xs md:text-sm text-gray-400 mt-8 md:mt-0 md:order-first md:w-full">
+            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
         </div>
     </footer>
     <script>
@@ -312,7 +342,7 @@
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Handle regular section reveal
+                        // Handle general scroll-reveal effect
                         entry.target.classList.add('visible');
                         // Stop observing once it's visible to prevent re-triggering
                         observer.unobserve(entry.target);
@@ -320,69 +350,62 @@
                 });
             }, observerOptions);
 
-            // Observe all elements with the 'scroll-reveal' class
-            document.querySelectorAll('.scroll-reveal').forEach(element => {
+            // Observe all elements with the 'scroll-reveal' and 'scroll-reveal-text' classes
+            document.querySelectorAll('.scroll-reveal, .scroll-reveal-text').forEach(element => {
                 observer.observe(element);
             });
 
             // JavaScript for Mobile Menu Toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const closeToggle = document.getElementById('close-toggle');
-            const mobileNavMenu = document.getElementById('mobile-nav-menu');
-            // Select the desktop navigation links container
-            const desktopNavLinksContainer = document.getElementById('desktop-nav-links-container');
-            // Select the desktop "Call Us Anytime" container
-            const desktopCallUsAnytime = document.getElementById('desktop-call-us-anytime');
-            // Select the mobile-specific phone number div
-            const mobilePhoneNumber = document.querySelector('nav > .container > .md\\:hidden.text-gray-700.font-semibold.text-lg');
+            const hamburgerBtn = document.getElementById('menu-toggle');
+            const closeBtn = document.getElementById('close-toggle');
+            const mobileMenuOverlay = document.getElementById('mobile-nav-menu');
 
-            menuToggle.addEventListener('click', () => {
-                mobileNavMenu.classList.remove('hidden');
-                // Hide desktop navigation elements when mobile menu is open
-                if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
-                if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
-                menuToggle.classList.add('hidden'); // Hide hamburger icon
-                if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Mobile phone number hidden
-            });
+            if (hamburgerBtn && closeBtn && mobileMenuOverlay) {
+                // Open the mobile menu
+                hamburgerBtn.addEventListener('click', () => {
+                    mobileMenuOverlay.classList.remove('hidden'); // Make it visible for transition
+                    // Use a slight delay to allow 'display' change to register before opacity transition
+                    setTimeout(() => {
+                        mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                    }, 10); // Small delay to ensure 'hidden' is removed before transition starts
 
-            closeToggle.addEventListener('click', () => {
-                mobileNavMenu.classList.add('hidden');
-                // Restore visibility based on screen size after closing mobile menu
-                if (window.innerWidth >= 768) { // md breakpoint in Tailwind is 768px
-                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.remove('hidden'); // Show desktop navigation links
-                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.remove('hidden'); // Show desktop phone number
-                    menuToggle.classList.add('hidden'); // Ensure hamburger is hidden on desktop
-                    if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Ensure mobile phone number is hidden on desktop
-                } else {
-                    menuToggle.classList.remove('hidden'); // Show hamburger icon on mobile
-                    // Ensure desktop nav elements are hidden on mobile
-                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
-                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
-                    if (mobilePhoneNumber) mobilePhoneNumber.classList.remove('hidden'); // Show mobile phone number
-                }
-            });
+                    // Show the close icon and hide the hamburger icon
+                    // Removed: hamburgerBtn.classList.add('hidden'); // This line is removed
+                    closeBtn.classList.remove('hidden'); // Show the close icon
+                });
 
-            // Handle resize to ensure menu state is correct on desktop and mobile
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768) { // md breakpoint in Tailwind is 768px
-                    mobileNavMenu.classList.add('hidden'); // Hide mobile menu
-                    menuToggle.classList.add('hidden'); // Hide hamburger icon
-                    closeToggle.classList.add('hidden'); // Hide close icon
-                    if (desktopNavLinksContainer) desktopNavLinksContainer.classList.remove('hidden'); // Show desktop navigation links
-                    if (desktopCallUsAnytime) desktopCallUsAnytime.classList.remove('hidden'); // Show desktop phone number
-                    if (mobilePhoneNumber) mobilePhoneNumber.classList.add('hidden'); // Ensure mobile phone number is hidden on desktop
-                } else {
-                    // On mobile, ensure only one icon is visible if menu is closed
-                    if (mobileNavMenu.classList.contains('hidden')) {
-                        menuToggle.classList.remove('hidden'); // Show hamburger
-                        closeToggle.classList.add('hidden'); // Hide close icon
-                        // Ensure desktop nav elements are hidden on mobile
-                        if (desktopNavLinksContainer) desktopNavLinksContainer.classList.add('hidden');
-                        if (desktopCallUsAnytime) desktopCallUsAnytime.classList.add('hidden');
-                        if (mobilePhoneNumber) mobilePhoneNumber.classList.remove('hidden'); // Show mobile phone number
+                // Close the mobile menu
+                closeBtn.addEventListener('click', () => {
+                    mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                    // Use a slight delay for opacity transition before hiding completely
+                    setTimeout(() => {
+                        mobileMenuOverlay.classList.add('hidden');
+                    }, 300); // This duration should match the CSS transition duration
+
+                    // Show the hamburger icon and hide the close icon
+                    // Removed: hamburgerBtn.classList.remove('hidden'); // This line is removed
+                    closeBtn.classList.add('hidden'); // Hide the close icon
+                });
+
+                // Handle resize: If screen becomes desktop size, ensure mobile menu is hidden
+                window.addEventListener('resize', () => {
+                    if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
+                        mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+                        hamburgerBtn.classList.add('hidden'); // Hide hamburger on desktop
+                        closeBtn.classList.add('hidden'); // Hide close button on desktop
+                    } else {
+                        // On mobile, if menu is closed, show hamburger and hide close
+                        if (mobileMenuOverlay.classList.contains('hidden')) {
+                            hamburgerBtn.classList.remove('hidden'); // Show hamburger
+                            closeBtn.classList.add('hidden'); // Hide close icon
+                        } else {
+                            // If menu is open, ensure hamburger is hidden and close is visible
+                            hamburgerBtn.classList.add('hidden');
+                            closeBtn.classList.remove('hidden');
+                        }
                     }
-                }
-            });
+                });
+            }
         });
     </script>
 </body>

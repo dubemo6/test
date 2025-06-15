@@ -33,35 +33,147 @@
             transform: translateY(0);
             z-index: 100; /* Ensure text is above other elements during scroll reveal */
         }
-        /* Styles for the mobile menu overlay transitions */
+        /* Custom CSS for the mobile menu overlay */
         .mobile-menu-overlay {
-            transition: opacity 0.3s ease-out; /* Smooth transition for opacity */
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent light grey */
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            opacity: 0; /* Start hidden for transition */
+            pointer-events: none; /* Disable interaction when hidden */
+            overflow-y: auto;
         }
 
-        .mobile-menu-overlay.hidden {
-            opacity: 0;
-            pointer-events: none; /* Disable interactions when hidden */
+        .mobile-menu-overlay.active {
+            display: flex; /* Show when active */
+            opacity: 1; /* Fade in */
+            pointer-events: auto; /* Enable interaction */
+        }
+
+        .mobile-menu-overlay .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #333; /* Dark icon color */
+            font-size: 2rem; /* Adjusted for consistency with w-10 h-10 (40px) from previous */
+            cursor: pointer;
+        }
+
+        .mobile-menu-overlay nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-menu-overlay nav ul li {
+            margin-bottom: 2rem;
+        }
+
+        .mobile-menu-overlay nav ul li a {
+            color: #333; /* Dark text color */
+            text-decoration: none;
+            font-size: 2.2rem; /* Adjusted for consistency */
+            font-weight: 700; /* Bolder font weight */
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay nav ul li a:hover {
+            color: #f97316; /* Orange hover color */
+        }
+
+        /* Responsive font size for very small phones on mobile menu */
+        @media (max-width: 480px) {
+            .mobile-menu-overlay nav ul li a {
+                font-size: 1.8rem;
+            }
+        }
+
+        /* Styles for the hamburger button */
+        .hamburger-btn {
+            display: block; /* Shown by default (mobile) */
+            background-color: #ececec; /* Light grey background for the button matching image */
+            border: none;
+            color: #555555; /* Dark icon color matching image */
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
+            border-radius: 0.5rem; /* Rounded corners as in the image */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            background-color: #d0d0d0; /* Slightly darker on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+        }
+
+        .hamburger-btn svg {
+            width: 1.5em;
+            height: 1.5em;
+            stroke: currentColor; /* Ensure SVG lines inherit button color */
+            stroke-width: 1.5;
+        }
+
+        /* This rule hides the hamburger button on larger screens (desktop - md breakpoint from Tailwind) */
+        @media (min-width: 768px) { /* Adjusted to 768px to match Tailwind's 'md' breakpoint */
+            .hamburger-btn {
+                display: none; /* Hide hamburger on desktop */
+            }
+        }
+
+        /* Active link styling for desktop navigation */
+        .main-nav ul li a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #f97316; /* Orange color for active indicator */
+            transform: scaleX(1);
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Removed hover effect for desktop navigation links */
+        .main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #f97316; /* Orange color for hover indicator */
+            transform: scaleX(0); /* Hidden by default */
+            transition: transform 0.3s ease-out;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
     <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
         <!-- The main container for header elements -->
-        <!-- justify-between ensures items are at the ends for both mobile and desktop. -->
         <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
-            <!-- Hamburger button for mobile - positioned left -->
-            <!-- Changed hamburger button color to match screenshot -->
-            <button id="menu-toggle" class="hamburger-btn md:hidden bg-gray-200 p-2 rounded-md shadow-sm text-gray-400 transition-colors duration-300 hover:text-[#f97316]" aria-label="Toggle Navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+            <!-- Hamburger button for mobile - now uses custom CSS for styling and responsiveness -->
+            <button id="menu-toggle" class="hamburger-btn" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
 
             <!-- Main navigation - Centered for desktop, hidden for mobile -->
-            <!-- Using absolute positioning to center the nav element for desktop -->
             <nav class="main-nav hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
                 <ul class="list-none m-0 p-0 flex gap-8">
-                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 active">Home</a></li>
+                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 ">Home</a></li>
                     <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
                     <li><a href="about.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">About Us</a></li>
                     <li><a href="contact.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Contact</a></li>
@@ -69,34 +181,30 @@
             </nav>
 
             <!-- Call Us Anytime - positioned right -->
-            <!-- Changed text color to match screenshot's dimmed effect -->
-            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-gray-400 px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base md:ml-auto">Call Us Anytime +2347030326642</a>
+            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base md:ml-auto hover:text-orange-500 transition-colors duration-300">Call Us Anytime +2347030326642</a>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <!-- Changed background to match screenshot's specific grey tone with opacity, adjusted z-index for full overlay -->
-    <div id="mobile-nav-menu" class="mobile-menu-overlay hidden bg-[#cccccc] bg-opacity-75 fixed inset-0 w-full h-full z-[999] flex-col items-center justify-center opacity-0 pointer-events-none">
-        <!-- Changed text color for close button to match screenshot -->
-        <button id="close-toggle" class="close-btn absolute top-6 right-6 bg-none border-none text-gray-400 text-4xl cursor-pointer hidden">
+    <div id="mobile-nav-menu" class="mobile-menu-overlay">
+        <!-- Close button class changed to close-btn as per custom CSS -->
+        <button id="close-toggle" class="close-btn" aria-label="Close Navigation">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
             <nav>
-                <ul class="list-none p-0 text-center">
-                    <!-- Changed text color for navigation links to match screenshot -->
-                    <li class="mb-10"><a href="index.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Home</a></li>
-                    <li class="mb-10"><a href="product.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Products</a></li>
-                    <li class="mb-10"><a href="about.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">About Us</a></li>
-                    <li class="mb-10"><a href="contact.html" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Contact</a></li>
-                    <!-- Changed text color for Call Us Anytime link to match screenshot -->
-                    <li class="mb-10"><a href="tel:+2347030326642" class="text-gray-800 no-underline font-extrabold text-5xl transition-colors duration-300 hover:text-orange-500">Call Us Anytime<br>+2347030326642</a></li>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="product.html">Products</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="tel:+2347030326642">Call Us Anytime<br>+2347030326642</a></li>
                 </ul>
             </nav>
-        </div>
+    </div>
 
-    <!-- Header Section -->
+    <!-- Header Section (This seems to be a duplicate of the main header, but it's part of the content. Keeping it as is per instructions.) -->
     <header class="bg-[#f2f2f2] py-8 shadow-md scroll-reveal">
         <div class="container mx-auto px-4 text-center">
             <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
@@ -110,6 +218,7 @@
 
     <!-- Hero Image Section -->
     <section class="relative w-full overflow-hidden flex-grow flex items-center justify-center min-h-[600px]">
+        <!-- Placeholder image used for demonstration. Replace with your local path: images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp -->
         <img
             src="images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp"
             alt="Construction site background with bricks"
@@ -139,7 +248,7 @@
     <section class="bg-[#f2f2f2] py-16">
         <div class="container mx-auto px-4">
             <div class="flex flex-wrap justify-around items-start gap-8">
-                <!-- Craftsmanship Guarantee SVG -->
+                <!-- Craftsmanship Guarantee SVG - No changes as requested -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -157,7 +266,7 @@
                     </svg>
                 </div>
 
-                <!-- Masonry Expertise SVG -->
+                <!-- Masonry Expertise SVG - No changes as requested -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -175,7 +284,7 @@
                     </svg>
                 </div>
 
-                <!-- Unparalleled Quality SVG -->
+                <!-- Unparalleled Quality SVG - No changes as requested -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -193,7 +302,7 @@
                     </svg>
                 </div>
 
-                <!-- Licensed Bricklayers SVG -->
+                <!-- Licensed Bricklayers SVG - No changes as requested -->
                 <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
                     <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
@@ -254,6 +363,7 @@
     <section class="bg-[#f2f2f2] py-16 scroll-reveal">
         <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+                <!-- Placeholder image used for demonstration. Replace with your local path: images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif -->
                 <img
                     src="images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif"
                     alt="Construction blocks ready for use"
@@ -276,7 +386,7 @@
         </div>
     </section>
 
-    <!-- Footer Section -->
+    <!-- Footer Section - No changes as requested -->
     <footer class="bg-[#333] text-white py-5 px-4 w-full">
         <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
             <!-- Left Column: Company Name & Policies (Default text-left, md:text-left) -->
@@ -320,8 +430,8 @@
             <!-- Logo Section - Centered for mobile, flex-none for desktop -->
             <!-- The order on desktop remains the same as previous request. On mobile, it's centered below columns. -->
             <div class="flex-none w-full flex justify-center mt-8 md:w-auto md:order-none md:mt-0">
-                <!-- Using placeholder for now, replace with actual image if available -->
-                <img src="https://placehold.co/150x50/CCCCCC/FFFFFF?text=ONECO+Logo" alt="ONECO Logo" class="max-w-[150px] h-auto block scroll-reveal-text">
+                <!-- Placeholder image used for demonstration. Replace with your local path: images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png -->
+                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-auto block scroll-reveal-text">
             </div>
         </div>
         <!-- Copyright Section - Centered for both mobile and desktop. On desktop, it takes first order. -->
@@ -363,45 +473,35 @@
             if (hamburgerBtn && closeBtn && mobileMenuOverlay) {
                 // Open the mobile menu
                 hamburgerBtn.addEventListener('click', () => {
-                    mobileMenuOverlay.classList.remove('hidden'); // Make it visible for transition
-                    // Use a slight delay to allow 'display' change to register before opacity transition
-                    setTimeout(() => {
-                        mobileMenuOverlay.classList.add('opacity-100', 'pointer-events-auto');
-                    }, 10); // Small delay to ensure 'hidden' is removed before transition starts
-
-                    // Show the close icon and hide the hamburger icon
-                    // Removed: hamburgerBtn.classList.add('hidden'); // This line is removed
-                    closeBtn.classList.remove('hidden'); // Show the close icon
+                    mobileMenuOverlay.classList.add('active'); // Use 'active' class for custom CSS
+                    // Hide the hamburger icon and show the close icon
+                    hamburgerBtn.classList.add('hidden');
+                    closeBtn.classList.remove('hidden');
                 });
 
                 // Close the mobile menu
                 closeBtn.addEventListener('click', () => {
-                    mobileMenuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
-                    // Use a slight delay for opacity transition before hiding completely
-                    setTimeout(() => {
-                        mobileMenuOverlay.classList.add('hidden');
-                    }, 300); // This duration should match the CSS transition duration
-
+                    mobileMenuOverlay.classList.remove('active'); // Remove 'active' class
                     // Show the hamburger icon and hide the close icon
-                    // Removed: hamburgerBtn.classList.remove('hidden'); // This line is removed
-                    closeBtn.classList.add('hidden'); // Hide the close icon
+                    hamburgerBtn.classList.remove('hidden');
+                    closeBtn.classList.add('hidden');
                 });
 
                 // Handle resize: If screen becomes desktop size, ensure mobile menu is hidden
                 window.addEventListener('resize', () => {
-                    if (window.innerWidth >= 768) { // Tailwind's 'md' breakpoint
-                        mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                        hamburgerBtn.classList.add('hidden'); // Hide hamburger on desktop
-                        closeBtn.classList.add('hidden'); // Hide close button on desktop
+                    const isDesktop = window.innerWidth >= 768; // Tailwind's 'md' breakpoint
+                    if (isDesktop) {
+                        mobileMenuOverlay.classList.remove('active'); // Hide menu on desktop
+                        hamburgerBtn.classList.add('hidden'); // Ensure hamburger is hidden on desktop
+                        closeBtn.classList.add('hidden'); // Ensure close button is hidden on desktop
                     } else {
-                        // On mobile, if menu is closed, show hamburger and hide close
-                        if (mobileMenuOverlay.classList.contains('hidden')) {
+                        // On mobile:
+                        if (!mobileMenuOverlay.classList.contains('active')) { // If menu is closed
                             hamburgerBtn.classList.remove('hidden'); // Show hamburger
-                            closeBtn.classList.add('hidden'); // Hide close icon
-                        } else {
-                            // If menu is open, ensure hamburger is hidden and close is visible
-                            hamburgerBtn.classList.add('hidden');
-                            closeBtn.classList.remove('hidden');
+                            closeBtn.classList.add('hidden'); // Hide close
+                        } else { // If menu is open
+                            hamburgerBtn.classList.add('hidden'); // Hide hamburger
+                            closeBtn.classList.remove('hidden'); // Show close
                         }
                     }
                 });

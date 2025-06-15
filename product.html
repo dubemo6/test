@@ -174,7 +174,7 @@
             color: #333; /* Dark text color */
             text-decoration: none;
             font-size: 2.2rem;
-            font-weight: 600;
+            font-weight: 700; /* Changed from 600 to 700 to make it bolder */
             transition: color 0.3s ease;
         }
 
@@ -513,8 +513,9 @@
             }
             /* Mobile styles for construction detail image */
             #tailored-solutions-column .content-image {
-                width: 470px; /* Increased width to 400px for phone screens */
-                height: 400px; /* Set height to match width for a square shape */
+                width: 100%; /* Changed from fixed pixel to 100% for responsiveness */
+                height: auto; /* Changed from fixed pixel to auto for responsiveness */
+                max-width: 470px; /* Set a max-width to control size on larger mobile screens */
                 margin: 20px auto; /* Center horizontally */
                 object-fit: cover; /* Make the image fill the square area, cropping if necessary */
             }
@@ -564,8 +565,9 @@
             }
             /* Mobile styles for construction mixer image */
             .secondary-image-container img {
-                height: 400px; /* Set height to match width for a square shape */
-                width: 400px; /* Increased width to 400px for phone screens */
+                height: auto; /* Changed from fixed pixel to auto for responsiveness */
+                width: 100%; /* Changed from fixed pixel to 100% for responsiveness */
+                max-width: 400px; /* Set a max-width to control size on larger mobile screens */
                 object-fit: cover; /* Make the image fill the square area, cropping if necessary */
             }
             .secondary-content {
@@ -582,6 +584,19 @@
                 }
             }
             
+        }
+
+        /* Scroll Reveal Animation Styles */
+        .scroll-reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+
+        .scroll-reveal-text.revealed {
+            opacity: 1;
+            transform: translateY(0);
         }
 
     </style>
@@ -662,21 +677,21 @@
 
             <h4 class="scroll-reveal-text">Description of our blocks:</h4>
             <div class="measurements-grid scroll-reveal-text">
-                <div class="grid-header scroll-reveal-text"></div>
-                <div class="grid-header scroll-reveal-text">9 inches</div>
-                <div class="grid-header scroll-reveal-text">6 inches</div>
+                <div class="grid-header"></div>
+                <div class="grid-header">9 inches</div>
+                <div class="grid-header">6 inches</div>
 
-                <div class="grid-label scroll-reveal-text">Length</div>
-                <div class="grid-data scroll-reveal-text">450 mm</div>
-                <div class="grid-data scroll-reveal-text">450 mm</div>
+                <div class="grid-label">Length</div>
+                <div class="grid-data">450 mm</div>
+                <div class="grid-data">450 mm</div>
 
-                <div class="grid-label scroll-reveal-text">Height</div>
-                <div class="grid-data scroll-reveal-text">225 mm</div>
-                <div class="grid-data scroll-reveal-text">225 mm</div>
+                <div class="grid-label">Height</div>
+                <div class="grid-data">225 mm</div>
+                <div class="grid-data">225 mm</div>
 
-                <div class="grid-label scroll-reveal-text">Base (b)</div>
-                <div class="grid-data scroll-reveal-text">225 mm</div>
-                <div class="grid-data scroll-reveal-text">150 mm</div>
+                <div class="grid-label">Base (b)</div>
+                <div class="grid-data">225 mm</div>
+                <div class="grid-data">150 mm</div>
             </div>
 
             <a href="contact.html" class="place-order-link-wrapper"> <button class="place-order-btn scroll-reveal-text">Place order</button></a>

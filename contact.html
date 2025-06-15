@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Oneco Construction</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-        <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Basic Reset & Body Styling */
         body {
@@ -68,13 +68,13 @@
             color: #f97316; /* Highlight on hover */
         }
 
-        /* Underline for active/selected link */
+        /* Underline for active/selected link - REMOVED for this context as per user request */
         .main-nav ul li a.active::after {
             content: '';
             position: absolute;
-            width: 100%;
-            height: 2px;
-            background: #333; /* Dark line for active link */
+            width: 0; /* Set width to 0 to hide the line */
+            height: 0; /* Set height to 0 to hide the line */
+            background: transparent; /* Make background transparent */
             left: 0;
             bottom: -5px;
             transition: width 0.3s ease;
@@ -97,26 +97,36 @@
 
         /* Hamburger Button */
         .hamburger-btn {
-            display: none; /* Hidden by default on desktop, shown on mobile */
-            width: 64px; /* Further increased width for the button */
-            height: 64px; /* Further increased height for the button */
-            background-color: #ededed; /* More accurate background color from image */
-            border-radius: 8px; /* Rounded corners from screenshot */
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), /* Softer outer shadow */
-                        inset 0px 1px 0px rgba(255, 255, 255, 0.6), /* Softer inner highlight */
-                        inset 0px -1px 0px rgba(0, 0, 0, 0.05); /* Added subtle bottom inner shadow */
-            border: none; /* Remove default button border */
+            /* Default to hidden and only show on small screens */
+            display: none;
+            background-color: #ececec; /* Light grey background for the button matching image */
+            border: none;
+            color: #555555; /* Dark icon color matching image */
+            font-size: 2rem;
             cursor: pointer;
-            display: flex; /* Use flex to center the SVG inside */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
+            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
+            border-radius: 0.5rem; /* Rounded corners as in the image */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
-        
+
+        .hamburger-btn:hover {
+            background-color: #d0d0d0; /* Slightly darker on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+        }
+
         .hamburger-btn svg {
-            width: 2.2em; /* Increased SVG size consistent with button increase */
-            height: 2.2em;
-            stroke: #4a4a4a; /* Adjusted SVG line color for darker appearance */
-            stroke-width: 2.5; /* Slightly thicker lines for more prominence */
+            width: 1.5em;
+            height: 1.5em;
+            stroke: currentColor; /* Ensure SVG lines inherit button color */
+            stroke-width: 1.5;
+        }
+
+        /* Show hamburger button only on screens up to 767px (phone screens) */
+        @media (max-width: 767px) {
+            .hamburger-btn {
+                display: block; /* Show hamburger on mobile */
+            }
         }
 
         /* Mobile Menu Overlay */
@@ -202,7 +212,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 1.5rem; /* Added horizontal padding to hero-content */
-            padding-bottom: 2rem;
+            padding-bottom: 0.5rem; /* Reduced padding to bring image closer */
         }
 
         .hero-content h1 {
@@ -229,7 +239,7 @@
             display: block;
             border-radius: 0; /* Ensure no border-radius for full width */
             box-shadow: none; /* Ensure no shadow for full width */
-            margin-top: 2rem;
+            margin-top: 0rem; /* Reduced margin to bring image closer */
         }
 
         /* Contact Info Section Styling */
@@ -257,7 +267,7 @@
             flex-direction: row; /* Default to row for desktop */
             align-items: flex-start; /* Align items to the start (left) */
             padding: 20px 0;
-            border-bottom: 1px solid #ccc; /* Thin line separator */
+            border-bottom: 1px solid #ccc; /* Re-added thin line separator */
             width: 100%; /* Ensure it takes full width of container */
         }
 
@@ -302,6 +312,8 @@
             text-align: center; /* Center the heading */
             width: 100%; /* Ensure it spans full width for centering */
             max-width: 1200px; /* Constrain width to align with content-wrapper */
+            /* Removed any border-bottom here if it was causing a line */
+            border-bottom: none;
         }
 
         #get-in-touch-section .content-wrapper {
@@ -530,6 +542,7 @@
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
+            /* This rule hides the hamburger button on larger screens (desktop) */
             .hamburger-btn {
                 display: none; /* Hide hamburger on desktop */
             }
@@ -556,7 +569,7 @@
             }
             .hero-content p {
                 font-size: 1.3rem;
-            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
             }
             .contact-item .label {
                 font-size: 1.5rem;
@@ -578,7 +591,7 @@
 
             #get-in-touch-section .image-column {
                 flex: 1;
-                max-width: 60%; /* Image takes 60% of the width */
+                max-width: 50%; /* Adjusted: Image takes 50% of the width */
                 text-align: left;
             }
 
@@ -592,7 +605,7 @@
 
             #get-in-touch-section .form-column {
                 flex: 1;
-                max-width: 40%; /* Form takes 40% of the width */
+                max-width: 50%; /* Adjusted: Form takes 50% of the width */
                 text-align: left;
                 padding: 80px; /* Increased padding for the form container to make it larger */
             }
@@ -609,10 +622,7 @@
             .main-nav {
                 display: none; /* Hide main nav on mobile */
             }
-            .hamburger-btn {
-                display: block; /* Show hamburger on mobile */
-                order: 1; /* Place hamburger on the left */
-            }
+            /* .hamburger-btn is handled by the default display and the specific max-width media query */
             .call-now-text {
                 order: 2; /* Place call text on the right */
                 margin-left: auto; /* Push call text to the right */
@@ -712,7 +722,7 @@
             </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html" >Home</a></li>
+                    <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="product.html">Products</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -798,8 +808,6 @@
         </div>
     </section>
 
-
-    <!-- New Footer HTML with Tailwind Classes and Scroll Reveal -->
     <footer class="bg-[#333] text-white py-5 px-4 w-full">
         <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
             <div class="flex-1 min-w-[200px] text-center md:text-left">
@@ -813,7 +821,7 @@
                     <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
                     <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
-                <div class="flex justify-center md:justify-start gap-3 mt-2">
+                <div class="flex justify-center md:justify-start gap-3 mt-2 social-icons">
                     <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
@@ -821,7 +829,7 @@
                     </a>
                     <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.908c0-.817.092-1.292 1.127-1.292h2.873v-5h-3.847c-3.122 0-5.153 1.727-5.153 4.585v2.415z"/>
                         </svg>
                     </a>
                     <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
@@ -909,6 +917,17 @@
         // Observe all elements with the 'scroll-reveal-text' class
         scrollRevealElements.forEach(element => {
             observer.observe(element);
+        });
+
+        // Highlight active navigation link based on current page (simple implementation)
+        const mainNavLinks = document.querySelectorAll('.main-nav ul li a');
+        const currentPath = window.location.pathname.split('/').pop();
+
+        mainNavLinks.forEach(link => {
+            const linkPath = link.getAttribute('href').split('/').pop();
+            if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
+                link.classList.add('active');
+            }
         });
     </script>
 </body>

@@ -3,429 +3,268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONECO Construction Enterprises</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <!-- Tailwind CSS CDN -->
+    <title>Construction of Block Bricks</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Custom CSS for specific elements not fully coverable by Tailwind, e.g., pseudo-elements, complex transforms */
         body {
-            font-family: 'Poppins', sans-serif; /* Keep Poppins font */
-        }
-        .main-nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: #f97316;
-            left: 0;
-            bottom: -5px;
-            transition: width 0.3s ease;
+            font-family: 'Inter', sans-serif;
         }
 
-        .main-nav ul li a.active::after {
-            width: 100%;
+        /* CSS for the general scroll-reveal effect */
+        .scroll-reveal {
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Slightly moved down */
+            transition: opacity 3s ease-out, transform 3s ease-out; /* Smooth transition, now 3 seconds */
         }
 
-        .hero-main-image-container {
-            border-top-left-radius: 50% 100%; /* Specific radius not in Tailwind */
-            border-top-right-radius: 50% 100%; /* Specific radius not in Tailwind */
-        }
-
-        /* Scroll Reveal Animation */
-        .scroll-reveal-text {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 3s ease-out, transform 3s ease-out;
-        }
-
-        .scroll-reveal-text.animated {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Custom letter spacing and font sizes for the headline across breakpoints */
-        .headline-top-line {
-            letter-spacing: 0.05em;
-            display: block;
-        }
-
-        .headline-bottom-line {
-            letter-spacing: -0.01em;
-            display: block;
-            white-space: nowrap; /* Prevent wrapping on one line if possible */
-        }
-
-        /* Adjust font size and letter spacing for mobile to prevent overflow on very small screens */
-        @media (max-width: 639px) { /* Tailwind's 'sm' breakpoint is 640px */
-            .headline-top-line {
-                font-size: 2.2rem; /* Adjusted for better fit on small phones */
-                letter-spacing: 0.03em;
-            }
-            .headline-bottom-line {
-                font-size: 2.2rem; /* Adjusted for better fit on small phones */
-                letter-spacing: -0.02em;
-                white-space: normal; /* Allow wrapping on small screens to prevent horizontal scroll */
-            }
-        }
-        @media (min-width: 640px) { /* Small screens and up */
-            .headline-top-line {
-                font-size: 3.5rem;
-                letter-spacing: 0.04em;
-            }
-            .headline-bottom-line {
-                font-size: 3.5rem;
-                letter-spacing: -0.01em;
-            }
-        }
-        @media (min-width: 768px) { /* Medium screens and up */
-            .headline-top-line {
-                font-size: 4rem;
-                letter-spacing: 0.03em;
-            }
-            .headline-bottom-line {
-                font-size: 4rem;
-                letter-spacing: 0.005em; /* Slightly more space for larger screens */
-            }
-        }
-        @media (min-width: 1024px) { /* Large screens and up */
-            .headline-top-line {
-                letter-spacing: 0.02em;
-                font-size: 4.8rem; /* Slightly larger for consistency */
-            }
-            .headline-bottom-line {
-                letter-spacing: -0.015em;
-                font-size: 4.8rem;
-            }
-        }
-        @media (min-width: 1280px) { /* Extra large screens and up (xl) */
-            .headline-top-line {
-                letter-spacing: 0.01em;
-                font-size: 6rem; /* Even larger */
-            }
-            .headline-bottom-line {
-                letter-spacing: -0.025em;
-                font-size: 6rem;
-            }
-        }
-
-        /* Paragraph styles with hardcoded line breaks for triangular effect */
-        .hero-content .sub-text {
-            text-align: center;
-            line-height: 1.4;
-            margin-left: auto; /* Center the block */
-            margin-right: auto; /* Center the block */
-            font-size: 1.125rem; /* Default for mobile, text-lg */
-        }
-
-        /* Adjust font sizes for different screen sizes for the paragraph */
-        @media (min-width: 768px) { /* Medium screens and up */
-            .hero-content .sub-text {
-                font-size: 1.25rem; /* text-xl */
-            }
-        }
-        @media (min-width: 1024px) { /* Large screens and up */
-            .hero-content .sub-text {
-                font-size: 1.5rem; /* text-2xl */
-            }
-        }
-        @media (min-width: 1280px) { /* Extra large screens and up (xl) */
-            .hero-content .sub-text {
-                font-size: 1.875rem; /* text-3xl */
-            }
-        }
-
-        /* Further reduce font size for very small phones (e.g., iPhone SE 1st gen) */
-        @media (max-width: 375px) {
-            .hero-content .sub-text {
-                font-size: 0.9rem; /* Smaller font for very narrow screens */
-            }
-        }
-
-        /* Mobile Menu Overlay specific styles */
-        .mobile-menu-overlay {
-            background-color: rgba(189, 189, 189, 0.8); /* Greyish with opacity */
-        }
-
-        .mobile-menu-overlay nav ul li a {
-            color: #4A4A4A; /* Dark grey text color */
-            font-size: 2.5rem; /* Large font size */
-            font-weight: 700; /* Bold */
+        .scroll-reveal.visible {
+            opacity: 1; /* Fully visible */
+            transform: translateY(0); /* Original position */
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
-    <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
-        <!-- The main container for header elements -->
-        <!-- justify-between ensures items are at the ends for mobile. On desktop (md), justify-start will allow ml-auto to push the call button right. -->
-        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative md:justify-start">
-            <!-- Hamburger button for mobile - positioned left -->
-            <button class="hamburger-btn md:hidden bg-gray-200 p-2 rounded-md shadow-sm text-[#4A4A4A] transition-colors duration-300 hover:text-[#f97316]" aria-label="Toggle Navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+<body class="bg-[#f2f2f2] min-h-screen flex flex-col">
+    <nav class="bg-[#f2f2f2] py-16 shadow-sm relative">
+        <div class="container mx-auto px-4 flex items-center justify-between relative">
+            <div id="desktop-nav-content" class="hidden md:flex md:flex-row md:space-x-8 md:items-center md:mx-auto w-full md:w-auto">
+                <div class="flex space-x-8 text-gray-700 font-medium">
+                    <a href="index.html" class="hover:text-gray-900 transition duration-300">Home</a>
+                    <a href="product.html" class="hover:text-gray-900 transition duration-300">Products</a>
+                    <a href="about.html" class="border-b-2 border-gray-700 pb-1 hover:text-gray-900 transition duration-300">About Us</a>
+                    <a href="contact.html" class="hover:text-gray-900 transition duration-300">Contact</a>
+                </div>
+                <div class="text-gray-700 font-semibold text-lg ml-8">
+                    Call Us Anytime <span class="text-gray-700">123-456-7890</span>
+                </div>
+            </div>
+
+            <button id="menu-toggle" class="md:hidden text-gray-700 focus:outline-none">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+            <div class="text-gray-700 font-semibold text-lg md:hidden">
+                <span class="text-gray-700">123-456-7890</span>
+            </div>
+        </div>
+
+        <div id="mobile-nav-menu" class="hidden fixed inset-0 bg-[#f2f2f2] z-50 flex flex-col items-center justify-center text-gray-800">
+            <button id="close-toggle" class="absolute top-8 right-8 text-gray-700 focus:outline-none">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
 
-            <!-- Main navigation - Centered for desktop, hidden for mobile -->
-            <!-- Using absolute positioning to center the nav element for desktop -->
-            <nav class="main-nav hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
-                <ul class="list-none m-0 p-0 flex gap-8">
-                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 ">Home</a></li>
-                    <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
-                    <li><a href="about.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">About Us</a></li>
-                    <li><a href="contact.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Contact</a></li>
-                </ul>
-            </nav>
+            <div class="flex flex-col items-center space-y-6 text-2xl font-bold">
+                <a href="index.html" class="hover:text-gray-900 transition duration-300">Home</a>
+                <a href="product.html" class="hover:text-gray-900 transition duration-300">Products</a>
+                <a href="about.html" class="hover:text-gray-900 transition duration-300">About Us</a>
+                <a href="contact.html" class="hover:text-gray-900 transition duration-300">Contact</a>
+            </div>
 
-            <!-- Call Us Anytime - positioned right -->
-            <!-- On mobile, it's pushed right by justify-between. On desktop, md:ml-auto pushes it to the far right. -->
-            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-[#333] px-0 py-0 no-underline font-normal whitespace-nowrap hover:text-orange-500 text-sm md:text-base md:ml-auto">Call Us Anytime +2347030326642</a>
+            <div class="absolute bottom-8 text-gray-700 font-semibold text-xl">
+                Call Us Anytime <span class="text-gray-700">123-456-7890</span>
+            </div>
+        </div>
+    </nav>
+    <div class="w-full h-0.5 bg-white"></div>
+
+    <header class="bg-[#f2f2f2] py-12 shadow-md scroll-reveal">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
+                Construction of Block Bricks
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600">
+                Building Your Vision, Brick by Brick
+            </p>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay hidden fixed inset-0 w-full h-full z-40 flex-col items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
-        <button class="close-btn absolute top-6 right-6 bg-none border-none text-[#4A4A4A] text-4xl cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-            <nav>
-                <ul class="list-none p-0 text-center">
-                    <li class="mb-8"><a href="index.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Home</a></li>
-                    <li class="mb-8"><a href="product.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Products</a></li>
-                    <li class="mb-8"><a href="about.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">About Us</a></li>
-                    <li class="mb-8"><a href="contact.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Contact</a></li>
-                    <li class="mb-8"><a href="tel:+2347030326642" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Call Us Anytime<br>+2347030326642</a></li>
-                </ul>
-            </nav>
-        </div>
+    <section class="relative w-full overflow-hidden flex-grow flex items-center justify-center min-h-[600px]">
+        <img
+            src="images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp"
+            alt="Construction site background"
+            class="absolute inset-0 w-full h-full object-cover"
+        >
+    </section>
 
-    <main class="hero-section mx-auto px-4 pt-12 pb-2 sm:px-6 sm:py-4 md:px-8 md:py-8 lg:px-10 lg:py-12 flex flex-col justify-center items-center flex-grow">
-        <!-- Adjusted margin/padding for mobile spacing from header and for laptop view -->
-        <div class="hero-logo-box text-center scroll-reveal-text mt-[-6rem]   md:mt-[-5.6rem] md:mb-[0.5rem] mb-[-3.8rem]">
-            <!-- Adjusted margin-bottom for mobile spacing, preserving laptop view -->
-            <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="w-[220px] h-[250px] mx-auto md:mb-[-4rem] md:w-[250px] ">
+    <section class="bg-[#f2f2f2] py-16 scroll-reveal">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
+            <div class="w-full md:w-1/3 text-center md:text-left">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+                    Why Oneco <br> Construction
+                </h2>
+            </div>
+            <div class="w-full md:w-2/3 text-center md:text-left">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Oneco Construction specializes in the art of crafting block brick structures, dedicated to bringing your architectural vision to life within your budget. Our team of skilled masons and builders ensures top-notch workmanship on every project. Let us lay the foundation for your dreams.
+                </p>
+            </div>
         </div>
-        <div class="hero-content w-full">
-            <!-- Updated headline with precise font size and letter spacing for triangular effect, now explicitly centered -->
-            <h1 class="headline font-extrabold text-[#4A4A4A] leading-tight mb-1 uppercase text-5xl sm:text-6xl md:text-7xl scroll-reveal-text text-center">
-                <span class="headline-top-line">BUILDING A</span>
-                <span class="headline-bottom-line">CONCRETE FUTURE</span>
-            </h1>
-            <!-- Paragraph for Desktop/Laptop Screens -->
-            <p class="sub-text font-light text-[#555555] leading-relaxed mb-8 scroll-reveal-text hidden md:block">
-                Oneco Construction is your reliable partner for all<br>
-                block brick construction needs. We offer tailored building solutions<br>
-                to meet your specific requirements while ensuring top-notch quality on every project.
-            </p>
-            <!-- Paragraph for Phone Screens -->
-            <p class="sub-text font-light text-[#555555] leading-relaxed mb-8 scroll-reveal-text md:hidden">
-                Oneco<br>
-                Construction is your<br>
-                reliable partner for all<br>
-                block brick construction needs.<br>
-                We offer tailored building solutions<br>
-                to meet your specific requirements<br>
-                while ensuring top-notch quality<br>
-                on every project.
-            </p>
-            <a href="product.html" class="btn inline-block bg-[#4A4A4A] text-white px-7 py-3 rounded-lg shadow-md no-underline transition-colors duration-300 cursor-pointer font-semibold text-base sm:px-8 sm:py-4 sm:text-lg md:px-9 md:py-4 md:text-xl hover:bg-[#333333]">
-                Explore Products
-            </a>
-        </div>
-    </main>
+    </section>
 
-    <div class="hero-main-image-container w-screen h-[calc(100vw/1.8)] max-h-[550px] mx-auto overflow-hidden rounded-b-none shadow-lg flex justify-center items-center bg-gray-300 relative">
-        <img src="images/renco-lego-building-blocks-construction_dezeen_2364_hero-1704x959.webp" alt="Construction Site" class="hero-main-image w-full h-auto block object-cover scroll-reveal-text">
-    </div>
+    <section class="bg-[#f2f2f2] py-16">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-around items-start gap-8">
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Craftsmanship
+                        </text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Guarantee
+                        </text>
+                    </svg>
+                </div>
 
-    <!-- Corrected "Our Specialised Services" Section with original distinct SVGs and mobile width adjustment -->
-    <section id="specialised-services" class="bg-[#f2f2f2] py-12 w-full box-border text-[#333] text-left">
-        <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border">
-            <h2 class="text-4xl font-bold mb-12 text-[#333] text-left">Our Specialised Services</h2>
-            <div class="services-grid grid grid-cols-1 sm:grid-cols-2 md:grid-cols-6 gap-5 w-full">
-                <!-- Concrete Block Type - Wrench Icon -->
-                <div class="service-block md:col-span-2 bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:w-11/12 md:w-full">
-                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-                        <path d="M569.517 440.043c-6.195 24.363-28.752 41.957-55.076 41.957H59.559c-26.324 0-48.881-17.594-55.076-41.957-6.195-24.363-1.636-50.603 12.19-71.077l186.233-287.487c13.827-20.473 35.856-32.969 59.853-32.969h29.278c23.997 0 46.026 12.496 59.853 32.969l186.233 287.487c13.827 20.474 18.385 46.714 12.19 71.077zm-271.954 13.916c-17.387 0-31.512-14.125-31.512-31.512s14.125-31.512 31.512-31.512 31.512 14.125 31.512 31.512-14.125 31.512-31.512 31.512zm-35.84-28.537c.725-10.748-7.795-19.539-18.544-20.264L199.19 385.733c-10.748-.725-19.539 7.795-20.264 18.544l-5.632 83.332c-.725 10.748 7.795 19.539 18.544 20.264l115.938 7.828c10.748.725 19.539-7.795 20.264-18.544l5.632-83.332c.725-10.748-7.795-19.539-18.544-20.264zM324.717 400.999c10.748-.725 19.539-7.795 20.264-18.544l5.632-83.332c.725-10.748-7.795-19.539-18.544-20.264L215.127 271.745c-10.748-.725-19.539 7.795-20.264 18.544l-5.632 83.332c-.725 10.748 7.795 19.539 18.544 20.264l115.938 7.828zM415.862 315.654c.725-10.748-7.795-19.539-18.544-20.264L297.38 231.258c-10.748-.725-19.539 7.795-20.264 18.544l-5.632 83.332c-.725 10.748 7.795 19.539 18.544 20.264l115.938 7.828z"/>
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Masonry
+                        </text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Expertise
+                        </text>
                     </svg>
-                    <h3 class="text-lg md:text-xl font-semibold mt-0 mb-3 leading-tight">Concrete Block Type</h3>
-                    <p class="text-lg md:text-xl font-semibold leading-normal m-0 mb-2">6'' Hollow & 9'' Hollow</p>
-                    <p class="text-base leading-normal m-0">All-purpose blocks for construction solutions meeting your unique needs.</p>
                 </div>
-                <!-- Quality Workmanship - Quality Icon -->
-                <div class="service-block md:col-span-2 bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:w-11/12 md:w-full">
-                    <svg class="icon w-8 h-8 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-                        <path d="M384 32c0 17.7 14.3 32 32 32s32-14.3 32-32V0c0-17.7-14.3-32-32-32s-32 14.3-32 32V32zM80 64C35.8 64 0 99.8 0 144v48H224V64H80zm384 0v96h80c44.2 0 80-35.8 80-80s-35.8-80-80-80h-80zM0 192V480c0 17.7 14.3 32 32 32H256V192H0zm288 0V512H544c17.7 0 32-14.3 32-32V192H288z"/>
+
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Unparalleled
+                        </text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Quality
+                        </text>
                     </svg>
-                    <h3 class="text-lg md:text-xl font-semibold mt-0 mb-3 leading-tight">Quality Workmanship</h3>
-                    <p class="text-sm leading-normal m-0">Committed to delivering superior block brick construction services.</p>
                 </div>
-                <!-- Residential & Commercial Projects - Buildings Icon (original) -->
-                <div class="service-block md:col-span-2 bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:w-11/12 md:w-full">
-                    <svg class="icon w-8 h-8 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
-                        <path d="M192 32c0-17.7 14.3-32 32-32s32 14.3 32 32V448c0 17.7-14.3 32-32 32s-32-14.3-32-32V32zM0 64C0 46.3 14.3 32 32 32H160c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V64zM288 64c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32V448c0 17.7-14.3 32-32 32H320c-17.7 0-32-14.3-32-32V64z"/>
+
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round" />
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Licensed
+                        </text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">
+                            Bricklayers
+                        </text>
                     </svg>
-                    <h3 class="text-lg md:text-xl font-semibold mt-0 mb-3 leading-tight">Residential & Commercial Projects</h3>
-                    <p class="text-sm leading-normal m-0">Tailored block brick solutions for residential and commercial properties.</p>
-                </div>
-                <!-- Structural Durability - Building Strong Icon -->
-                <div class="service-block md:col-span-3 bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:w-11/12 md:w-full">
-                    <svg class="icon w-8 h-8 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" fill="currentColor">
-                        <path d="M144 0c17.7 0 32 14.3 32 32V96H464V32c0-17.7 14.3-32 32-32s32 14.3 32 32V96h32c17.7 0 32 14.3 32 32V480c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V128c0-17.7 14.3-32 32-32H64V32c0-17.7 14.3-32 32-32H144zM480 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0zm-224 0a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"/>
-                    </svg>
-                    <h3 class="text-xl font-semibold mt-0 mb-3 leading-tight">Structural Durability</h3>
-                    <p class="text-sm leading-normal m-0">Ensuring the strength and stability of your block brick projects.</p>
-                </div>
-                <!-- Innovative Approaches - Lightbulb Icon -->
-                <div class="service-block md:col-span-3 bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:w-11/12 md:w-full">
-                    <svg class="icon w-8 h-8 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor">
-                        <path d="M288 32c0 17.7-14.3 32-32 32s-32-14.3-32-32V0h64V32zm96 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V0h64V64zM0 128H448v64H0V128zm0 96H448v64H0V224zm0 96H448v64H0V320zm32 96c0-17.7 14.3-32 32-32s32 14.3 32 32v64H320c-17.7 0-32 14.3-32 32V512H32v-64h224V416h-64z"/>
-                    </svg>
-                    <h3 class="text-xl font-semibold mt-0 mb-3 leading-tight">Innovative Approaches</h3>
-                    <p class="text-sm leading-normal m-0">Implementing cutting-edge methods and technologies in block brick construction.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="engineered-section" class="w-full bg-[#f2f2f2] py-12 md:py-20 flex items-start justify-start gap-10 box-border">
-        <div class="max-w-[1200px] mx-auto px-5 flex flex-col md:flex-row justify-start items-start w-full box-border gap-10">
-            <div class="engineered-content flex flex-col items-start text-left text-[#333] w-full md:w-1/2 md:max-w-[55%]">
-                <p class="text-base mt-0 mb-2 scroll-reveal-text">24/7 Block Brick Construction Services</p>
-                <h2 class="text-5xl font-bold leading-tight mt-0 mb-2">Serving Local Clients</h2>
-                <p class="text-base mt-0 mb-6 scroll-reveal-text">Let's build something great together. Count on us today to get started on your next project. Our dedicated team is ready to deliver exceptional quality and reliability for your next construction endeavour.</p>
-                <a href="contact.html"> <button class="bg-[#4a4a4a] text-white px-8 py-4 no-underline font-semibold rounded-full transition-colors duration-300 whitespace-nowrap border-none cursor-pointer shadow-md mt-6 hover:bg-[#222]">Get in Touch</button></a>
-            </div>
-            <div class="engineered-image-container flex justify-start items-start w-full md:w-1/2 md:max-w-[40%]">
-                <img src="images/IMG_5055.JPG" alt="Construction Mixer" class="max-w-full h-auto rounded-lg shadow-md">
-            </div>
-        </div>
+    <section class="bg-[#f2f2f2] py-8 scroll-reveal">
+        <div class="w-full h-0.5 bg-black rounded-full shadow-md"></div>
     </section>
 
-    <!-- New "Our Expertise" Section (Matches screenshot with uniform building icon) -->
-    <section id="our-expertise" class="bg-[#f2f2f2] py-12 w-full box-border text-[#333]">
-        <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border">
-            <div class="header-container flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-                <h2 class="text-4xl font-bold text-[#333] text-left mb-4 md:mb-0 scroll-reveal-text">Our Expertise</h2>
-                <p class="text-base text-[#333] text-left md:text-right w-full md:w-auto scroll-reveal-text">Where We Excel<br class="hidden md:inline">Proven expertise in delivering exceptional block brick construction<br class="hidden md:inline"> solutions.</p>
+    <section class="bg-[#f2f2f2] py-16 scroll-reveal">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start gap-8">
+            <div class="w-full md:w-2/5 text-center md:text-left">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+                    Our Reach
+                </h2>
             </div>
-            <div class="expertise-grid grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
-                <!-- Residential Projects Card -->
-                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                    <!-- Building icon for all expertise cards as per screenshot -->
-                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M160 32c0-17.7 14.3-32 32-32s32 14.3 32 32V96H160V32zM0 128C0 110.3 14.3 96 32 96H128h32H352h32h96c17.7 0 32 14.3 32 32V416c0 17.7-14.3 32-32 32H352 240 160 32c-17.7 0-32-14.3-32-32V128zM48 208v160c0 8.8 7.2 16 16 16H96c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm112 16c0-8.8-7.2-16-16-16H128c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224zm128-16c0-8.8-7.2-16-16-16H224c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V208zm112 16c0-8.8-7.2-16-16-16H352c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224z"/>
-                    </svg>
-                    <h3 class="text-xl font-semibold mb-2">Residential Projects</h3>
-                    <p class="text-base leading-normal">Dedicated to creating ideal living spaces with block brick construction.</p>
+            <div class="w-full md:w-3/5 text-center md:text-left space-y-6">
+                <p class="text-3xl md:text-4xl font-semibold text-gray-700 leading-snug mb-8">
+                    Block Brick <br> Construction Services in <br> Nigeria
+                </p>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Visit Our Office</h3>
+                    <p class="text-lg text-gray-700">
+                        14/17 Lateef Eletu, Off Olowu Eletu Street,  Awoyaya, Lagos
+                    </p>
                 </div>
-                <!-- Commercial Projects Card -->
-                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                    <!-- Building icon for all expertise cards as per screenshot -->
-                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M160 32c0-17.7 14.3-32 32-32s32 14.3 32 32V96H160V32zM0 128C0 110.3 14.3 96 32 96H128h32H352h32h96c17.7 0 32 14.3 32 32V416c0 17.7-14.3 32-32 32H352 240 160 32c-17.7 0-32-14.3-32-32V128zM48 208v160c0 8.8 7.2 16 16 16H96c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm112 16c0-8.8-7.2-16-16-16H128c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224zm128-16c0-8.8-7.2-16-16-16H224c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V208zm112 16c0-8.8-7.2-16-16-16H352c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224z"/>
-                    </svg>
-                    <h3 class="text-xl font-semibold mb-2">Commercial Projects</h3>
-                    <p class="text-base leading-normal">Enhancing commercial spaces with innovative block brick solutions.</p>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Get in Touch</h3>
+                    <p class="text-lg text-gray-700">123-456-7890</p>
                 </div>
-                <!-- Infrastructure Development Card -->
-                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                    <!-- Building icon for all expertise cards as per screenshot -->
-                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
-                        <path d="M160 32c0-17.7 14.3-32 32-32s32 14.3 32 32V96H160V32zM0 128C0 110.3 14.3 96 32 96H128h32H352h32h96c17.7 0 32 14.3 32 32V416c0 17.7-14.3 32-32 32H352 240 160 32c-17.7 0-32-14.3-32-32V128zM48 208v160c0 8.8 7.2 16 16 16H96c8.8 0 16-7.2 16-16V208c0-8.8-7.2-16-16-16H64c-8.8 0-16 7.2-16 16zm112 16c0-8.8-7.2-16-16-16H128c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224zm128-16c0-8.8-7.2-16-16-16H224c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V208zm112 16c0-8.8-7.2-16-16-16H352c-8.8 0-16 7.2-16 16v160c0 8.8 7.2 16 16 16h16c8.8 0 16-7.2 16-16V224z"/>
-                    </svg>
-                    <h3 class="text-xl font-semibold mb-2">Infrastructure Development</h3>
-                    <p class="text-base leading-normal">Contributing to the advancement of infrastructure through block brick construction.</p>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
+                    <p class="text-lg text-gray-700">oneco.exec@gmail.com</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="partner-with-us" class="bg-[#f2f2f2] py-4 md:py-8 w-full box-border text-[#333] flex flex-col items-center justify-center">
-        <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border flex flex-col gap-8 md:gap-10">
-            <!-- Full-width sub-heading -->
-            <span class="sub-heading text-5xl md:text-6xl font-semibold text-[#333] mt-0 mb-0 text-center md:text-left w-full scroll-reveal-text">The value we offer</span>
-
-            <!-- Two-column content below the full-width headings -->
-            <div class="partner-main-content-row flex flex-col md:flex-row items-stretch justify-between gap-8 md:gap-10 w-full">
-                <!-- Left Column: Value Blocks (excluding the "Partner With Us" block that goes on mobile) -->
-                <div class="left-column-content flex flex-col gap-3 text-left w-full md:max-w-[45%] md:flex-grow">
-                    <div class="partner-block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
-                        <h3 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Skilled Workforce</h3>
-                        <p class="text-sm leading-normal scroll-reveal-text">Highly qualified professionals ensuring the success of your block brick projects.</p>
-                    </div>
-                    <div class="partner-block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
-                        <h3 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Transparent Service Charges</h3>
-                        <p class="text-sm leading-normal scroll-reveal-text">Clear and honest communication regarding project costs and expenses.</p>
-                    </div>
-                    <div class="partner-block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
-                        <h3 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Decades of Experience</h3>
-                        <p class="text-sm leading-normal scroll-reveal-text">Bringing decades of expertise to every block brick project.</p>
-                    </div>
-                    <div class="partner-block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
-                        <h3 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Client Satisfaction</h3>
-                        <p class="text-sm leading-normal scroll-reveal-text">Prioritizing your satisfaction and peace of mind throughout the block brick construction process.</p>
-                    </div>
-                    <!-- Original "Partner With Us" combined block - now hidden on mobile -->
-                    <div class="partner-block hidden md:block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
-                        <h2 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Partner With Us</h2>
-                        <p class="text-sm leading-normal mt-0 mb-0 text-left scroll-reveal-text">Our commitment to excellence, integrity, and customer satisfaction sets us apart as a trusted partner in your building journey.</p>
-                    </div>
-                </div>
-
-                <!-- Right Column: Image + Mobile-only "Partner With Us" block -->
-                <div class="right-column-content flex flex-col gap-5 items-center text-center w-full md:max-w-[50%] md:flex-grow md:items-start md:text-left">
-                    <div class="partner-image-container flex justify-center items-center overflow-x-auto bg-transparent rounded-none shadow-none p-0 w-full">
-                        <img src="images/Screenshot 2025-05-26 224633.png" alt="Worker with Hard Hat" class="max-w-full h-auto block object-cover">
-                    </div>
-                    <!-- Mobile-only "Partner With Us" block - MOVED HERE -->
-                    <div class="partner-block block md:hidden bg-white text-[#333] p-4 rounded-lg shadow-xl text-left w-full">
-                        <h2 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Partner With Us</h2>
-                        <p class="text-sm leading-normal mt-0 mb-0 text-left scroll-reveal-text">Our commitment to excellence, integrity, and customer satisfaction sets us apart as a trusted partner in your building journey.</p>
-                    </div>
-                </div>
+    <!-- Updated "Build with Oneco Construction" section -->
+    <section class="bg-[#f2f2f2] py-16 scroll-reveal">
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+            <!-- Text content goes first to appear on the left -->
+            <div class="w-full md:w-1/2 text-center md:text-left space-y-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight">
+                    Build with Oneco <br> Construction
+                </h2>
+                <!-- Added the descriptive paragraph -->
+                <p class="text-gray-600 text-lg md:text-xl">
+                    Let's build something great together. Contact us today to get started on your next project. We turn blueprints into lasting realities.
+                </p>
+                <button>
+                    <a href="contact.html" class="px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+                        Connect with Us
+                    </a>
+                </button>
+            </div>
+            <!-- Image content goes second to appear on the right -->
+            <div class="w-full md:w-1/2 flex justify-center md:justify-end">
+                <img
+                    src="images/Screenshot 2025-05-27 060356.png"
+                    alt="Construction blocks"
+                    class="rounded-lg shadow-lg w-full max-w-sm md:max-w-none"
+                >
             </div>
         </div>
     </section>
-    <section class="process-images-section bg-[#f2f2f2] py-6 md:py-12 w-full box-border flex justify-center">
-        <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border flex flex-col md:flex-row gap-5">
-            <!-- Image Content - NO DUPLICATED TEXT HERE -->
-            <div class="process-images-wrapper flex flex-col md:flex-row gap-5 w-full">
-                <img src="images/Screenshot 2025-05-26 225228.png" alt="Laying the foundation" class="w-full md:w-1/2 h-auto block rounded-lg shadow-md object-cover">
-                <img src="images/Screenshot 2025-05-26 225257.png" alt="Designing with a blueprint" class="w-full md:w-1/2 h-auto block rounded-lg shadow-md object-cover">
+
+    <footer class="bg-[#333] text-white py-10 px-4 w-full scroll-reveal">
+        <div class="container mx-auto flex flex-wrap justify-between items-start gap-8">
+            <div class="flex-1 min-w-[150px] text-left">
+                <h4 class="text-white text-xl font-bold mb-2">Oneco Construction<br>Enterprises</h4>
+                <p class="text-sm leading-tight mb-1"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                <p class="text-sm leading-tight"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
             </div>
-        </div>
-    </section>
-       <!-- New Footer HTML with Tailwind Classes and Scroll Reveal -->
-    <footer class="bg-[#333] text-white py-5 px-4 w-full">
-        <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
-            </div>
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
+            <div class="flex-1 min-w-[150px] text-left">
                 <div class="contact-info">
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    <p class="text-sm leading-tight mb-1">123-456-7890</p>
+                    <p class="text-sm leading-tight mb-1">oneco.exec@gmail.com</p>
+                    <p class="text-sm leading-tight">14/17 Lateef Eletu, Off Olowu Eletu Street,  Awoyaya, Lagos</p>
                 </div>
-                <div class="flex justify-center md:justify-start gap-3 mt-2">
-                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                <div class="flex gap-3 mt-4">
+                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
                         </svg>
@@ -433,141 +272,87 @@
                 </div>
             </div>
             <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <!-- Placeholder image for the logo -->
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
+                <img src="images/Screenshot 2025-05-26 224232.png" alt="ONECO Logo" class="max-w-[150px] h-auto block">
             </div>
         </div>
-        <div class="text-center text-xs md:text-sm text-gray-400 mt-8 scroll-reveal-text">
-            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
-        </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Options for the Intersection Observer
+            const observerOptions = {
+                root: null, // Use the viewport as the root
+                rootMargin: '0px', // No margin around the root
+                threshold: 0.1 // Trigger when 10% of the element is visible
+            };
 
-    <!-- Firebase SDKs - Moved here for better organization with main script -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Global Firebase instances and user ID
-        let app;
-        let db;
-        let auth;
-        let userId;
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Firebase configuration from Canvas environment
-            const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id'; // Use default if not available
-            const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? initialAuthToken : null;
-
-            if (Object.keys(firebaseConfig).length > 0) {
-                app = initializeApp(firebaseConfig);
-                db = getFirestore(app); // Initialize Firestore even if not actively used on this page
-                auth = getAuth(app);
-
-                // Sign in with custom token if available, otherwise anonymously
-                if (initialAuthToken) {
-                    try {
-                        await signInWithCustomToken(auth, initialAuthToken);
-                        console.log("Signed in with custom token.");
-                    } catch (error) {
-                        console.error("Error signing in with custom token:", error);
-                        // Fallback to anonymous sign-in if custom token fails
-                        try {
-                            await signInAnonymously(auth);
-                            console.log("Signed in anonymously after custom token failure.");
-                        } catch (anonError) {
-                            console.error("Error signing in anonymously:", anonError);
-                        }
-                    }
-                } else {
-                    try {
-                        await signInAnonymously(auth);
-                        console.log("Signed in anonymously.");
-                    }
-                    catch (error) {
-                        console.error("Error signing in anonymously:", error);
-                    }
-                }
-
-                // Listen for auth state changes to get the user ID
-                onAuthStateChanged(auth, (user) => {
-                    if (user) {
-                        userId = user.uid;
-                        console.log("User ID:", userId);
-                        // In a multi-user app, you might display the userId, but for a static homepage, it's usually not necessary
-                        // const userIdDisplay = document.getElementById('userIdDisplay');
-                        // if (userIdDisplay) {
-                        //     userIdDisplay.textContent = `Current User ID: ${userId}`;
-                        // }
-                    } else {
-                        userId = null;
-                        console.log("No user signed in.");
-                        // const userIdDisplay = document.getElementById('userIdDisplay');
-                        // if (userIdDisplay) {
-                        //     userIdDisplay.textContent = 'Not signed in.';
-                        // }
-                    }
-                });
-            } else {
-                console.error("Firebase configuration not found. Backend functionality will not work.");
-            }
-
-            // Hamburger menu functionality
-            const hamburgerBtn = document.querySelector('.hamburger-btn');
-            const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-            const closeBtn = document.querySelector('.close-btn');
-            const mainHeader = document.getElementById('main-header'); // Get the header element
-
-            hamburgerBtn.addEventListener('click', () => {
-                // Add the Tailwind 'hidden' class to the header
-                mainHeader.classList.add('hidden');
-                // Toggle the classes to show/hide the menu
-                if (mobileMenuOverlay.classList.contains('hidden')) {
-                    mobileMenuOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-                    mobileMenuOverlay.classList.add('flex', 'opacity-100', 'pointer-events-auto');
-                } else {
-                    mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                    mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
-                }
-            });
-
-            closeBtn.addEventListener('click', () => {
-                // Remove the Tailwind 'hidden' class from the header
-                mainHeader.classList.remove('hidden');
-                mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
-            });
-
-            // Close mobile menu when a link is clicked
-            mobileMenuOverlay.querySelectorAll('nav ul li a').forEach(link => {
-                link.addEventListener('click', () => {
-                    // Only hide if the clicked link is not the "Call Us Anytime" link
-                    // This prevents the menu from closing when the user taps to call
-                    if (!link.href.startsWith('tel:')) {
-                        mainHeader.classList.remove('hidden'); // Remove hidden class from header
-                        mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                        mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
-                    }
-                });
-            });
-
-            // Scroll reveal animation
-            const scrollRevealElements = document.querySelectorAll('.scroll-reveal-text');
-
+            // Create a new Intersection Observer instance
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('animated');
-                        observer.unobserve(entry.target); // Stop observing once animated
+                        // Handle regular section reveal
+                        entry.target.classList.add('visible');
+                        // Stop observing once it's visible to prevent re-triggering
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1 // Trigger when 10% of the element is visible
+            }, observerOptions);
+
+            // Observe all elements with the 'scroll-reveal' class
+            document.querySelectorAll('.scroll-reveal').forEach(element => {
+                observer.observe(element);
             });
 
-            scrollRevealElements.forEach(element => {
-                observer.observe(element);
+            // JavaScript for Mobile Menu Toggle
+            const menuToggle = document.getElementById('menu-toggle');
+            const closeToggle = document.getElementById('close-toggle');
+            const mobileNavMenu = document.getElementById('mobile-nav-menu');
+            const desktopNavContent = document.getElementById('desktop-nav-content');
+
+            menuToggle.addEventListener('click', () => {
+                mobileNavMenu.classList.remove('hidden');
+                // Hide the main nav content and mobile phone number when menu is open
+                desktopNavContent.classList.add('hidden');
+                menuToggle.classList.add('hidden');
+                // Hide mobile phone number if present
+                const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
+                if (mobilePhone) mobilePhone.classList.add('hidden');
+            });
+
+            closeToggle.addEventListener('click', () => {
+                mobileNavMenu.classList.add('hidden');
+                // Restore visibility based on screen size
+                if (window.innerWidth >= 768) {
+                    desktopNavContent.classList.remove('hidden');
+                    menuToggle.classList.add('hidden'); // Ensure hamburger is hidden on desktop
+                } else {
+                    menuToggle.classList.remove('hidden');
+                    // Show mobile phone number if present
+                    const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
+                    if (mobilePhone) mobilePhone.classList.remove('hidden');
+                }
+            });
+
+            // Handle resize to ensure menu state is correct on desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) { // md breakpoint in Tailwind is 768px
+                    mobileNavMenu.classList.add('hidden'); // Hide mobile menu
+                    menuToggle.classList.add('hidden'); // Hide hamburger
+                    closeToggle.classList.add('hidden'); // Hide close icon
+                    desktopNavContent.classList.remove('hidden'); // Ensure desktop nav is visible
+                    // Hide mobile phone number if present
+                    const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
+                    if (mobilePhone) mobilePhone.classList.add('hidden');
+                } else {
+                    // On mobile, ensure only one icon is visible if menu is closed
+                    if (mobileNavMenu.classList.contains('hidden')) {
+                        menuToggle.classList.remove('hidden');
+                        closeToggle.classList.add('hidden');
+                        desktopNavContent.classList.add('hidden'); // Ensure desktop nav is hidden on mobile
+                        // Show mobile phone number if present
+                        const mobilePhone = document.querySelector('.md\\:hidden.text-gray-700.font-semibold.text-lg');
+                        if (mobilePhone) mobilePhone.classList.remove('hidden');
+                    }
+                }
             });
         });
     </script>

@@ -11,7 +11,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom CSS for specific elements not fully coverable by Tailwind, e.g., pseudo-elements, complex transforms */
-        body {
+      body {
             font-family: 'Poppins', sans-serif; /* Keep Poppins font */
         }
         .main-nav ul li a::after {
@@ -144,15 +144,70 @@
             }
         }
 
-        /* Mobile Menu Overlay specific styles */
+        /* Mobile Menu Overlay specific styles - UPDATED */
         .mobile-menu-overlay {
-            background-color: rgba(189, 189, 189, 0.8); /* Greyish with opacity */
+            display: none; /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent light grey */
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.3s ease;
+            opacity: 0; /* Start hidden for transition */
+            pointer-events: none; /* Disable interaction when hidden */
+            overflow-y: auto;
+        }
+
+        .mobile-menu-overlay.active {
+            display: flex; /* Show when active */
+            opacity: 1; /* Fade in */
+            pointer-events: auto; /* Enable interaction */
+        }
+
+        .mobile-menu-overlay .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #333; /* Dark icon color */
+            font-size: 2rem; /* Adjusted for new style */
+            cursor: pointer;
+        }
+
+        .mobile-menu-overlay nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .mobile-menu-overlay nav ul li {
+            margin-bottom: 2rem;
         }
 
         .mobile-menu-overlay nav ul li a {
-            color: #4A4A4A; /* Dark grey text color */
-            font-size: 2.5rem; /* Large font size */
-            font-weight: 700; /* Bold */
+            color: #333; /* Dark text color */
+            text-decoration: none;
+            font-size: 2.2rem; /* Adjusted for new style */
+            font-weight: 700; /* Bolder font weight */
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay nav ul li a:hover {
+            color: #f97316; /* Orange hover color */
+        }
+
+        /* Responsive font size for very small phones on mobile menu */
+        @media (max-width: 480px) {
+            .mobile-menu-overlay nav ul li a {
+                font-size: 1.8rem;
+            }
         }
     </style>
 </head>

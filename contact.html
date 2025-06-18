@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Oneco Construction</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Basic Reset & Body Styling */
         body {
@@ -68,13 +67,13 @@
             color: #f97316; /* Highlight on hover */
         }
 
-        /* Underline for active/selected link - REMOVED for this context as per user request */
+        /* Underline for active/selected link */
         .main-nav ul li a.active::after {
             content: '';
             position: absolute;
-            width: 0; /* Set width to 0 to hide the line */
-            height: 0; /* Set height to 0 to hide the line */
-            background: transparent; /* Make background transparent */
+            width: 100%;
+            height: 2px;
+            background: #333; /* Dark line for active link */
             left: 0;
             bottom: -5px;
             transition: width 0.3s ease;
@@ -97,36 +96,24 @@
 
         /* Hamburger Button */
         .hamburger-btn {
-            /* Default to hidden and only show on small screens */
-            display: none;
-            background-color: #ececec; /* Light grey background for the button matching image */
-            border: none;
-            color: #555555; /* Dark icon color matching image */
-            font-size: 2rem;
+            display: none; /* Hidden by default on desktop, shown on mobile */
+            width: 48px; /* Fixed width for the button */
+            height: 48px; /* Fixed height for the button */
+            background-color: #e0e0e0; /* Light grey background from screenshot */
+            border-radius: 8px; /* Rounded corners from screenshot */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.5); /* Subtle shadow and embossed effect */
+            border: none; /* Remove default button border */
+            color: #333; /* Color for the SVG lines */
+            font-size: 2rem; /* Size of the icon inside if using em units */
             cursor: pointer;
-            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
-            border-radius: 0.5rem; /* Rounded corners as in the image */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            display: flex; /* Use flex to center the SVG inside */
+            align-items: center; /* Center vertically */
+            justify-content: center; /* Center horizontally */
         }
-
-        .hamburger-btn:hover {
-            background-color: #d0d0d0; /* Slightly darker on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
-        }
-
+        
         .hamburger-btn svg {
-            width: 1.5em;
+            width: 1.5em; /* Ensure SVG size is consistent */
             height: 1.5em;
-            stroke: currentColor; /* Ensure SVG lines inherit button color */
-            stroke-width: 1.5;
-        }
-
-        /* Show hamburger button only on screens up to 767px (phone screens) */
-        @media (max-width: 767px) {
-            .hamburger-btn {
-                display: block; /* Show hamburger on mobile */
-            }
         }
 
         /* Mobile Menu Overlay */
@@ -212,7 +199,7 @@
             max-width: 900px;
             margin: 0 auto;
             padding: 0 1.5rem; /* Added horizontal padding to hero-content */
-            padding-bottom: 0.5rem; /* Reduced padding to bring image closer */
+            padding-bottom: 2rem;
         }
 
         .hero-content h1 {
@@ -239,13 +226,13 @@
             display: block;
             border-radius: 0; /* Ensure no border-radius for full width */
             box-shadow: none; /* Ensure no shadow for full width */
-            margin-top: 0rem; /* Reduced margin to bring image closer */
+            margin-top: 2rem;
         }
 
         /* Contact Info Section Styling */
         #contact-info-section {
             background-color: #f2f2f2; /* Matches the new body background */
-            padding: 20px 20px; /* Further reduced top/bottom padding */
+            padding: 50px 20px;
             color: #333;
             box-sizing: border-box;
             width: 100%;
@@ -267,7 +254,7 @@
             flex-direction: row; /* Default to row for desktop */
             align-items: flex-start; /* Align items to the start (left) */
             padding: 20px 0;
-            border-bottom: 1px solid #ccc; /* Re-added thin line separator */
+            border-bottom: 1px solid #ccc; /* Thin line separator */
             width: 100%; /* Ensure it takes full width of container */
         }
 
@@ -293,7 +280,7 @@
         /* Get In Touch Section Styling */
         #get-in-touch-section {
             background-color: #f2f2f2; /* Matches the new body background */
-            padding: 20px 20px; /* Further reduced top/bottom padding */
+            padding: 80px 20px;
             color: #333;
             box-sizing: border-box;
             width: 100%;
@@ -312,8 +299,6 @@
             text-align: center; /* Center the heading */
             width: 100%; /* Ensure it spans full width for centering */
             max-width: 1200px; /* Constrain width to align with content-wrapper */
-            /* Removed any border-bottom here if it was causing a line */
-            border-bottom: none;
         }
 
         #get-in-touch-section .content-wrapper {
@@ -333,8 +318,8 @@
         }
 
         #get-in-touch-section .image-column img {
-            max-width: 100%; /* Ensure image fills its column */
-            height: auto; /* Maintain aspect ratio */
+            max-width: 100%;
+            height: auto;
             display: block;
             border-radius: 8px; /* Rounded corners for the image */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for the image */
@@ -537,12 +522,11 @@
         }
 
         .scroll-reveal-text.animated {
-            animation: fadeInSlideUp 3s ease-out forwards; /* Adjusted animation duration */
+            animation: fadeInSlideUp 1s ease-out forwards; /* Adjusted animation duration */
         }
 
         /* Responsive Adjustments */
         @media (min-width: 768px) {
-            /* This rule hides the hamburger button on larger screens (desktop) */
             .hamburger-btn {
                 display: none; /* Hide hamburger on desktop */
             }
@@ -552,7 +536,6 @@
                 left: 50%;
                 transform: translateX(-50%);
                 justify-content: center; /* Center its content */
-                flex-grow: 0; /* Ensure it doesn't grow and force items apart */
             }
             .navbar-container {
                 /* Removed flex-wrap: wrap; for desktop */
@@ -569,7 +552,6 @@
             }
             .hero-content p {
                 font-size: 1.3rem;
-            padding-bottom: 0.5rem;
             }
             .contact-item .label {
                 font-size: 1.5rem;
@@ -591,7 +573,7 @@
 
             #get-in-touch-section .image-column {
                 flex: 1;
-                max-width: 50%; /* Adjusted: Image takes 50% of the width */
+                max-width: 60%; /* Image takes 60% of the width */
                 text-align: left;
             }
 
@@ -605,7 +587,7 @@
 
             #get-in-touch-section .form-column {
                 flex: 1;
-                max-width: 50%; /* Adjusted: Form takes 50% of the width */
+                max-width: 40%; /* Form takes 40% of the width */
                 text-align: left;
                 padding: 80px; /* Increased padding for the form container to make it larger */
             }
@@ -622,7 +604,10 @@
             .main-nav {
                 display: none; /* Hide main nav on mobile */
             }
-            /* .hamburger-btn is handled by the default display and the specific max-width media query */
+            .hamburger-btn {
+                display: block; /* Show hamburger on mobile */
+                order: 1; /* Place hamburger on the left */
+            }
             .call-now-text {
                 order: 2; /* Place call text on the right */
                 margin-left: auto; /* Push call text to the right */
@@ -636,7 +621,6 @@
             }
             .hero-content p {
                 font-size: 0.95rem;
-                margin-bottom: 0.5rem;
             }
             .contact-item {
                 flex-direction: column; /* Stack label and value vertically on mobile */
@@ -666,7 +650,7 @@
                 text-align: center; /* Center content on mobile */
             }
             #get-in-touch-section .image-column img {
-                min-height: 400px; /* Increased height for architectural plan image on mobile */
+                min-height: 350px; /* Increased height for architectural plan image on mobile */
                 object-fit: cover; /* Ensure image covers the area */
             }
             #get-in-touch-section .form-column {
@@ -675,7 +659,7 @@
                 text-align: center; /* Center content on mobile */
                 padding: 20px; /* Adjust padding for mobile form container */
             }
-            #get-in-touch-section h2 {
+            #get-in-touch-section h2 { /* Mobile styling for the main section heading */
                 font-size: 2.2em;
                 text-align: center;
             }
@@ -722,7 +706,7 @@
             </button>
             <nav class="main-nav">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="index.html">Home</a></li>
                     <li><a href="product.html">Products</a></li>
                     <li><a href="about.html">About Us</a></li>
                     <li><a href="contact.html">Contact</a></li>
@@ -746,7 +730,7 @@
                 <li><a href="product.html">Products</a></li>
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="contact.html">Contact</a></li>
-                <li><a href="tel:+2347030326642">Call Us Anytime +2347030326642</a></li>
+                <li><a href="tel:123-456-7890">Call Us Anytime +2347030326642</a></li>
             </ul>
         </nav>
     </div>
@@ -754,7 +738,7 @@
     <main class="hero-section">
         <div class="hero-content">
             <h1 class="scroll-reveal-text">Welcome to Oneco Construction</h1>
-            <p class="scroll-reveal-text">At Oneco Construction, we specialise in the construction of block bricks. Whether you need assistance, a quote, or have any questions, our team is here to help with all your construction needs.</p>
+            <p class="scroll-reveal-text">At Oneco Construction, we specialize in the construction of block bricks. Whether you need assistance, a quote, or have any questions, our team is here to help with all your construction needs.</p>
         </div>
         <img src="images/11062b_317a8f5c493042e0be553845ef4bda73~mv2.webp" alt="Construction Worker" class="hero-image scroll-reveal-text">
     </main>
@@ -767,7 +751,7 @@
             </div>
             <div class="contact-item">
                 <span class="label scroll-reveal-text">Call Us</span>
-                <span class="value scroll-reveal-text">+234 7030326642</span>
+                <span class="value scroll-reveal-text">+2347030326642</span>
             </div>
             <div class="contact-item">
                 <span class="label scroll-reveal-text">Email Us</span>
@@ -786,7 +770,7 @@
                 <form>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName" class="scroll-reveal-text">First name *</label>
+                            <label for="firstName" class="scroll-reveal-text">Firsts name *</label>
                             <input type="text" id="firstName" name="firstName" required class="scroll-reveal-text">
                         </div>
                         <div class="form-group">
@@ -808,44 +792,48 @@
         </div>
     </section>
 
-    <footer class="bg-[#333] text-white py-5 px-4 w-full">
-        <div class="container mx-auto flex flex-wrap justify-between items-center md:items-start gap-8">
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Oneco Construction<br>Enterprises</h4>
+                <p><a href="#">Privacy Policy</a></p>
+                <p><a href="#">Accessibility Statement</a></p>
             </div>
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
+            <div class="footer-column">
                 <div class="contact-info">
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    <p>+2347030326642</p>
+                    <p>oneco.exec@gmail.com</p>
+                    <p>14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
                 </div>
-                <div class="flex justify-center md:justify-start gap-3 mt-2 social-icons">
-                    <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                <div class="social-icons">
+                    <a href="#" aria-label="LinkedIn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                    <a href="#" aria-label="Facebook">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.908c0-.817.092-1.292 1.127-1.292h2.873v-5h-3.847c-3.122 0-5.153 1.727-5.153 4.585v2.415z"/>
+                            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4c0-1.667.671-2 1.667-2h2.333v-3h-3.192c-3.543 0-5.808 2.198-5.808 5.658v2.342z"/>
                         </svg>
                     </a>
-                    <a href="#" aria-label="Twitter" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                    <a href="#" aria-label="Twitter">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.403 0-6.165 2.762-6.165 6.165 0 .485.055.96.162 1.41-.513-.025-1.028-.09-1.538-.195-4.288-2.149-7.177-5.719-9.435-9.987-.44.75-.694 1.624-.694 2.553 0 1.792.91 3.375 2.292 4.316-.844-.025-1.63-.26-2.32-.64v.079c0 2.98 2.122 5.464 4.937 6.03-.518.14-1.06.215-1.616.215-.397 0-.785-.038-1.166-.11 1.242 3.88 4.855 6.702 9.133 6.702-2.115 1.664-4.782 2.651-7.698 2.651-1.005 0-1.996-.059-2.96-.172.032.934.192 1.847.485 2.71-.027-.001-.053-.002-.08-.002-.68 0-1.34-.055-1.987-.162-.002-.001-.004-.002-.006-.003"/>
                         </svg>
                     </a>
                 </div>
             </div>
-            <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <!-- Placeholder image for the logo -->
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
+            <div class="footer-logo-wrapper">
+                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="footer-logo" onerror="this.src='https://placehold.co/150x50/e0e0e0/555555?text=Logo+Not+Found';">
             </div>
         </div>
-        <div class="text-center text-xs md:text-sm text-gray-400 mt-8 scroll-reveal-text">
-            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
+        <div class="bottom-footer">
+            <div class="legal-links">
+                <!-- Content removed as per request -->
+            </div>
+            <div class="copyright">
+                <!-- Content removed as per request -->
+            </div>
         </div>
     </footer>
     
@@ -917,17 +905,6 @@
         // Observe all elements with the 'scroll-reveal-text' class
         scrollRevealElements.forEach(element => {
             observer.observe(element);
-        });
-
-        // Highlight active navigation link based on current page (simple implementation)
-        const mainNavLinks = document.querySelectorAll('.main-nav ul li a');
-        const currentPath = window.location.pathname.split('/').pop();
-
-        mainNavLinks.forEach(link => {
-            const linkPath = link.getAttribute('href').split('/').pop();
-            if (linkPath === currentPath || (currentPath === '' && linkPath === 'index.html')) {
-                link.classList.add('active');
-            }
         });
     </script>
 </body>

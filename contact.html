@@ -94,28 +94,37 @@
             color: #f97316;
         }
 
-        /* Hamburger Button */
         .hamburger-btn {
-            display: none; /* Hidden by default on desktop, shown on mobile */
-            width: 48px; /* Fixed width for the button */
-            height: 48px; /* Fixed height for the button */
-            background-color: #e0e0e0; /* Light grey background from screenshot */
-            border-radius: 8px; /* Rounded corners from screenshot */
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), inset 0px 1px 0px rgba(255, 255, 255, 0.5); /* Subtle shadow and embossed effect */
-            border: none; /* Remove default button border */
-            color: #333; /* Color for the SVG lines */
-            font-size: 2rem; /* Size of the icon inside if using em units */
-            cursor: pointer;
-            display: flex; /* Use flex to center the SVG inside */
-            align-items: center; /* Center vertically */
-            justify-content: center; /* Center horizontally */
-        }
-        
-        .hamburger-btn svg {
-            width: 1.5em; /* Ensure SVG size is consistent */
-            height: 1.5em;
-        }
+    display: block; /* Shown by default (mobile) */
+    background-color: #ececec; /* Light grey background for the button matching image */
+    border: none;
+    color: #555555; /* Dark icon color matching image */
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
+    border-radius: 0.5rem; /* Rounded corners as in the image */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
+.hamburger-btn:hover {
+    background-color: #d0d0d0; /* Slightly darker on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+}
+
+.hamburger-btn svg {
+    width: 1.5em;
+    height: 1.5em;
+    stroke: currentColor; /* Ensure SVG lines inherit button color */
+    stroke-width: 1.5;
+}
+
+/* This rule hides the hamburger button on larger screens (desktop) */
+@media (min-width: 1024px) {
+    .hamburger-btn {
+        display: none; /* Hide hamburger on desktop */
+    }
+}
         /* Mobile Menu Overlay */
         .mobile-menu-overlay {
             display: none; /* Hidden by default */
@@ -767,13 +776,10 @@
                 <img src="images/22553ed11ea647cdaa83b3af08f66f04.webp" alt="Architectural plans and materials">
             </div>
             <div class="form-column">
-                <form
-                  action="https://formspree.io/f/mdkzdgwy"
-  method="POST"
-                >
+                <form>
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="firstName" class="scroll-reveal-text">First name *</label>
+                            <label for="firstName" class="scroll-reveal-text">Firssst name *</label>
                             <input type="text" id="firstName" name="firstName" required class="scroll-reveal-text">
                         </div>
                         <div class="form-group">

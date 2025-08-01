@@ -144,30 +144,27 @@
                 font-size: 0.9rem; /* Smaller font for very narrow screens */
             }
         }
-
-        /* Mobile Menu Overlay specific styles - UPDATED */
-        .mobile-menu-overlay {
+    .mobile-menu-overlay {
             display: none; /* Hidden by default */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent light grey */
+            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent background */
             z-index: 2000;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             transition: opacity 0.3s ease;
-            opacity: 0; /* Start hidden for transition */
-            pointer-events: none; /* Disable interaction when hidden */
-            overflow-y: auto;
+            opacity: 0;
+            pointer-events: none; /* Prevents interaction when hidden */
         }
 
         .mobile-menu-overlay.active {
             display: flex; /* Show when active */
-            opacity: 1; /* Fade in */
-            pointer-events: auto; /* Enable interaction */
+            opacity: 1;
+            pointer-events: auto; /* Allow interaction when active */
         }
 
         .mobile-menu-overlay .close-btn {
@@ -176,14 +173,13 @@
             right: 1.5rem;
             background: none;
             border: none;
-            color: #333; /* Dark icon color */
-            font-size: 2rem; /* Adjusted for new style */
+            color: #333;
+            font-size: 2rem;
             cursor: pointer;
         }
 
         .mobile-menu-overlay nav ul {
             list-style: none;
-            margin: 0;
             padding: 0;
             text-align: center;
         }
@@ -193,40 +189,65 @@
         }
 
         .mobile-menu-overlay nav ul li a {
-            color: #333; /* Dark text color */
+            color: #333;
             text-decoration: none;
-            font-size: 2.2rem; /* Adjusted for new style */
-            font-weight: 700; /* Bolder font weight */
+            font-size: 2.2rem;
+            font-weight: 600;
             transition: color 0.3s ease;
         }
 
         .mobile-menu-overlay nav ul li a:hover {
-            color: #f97316; /* Orange hover color */
+            color: #f97316;
         }
-
         /* Responsive font size for very small phones on mobile menu */
         @media (max-width: 480px) {
             .mobile-menu-overlay nav ul li a {
                 font-size: 1.8rem;
             }
         }
+ @media (max-width: 1022px) {
+        /* Styles for the hamburger button */
+        .hamburger-btn {
+            display: block; /* Shown by default (mobile) */
+            background-color: #ececec; /* Light grey background for the button matching image */
+            border: none;
+            color: #555555; /* Dark icon color matching image */
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
+            border-radius: 0.5rem; /* Rounded corners as in the image */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hamburger-btn:hover {
+            background-color: #d0d0d0; /* Slightly darker on hover */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+        }
+
+        .hamburger-btn svg {
+            width: 1.1em;
+            height: 1.1em;
+            stroke: currentColor; /* Ensure SVG lines inherit button color */
+            stroke-width: 1.5;
+        
+        }
+    }
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
-    <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
+     <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
         <!-- The main container for header elements -->
-        <!-- justify-between ensures items are at the ends for mobile. On desktop (md), justify-start will allow ml-auto to push the call button right. -->
-        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative md:justify-start">
-            <!-- Hamburger button for mobile - positioned left -->
-            <button class="hamburger-btn md:hidden bg-gray-200 p-2 rounded-md shadow-sm text-[#4A4A4A] transition-colors duration-300 hover:text-[#f97316]" aria-label="Toggle Navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
+            <!-- Hamburger button for mobile - now uses custom CSS for styling and responsiveness -->
+            <button id="menu-toggle" class="hamburger-btn" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
 
             <!-- Main navigation - Centered for desktop, hidden for mobile -->
-            <!-- Using absolute positioning to center the nav element for desktop -->
-            <nav class="main-nav hidden md:flex md:absolute md:left-1/2 md:-translate-x-1/2">
+          <nav class="main-nav hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2">
                 <ul class="list-none m-0 p-0 flex gap-8">
                     <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 ">Home</a></li>
                     <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
@@ -236,8 +257,7 @@
             </nav>
 
             <!-- Call Us Anytime - positioned right -->
-            <!-- On mobile, it's pushed right by justify-between. On desktop, md:ml-auto pushes it to the far right. -->
-            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-[#333] px-0 py-0 no-underline font-normal whitespace-nowrap hover:text-orange-500 text-sm md:text-base md:ml-auto">Call Us Anytime +2347030326642</a>
+            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base md:ml-auto hover:text-orange-500 transition-colors duration-300">Call Us Anytime +2347030326642</a>
         </div>
     </header>
 
@@ -259,7 +279,9 @@
             </nav>
         </div>
 
-    <main class="hero-section mx-auto px-4 pt-12 pb-2 sm:px-6 sm:py-4 md:px-8 md:py-8 lg:px-10 lg:py-12 flex flex-col justify-center items-center flex-grow">
+  <main class="hero-section mx-auto
+             px-4 pt-12 pb-2              sm:px-6 sm:py-4             md:px-8 md:py-8             lg:px-8 lg:py-6.5          flex flex-col justify-center items-center flex-grow">
+    </main>
         <!-- Adjusted margin/padding for mobile spacing from header and for laptop view -->
         <div class="hero-logo-box text-center scroll-reveal-text mt-[-4rem]   md:mt-[-5.6rem] md:mb-[0.5rem] mb-[-3rem]">
             <!-- Adjusted margin-bottom for mobile spacing, preserving laptop view -->
@@ -425,7 +447,8 @@
                         <p class="text-sm leading-normal scroll-reveal-text">Prioritizing your satisfaction and peace of mind throughout the block brick construction process.</p>
                     </div>
                     <!-- Original "Partner With Us" combined block - now hidden on mobile -->
-                    <div class="partner-block hidden md:block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
+                   <div class="partner-block hidden lg:block bg-white text-[#333] p-4 rounded-lg shadow-xl text-left">
+    
                         <h2 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Partner With Us</h2>
                         <p class="text-sm leading-normal mt-0 mb-0 text-left scroll-reveal-text">Our commitment to excellence, integrity, and customer satisfaction sets us apart as a trusted partner in your building journey.</p>
                     </div>
@@ -434,8 +457,8 @@
                 <!-- Right Column: Image + Mobile-only "Partner With Us" block -->
                 <div class="right-column-content flex flex-col gap-5 items-center text-center w-full md:max-w-[50%] md:flex-grow md:items-start md:text-left">
                     <div class="partner-image-container flex justify-center items-center overflow-x-auto bg-transparent rounded-none shadow-none p-0 w-full">
-                        <img src="images/Screenshot 2025-05-26 224633.png" alt="Worker with Hard Hat" class="max-w-full h-auto block object-cover">
-                    </div>
+                      <img src="images/Screenshot 2025-05-26 224633.png" alt="Worker with Hard Hat"
+     class="max-w-full h-auto block object-cover md:h-[500px] lg:h-auto"></div>
                     <!-- Mobile-only "Partner With Us" block - MOVED HERE -->
                     <div class="partner-block block md:hidden bg-white text-[#333] p-4 rounded-lg shadow-xl text-left w-full">
                         <h2 class="font-semibold text-lg sm:text-xl scroll-reveal-text">Partner With Us</h2>

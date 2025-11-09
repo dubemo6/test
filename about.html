@@ -1,911 +1,556 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Construction of Block Bricks</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="shortcut icon"
-      href="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png"
-      type="image/x-icon"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="shortcut icon" href="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" type="image/x-icon" />
     <style>
-      body {
-        font-family: "Inter", sans-serif;
-      }
+        body { font-family: "Inter", sans-serif; }
 
-      .scroll-reveal {
-        opacity: 0;  transform: translateY(20px); 
-        transition: opacity 3s ease-out, transform 3s ease-out; /* Smooth transition, now 3 seconds */
-      }
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+        }
 
-      .scroll-reveal.visible {
-        opacity: 1; /* Fully visible */
-        transform: translateY(0); /* Original position */
-      }
-      /* Added for the new footer content, inheriting scroll-reveal */
-      .scroll-reveal-text {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 3s ease-out, transform 3s ease-out;
-      }
-      .scroll-reveal-text.visible {
-        opacity: 1;
-        transform: translateY(0);
-        z-index: 100; /* Ensure text is above other elements during scroll reveal */
-      }
-      /* 🔥 REVISED MOBILE MENU STYLES (LEFT-SIDE DRAWER) 🔥 */
-      .mobile-menu-overlay {
-        display: flex; /* Always flex, visibility controlled by transform */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 300px; /* **Fixed Width (Side-Drawer)** */
-        height: 100%;
-        background-color: #f2f2f2; /* Light background */
-        z-index: 2000;
-        flex-direction: column;
-        align-items: flex-start; /* Align content to the left */
-        padding: 2rem;
-        box-shadow: 4px 0 10px rgba(0, 0, 0, 0.15);
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scroll-reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 3s ease-out, transform 3s ease-out;
+        }
+
+        .scroll-reveal-text.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Menu Styles */
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100%;
+            background-color: rgba(242, 242, 242, 0.98);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 80px 20px 20px 20px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
         
-        /* HIDDEN STATE: Off-screen to the left */
-        transform: translateX(-100%); 
-        transition: transform 0.3s ease-out; 
+        .mobile-menu-overlay.active {
+            display: flex;
+            transform: translateX(0);
+        }
         
-        opacity: 1; /* Keep opacity at 1 for clean slide */
-        pointer-events: none; /* Prevents interaction when hidden */
-      }
-
-      .mobile-menu-overlay.active {
-        /* VISIBLE STATE: Slide into view */
-        transform: translateX(0); 
-        pointer-events: auto; /* Allow interaction when active */
-      }
-
-      /* 🔥 New Backdrop CSS for dimming effect 🔥 */
-      .mobile-backdrop {
-          display: none;
-          position: fixed;
-          top: 0; left: 0; right: 0; bottom: 0;
-          background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
-          z-index: 1999; /* Below the menu (2000) */
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.3s ease-out;
-      }
-      .mobile-backdrop.active {
-          display: block;
-          opacity: 1;
-          pointer-events: auto;
-      }
-
-      .mobile-menu-overlay .close-btn {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        background: none;
-        border: none;
-        color: #333;
-        font-size: 2rem;
-        cursor: pointer;
-      }
-
-      .mobile-menu-overlay nav {
-          margin-top: 2rem; /* Add spacing below close button */
-          width: 100%;
-      }
-
-      .mobile-menu-overlay nav ul {
-        list-style: none;
-        padding: 0;
-        text-align: left; /* Left-align the links */
-      }
-
-      .mobile-menu-overlay nav ul li {
-        margin-bottom: 1.5rem; /* Reduced margin */
-      }
-
-      .mobile-menu-overlay nav ul li a {
-        color: #333;
-        text-decoration: none;
-        font-size: 1.5rem; /* Reduced font size */
-        font-weight: 600;
-        transition: color 0.3s ease;
-        display: block;
-      }
-
-      .mobile-menu-overlay nav ul li a:hover {
-        color: #f97316;
-      }
-      /* Responsive font size for very small phones on mobile menu */
-      @media (max-width: 480px) {
-        .mobile-menu-overlay { width: 250px; } /* Adjust size for small phones */
+        .mobile-menu-overlay .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+        
+        .mobile-menu-overlay .close-btn:hover {
+            color: #f97316;
+        }
+        
+        .mobile-menu-overlay nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+        
+        .mobile-menu-overlay nav ul li {
+            margin-bottom: 1.5rem;
+        }
+        
         .mobile-menu-overlay nav ul li a {
-          font-size: 1.25rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: block;
+            width: 100%;
+            padding: 8px 0;
         }
-      }
-
-      /* Styles for the hamburger button */
-      /* Note: You must ensure this button is hidden on larger screens, 
-         which the CSS block below handles */
-      .hamburger-btn {
-        display: block; /* Shown by default (mobile) */
-        background-color: #ececec; /* Light grey background for the button matching image */
-        border: none;
-        color: #555555; /* Dark icon color matching image */
-        font-size: 2rem;
-        cursor: pointer;
-        padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
-        border-radius: 0.5rem; /* Rounded corners as in the image */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .hamburger-btn:hover {
-        background-color: #d0d0d0; /* Slightly darker on hover */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
-      }
-
-      .hamburger-btn svg {
-        width: 1em;
-        height: 1.1em;
-        stroke: currentColor; /* Ensure SVG lines inherit button color */
-        stroke-width: 1.5;
-      }
-
-      /* This rule hides the hamburger button on larger screens (desktop - lg breakpoint) */
-      @media (min-width: 1024px) { /* Changed from 1022px to 1024px to match Tailwind's 'lg' breakpoint */
+        
+        .mobile-menu-overlay nav ul li a:hover {
+            color: #f97316;
+        }
+        
+        /* Hamburger Button */
         .hamburger-btn {
-          display: none; /* Hide hamburger on desktop */
+            display: none;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            z-index: 2001;
         }
-      }
+        
+        .hamburger-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+        
+        .hamburger-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+        
+        @media (max-width: 1023px) {
+            .hamburger-btn { display: block; }
+            header .max-w-\[1200px\] {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .call-us-btn {
+                font-size: 0.875rem;
+                padding: 8px 12px;
+                white-space: nowrap;
+                margin-left: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .mobile-menu-overlay { width: 250px; }
+            .mobile-menu-overlay nav ul li a { font-size: 1.1rem; }
+            .call-us-btn {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            header .max-w-\[1200px\] {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .call-us-btn {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+            }
+            .hamburger-btn { padding: 6px; }
+        }
 
-      /* Active link styling for desktop navigation */
-      .main-nav ul li a.active::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #f97316; /* Orange color for active indicator */
-        transform: scaleX(1);
-        transition: transform 0.3s ease-out;
-      }
-
-      /* Removed hover effect for desktop navigation links */
-      .main-nav ul li a::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #f97316; /* Orange color for hover indicator */
-        transform: scaleX(0); /* Hidden by default */
-        transition: transform 0.3s ease-out;
-      }
+        /* Navigation Styles */
+        .main-nav ul li a::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+        
+        .main-nav ul li a.active::after {
+            width: 100%;
+        }
     </style>
-  </head>
-  <body
-    class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed"
-  >
-    <header
-      class="bg-[#f2f2f2] py-12 border-b border-white z-50"
-      id="main-header"
-    >
-      <div
-        class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative"
-      >
-        <button
-          id="menu-toggle"
-          class="hamburger-btn"
-          aria-label="Toggle Navigation"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
-
-        <nav
-          class="main-nav hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2"
-        >
-          <ul class="list-none m-0 p-0 flex gap-8">
-            <li>
-              <a
-                href="index.html"
-                class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300"
-                >Home</a
-              >
-            </li>
-            <li>
-              <a
-                href="product.html"
-                class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300"
-                >Products</a
-              >
-            </li>
-            <li>
-              <a
-                href="about.html"
-                class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300"
-                >About Us</a
-              >
-            </li>
-            <li>
-              <a
-                href="contact.html"
-                class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300"
-                >Contact</a
-              >
-            </li>
-          </ul>
-        </nav>
-
-        <a
-          href="tel:+2347030326642"
-          class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base md:ml-auto hover:text-orange-500 transition-colors duration-300"
-          >Call Us Anytime +2347030326642</a
-        >
-      </div>
+</head>
+<body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
+    
+    <!-- Header -->
+    <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
+        <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
+            
+            <!-- Hamburger Button -->
+            <button id="menu-toggle" class="hamburger-btn" aria-label="Toggle Navigation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+            
+            <!-- Desktop Navigation -->
+            <nav class="main-nav hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2">
+                <ul class="list-none m-0 p-0 flex gap-8">
+                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Home</a></li>
+                    <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
+                    <li><a href="about.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">About Us</a></li>
+                    <li><a href="contact.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Call to Action -->
+            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base hover:text-orange-500 transition-colors duration-300 lg:ml-auto">
+                Call Us Anytime +2347030326642
+            </a>
+        </div>
     </header>
-
-    <div id="mobile-backdrop" class="mobile-backdrop"></div>
-
-    <div id="mobile-nav-menu" class="mobile-menu-overlay">
-      <button id="close-toggle" class="close-btn" aria-label="Close Navigation">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          class="w-10 h-10"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M6 18L18 6M6 6l12 12"
-          />
-        </svg>
-      </button>
-      <nav>
-        <ul>
-          <li class="mb-4"><a href="index.html">Home</a></li>
-          <li class="mb-4"><a href="product.html">Products</a></li>
-          <li class="mb-4"><a href="about.html">About Us</a></li>
-          <li class="mb-4"><a href="contact.html">Contact</a></li>
-          <li class="mb-4">
-            <a href="tel:+2347030326642">Call Us Anytime<br />+2347030326642</a>
-          </li>
-        </ul>
-      </nav>
+    
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="mobile-menu-overlay">
+        <button class="close-btn" aria-label="Close Navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+        <nav class="w-full mt-8">
+            <ul class="list-none p-0 text-left w-full">
+                <li class="mb-6"><a href="index.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Home</a></li>
+                <li class="mb-6"><a href="product.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Products</a></li>
+                <li class="mb-6"><a href="about.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">About Us</a></li>
+                <li class="mb-6"><a href="contact.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Contact</a></li>
+                <li class="mt-8"><a href="tel:+2347030326642" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500 text-lg">Call Us Now<br><span class="text-orange-500">+2347030326642</span></a></li>
+            </ul>
+        </nav>
     </div>
-        <!-- Header Section (This seems to be a duplicate of the main header, but it's part of the content. Keeping it as is per instructions.) -->
+
+    <!-- Header Section -->
     <header class="bg-[#f2f2f2] py-8 shadow-md scroll-reveal">
-      <div class="container mx-auto px-4 text-center">
-        <h1
-          class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight"
-        >
-          Construction of Block Bricks
-        </h1>
-        <p class="text-xl md:text-2xl text-gray-600">
-          Building Your Vision, Brick by Brick
-        </p>
-      </div>
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-5xl md:text-6xl font-extrabold text-gray-800 mb-4 leading-tight">
+                Construction of Block Bricks
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600">
+                Building Your Vision, Brick by Brick
+            </p>
+        </div>
     </header>
 
     <!-- Hero Image Section -->
-    <section
-      class="relative w-full overflow-hidden flex-grow flex items-center justify-center min-h-[600px]"
-    >
-      <!-- Placeholder image used for demonstration. Replace with your local path: images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp -->
-      <img
-        src="images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp"
-        alt="Construction site background with bricks"
-        class="absolute inset-0 w-full h-full object-cover"
-        onerror="this.src='https://placehold.co/1200x800/e0e0e0/555555?text=Image+Not+Found';"
-        aria-label="Background image of a construction site with block bricks"
-      />
+    <section class="relative w-full overflow-hidden flex-grow flex items-center justify-center min-h-[600px]">
+        <img
+            src="images/11062b_992803c9acc94a4e92507b5e432ab892~mv2.webp"
+            alt="Construction site background with bricks"
+            class="absolute inset-0 w-full h-full object-cover"
+            onerror="this.src='https://placehold.co/1200x800/e0e0e0/555555?text=Image+Not+Found';"
+        />
     </section>
 
     <!-- Why Oneco Construction Section -->
     <section class="bg-[#f2f2f2] py-16 scroll-reveal mb-[-5.5rem]">
-      <div
-        class="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start justify-center gap-8"
-      >
-        <div class="w-full md:w-1/3 text-center md:text-left mb-[-1rem]">
-          <h2
-            class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight"
-          >
-            Why Oneco <br />
-            Construction
-          </h2>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start justify-center gap-8">
+            <div class="w-full md:w-1/3 text-center md:text-left mb-[-1rem]">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">
+                    Why Oneco <br />Construction
+                </h2>
+            </div>
+            <div class="w-full md:w-2/3 text-center md:text-left">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    Oneco Construction specializes in the art of crafting block brick
+                    structures, dedicated to bringing your architectural vision to life
+                    within your budget. Our team of skilled masons and builders ensures
+                    top-notch workmanship on every project. Let us lay the foundation
+                    for your dreams.
+                </p>
+            </div>
         </div>
-        <div class="w-full md:w-2/3 text-center md:text-left">
-          <p class="text-lg text-gray-700 leading-relaxed">
-            Oneco Construction specializes in the art of crafting block brick
-            structures, dedicated to bringing your architectural vision to life
-            within your budget. Our team of skilled masons and builders ensures
-            top-notch workmanship on every project. Let us lay the foundation
-            for your dreams.
-          </p>
-        </div>
-      </div>
     </section>
 
     <!-- Features Section with SVG Icons -->
     <section class="bg-[#f2f2f2] py-16 mb-[-2rem]">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-wrap justify-around items-start gap-8">
-          <!-- Craftsmanship Guarantee SVG - No changes as requested -->
-          <div
-            class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal"
-          >
-            <svg
-              width="150"
-              height="150"
-              viewBox="0 0 200 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <text
-                x="100"
-                y="150"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Craftsmanship
-              </text>
-              <text
-                x="100"
-                y="170"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Guarantee
-              </text>
-            </svg>
-          </div>
+        <div class="container mx-auto px-4">
+            <div class="flex flex-wrap justify-around items-start gap-8">
+                <!-- Craftsmanship Guarantee -->
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Craftsmanship</text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Guarantee</text>
+                    </svg>
+                </div>
 
-          <!-- Masonry Expertise SVG - No changes as requested -->
-          <div
-            class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal"
-          >
-            <svg
-              width="150"
-              height="150"
-              viewBox="0 0 200 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <text
-                x="100"
-                y="150"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Masonry
-              </text>
-              <text
-                x="100"
-                y="170"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Expertise
-              </text>
-            </svg>
-          </div>
+                <!-- Masonry Expertise -->
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Masonry</text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Expertise</text>
+                    </svg>
+                </div>
 
-          <!-- Unparalleled Quality SVG - No changes as requested -->
-          <div
-            class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal"
-          >
-            <svg
-              width="150"
-              height="150"
-              viewBox="0 0 200 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <text
-                x="100"
-                y="150"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Unparalleled
-              </text>
-              <text
-                x="100"
-                y="170"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Quality
-              </text>
-            </svg>
-          </div>
+                <!-- Unparalleled Quality -->
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Unparalleled</text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Quality</text>
+                    </svg>
+                </div>
 
-          <!-- Licensed Bricklayers SVG - No changes as requested -->
-          <div
-            class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal"
-          >
-            <svg
-              width="150"
-              height="150"
-              viewBox="0 0 200 200"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <path
-                d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z"
-                stroke="#333333"
-                stroke-width="2"
-                stroke-linejoin="round"
-              />
-              <text
-                x="100"
-                y="150"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Licensed
-              </text>
-              <text
-                x="100"
-                y="170"
-                font-family="Inter, sans-serif"
-                font-size="16"
-                fill="#333333"
-                text-anchor="middle"
-              >
-                Bricklayers
-              </text>
-            </svg>
-          </div>
+                <!-- Licensed Bricklayers -->
+                <div class="flex flex-col items-center p-4 rounded-lg flex-shrink-0 w-48 scroll-reveal">
+                    <svg width="150" height="150" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M75 100 C 60 80, 50 60, 55 40 C 60 20, 75 10, 90 10 C 85 30, 80 50, 75 70 C 70 80, 70 90, 75 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M68 110 C 53 90, 43 70, 48 50 C 53 30, 68 20, 83 20 C 78 40, 73 60, 68 80 C 63 90, 63 100, 68 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M61 120 C 46 100, 36 80, 41 60 C 46 40, 61 30, 76 30 C 71 50, 66 70, 61 90 C 56 100, 56 110, 61 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M125 100 C 140 80, 150 60, 145 40 C 140 20, 125 10, 110 10 C 115 30, 120 50, 125 70 C 130 80, 130 90, 125 100 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M132 110 C 147 90, 157 70, 152 50 C 147 30, 132 20, 117 20 C 122 40, 127 60, 132 80 C 137 90, 137 100, 132 110 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <path d="M139 120 C 154 100, 164 80, 159 60 C 154 40, 139 30, 124 30 C 129 50, 134 70, 139 90 C 144 100, 144 110, 139 120 Z" stroke="#333333" stroke-width="2" stroke-linejoin="round"/>
+                        <text x="100" y="150" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Licensed</text>
+                        <text x="100" y="170" font-family="Inter, sans-serif" font-size="16" fill="#333333" text-anchor="middle">Bricklayers</text>
+                    </svg>
+                </div>
+            </div>
         </div>
-      </div>
     </section>
 
     <!-- Horizontal Rule -->
     <section class="bg-[#f2f2f2] py-8 scroll-reveal">
-      <!-- Changed h-0.5 to h-px for a thinner line -->
-      <div class="w-full h-px bg-black rounded-full shadow-md"></div>
+        <div class="w-full h-px bg-black rounded-full shadow-md"></div>
     </section>
 
-    <!-- Our Reach Section - Now hidden on medium and larger screens (laptops) -->
+    <!-- Our Reach Section -->
     <section class="bg-[#f2f2f2] py-16 scroll-reveal md:hidden mb-[-3rem]">
-      <div
-        class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start gap-8"
-      >
-        <div class="w-full md:w-2/5 text-center md:text-left">
-          <h2
-            class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight"
-          >
-            Our Reach
-          </h2>
+        <div class="container mx-auto px-4 flex flex-col md:flex-row justify-between items-start gap-8">
+            <div class="w-full md:w-2/5 text-center md:text-left">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4 leading-tight">Our Reach</h2>
+            </div>
+            <div class="w-full md:w-3/5 text-center md:text-left space-y-6">
+                <p class="text-3xl md:text-4xl font-semibold text-gray-700 leading-snug mb-8">
+                    Block Brick <br />Construction Services in <br />Nigeria
+                </p>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Visit Our Office</h3>
+                    <p class="text-lg text-gray-700">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Get in Touch</h3>
+                    <p class="text-lg text-gray-700">+234 7030326642</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
+                    <p class="text-lg text-gray-700">oneco.exec@gmail.com</p>
+                </div>
+            </div>
         </div>
-        <div class="w-full md:w-3/5 text-center md:text-left space-y-6">
-          <p
-            class="text-3xl md:text-4xl font-semibold text-gray-700 leading-snug mb-8"
-          >
-            Block Brick <br />
-            Construction Services in <br />
-            Nigeria
-          </p>
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-1">
-              Visit Our Office
-            </h3>
-            <p class="text-lg text-gray-700">
-              14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos
-            </p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-1">
-              Get in Touch
-            </h3>
-            <p class="text-lg text-gray-700">+234 7030326642</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold text-gray-800 mb-1">Email Us</h3>
-            <p class="text-lg text-gray-700">oneco.exec@gmail.com</p>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- Build with Oneco Construction Section -->
     <section class="bg-[#f2f2f2] py-16 scroll-reveal">
-      <div
-        class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8"
-      >
-        <div class="w-full md:w-1/2 flex justify-center md:justify-start">
-          <!-- Placeholder image used for demonstration. Replace with your local path: images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif -->
-          <img
-            src="images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif"
-            alt="Construction blocks ready for use"
-            class="rounded-lg shadow-lg w-full max-w-sm md:max-w-none"
-            onerror="this.src='https://placehold.co/600x400/e0e0e0/555555?text=Image+Not+Found';"
-          />
+        <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="w-full md:w-1/2 flex justify-center md:justify-start">
+                <img
+                    src="images/a64a52_fb3502c701a74dae9dbaab84d1a98ad3~mv2.avif"
+                    alt="Construction blocks ready for use"
+                    class="rounded-lg shadow-lg w-full max-w-sm md:max-w-none"
+                    onerror="this.src='https://placehold.co/600x400/e0e0e0/555555?text=Image+Not+Found';"
+                />
+            </div>
+            <div class="w-full md:w-1/2 text-center md:text-right space-y-6">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight">
+                    Build with Oneco Construction
+                </h2>
+                <p class="text-gray-600 text-lg md:text-xl">
+                    Let's build something great together. Contact us today to get
+                    started on your next project. Let us build your vision brick by
+                    brick.
+                </p>
+                <a href="contact.html" class="inline-block px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out">
+                    Connect with Us
+                </a>
+            </div>
         </div>
-        <div class="w-full md:w-1/2 text-center md:text-right space-y-6">
-          <h2
-            class="text-4xl md:text-5xl font-extrabold text-gray-800 leading-tight"
-          >
-            Build with Oneco Construction
-          </h2>
-          <p class="text-gray-600 text-lg md:text-xl">
-            Let's build something great together. Contact us today to get
-            started on your next project. Let us build your vision brick by
-            brick.
-          </p>
-          <!-- Corrected "Connect with Us" button structure -->
-          <a
-            href="contact.html"
-            class="inline-block px-8 py-3 bg-gray-800 text-white font-semibold rounded-full shadow-lg hover:bg-gray-700 transition duration-300 ease-in-out"
-          >
-            Connect with Us
-          </a>
-        </div>
-      </div>
     </section>
 
-  <footer class="bg-[#333] text-white py-5 px-4 w-full">
-    <div class="container mx-auto">
-        <!-- Mobile: Content side by side at top -->
-        <div class="flex flex-row justify-between items-start gap-4 md:hidden mb-4">
-            <!-- Company info - left side -->
-            <div class="text-left flex-1">
-                <h4 class="text-white text-sm font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
-            </div>
-            
-            <!-- Contact info - moved to right side -->
-            <div class="text-left flex-1 text-right">
-                <div class="contact-info">
-                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs leading-tight scroll-reveal-text">14/17 Lateef Eletu,<br>Off Olowu Eletu Street,<br>Awoyaya, Lagos</p>
+    <!-- Footer -->
+    <footer class="bg-[#333] text-white py-5 px-4 w-full">
+        <div class="container mx-auto">
+            <!-- Mobile Layout -->
+            <div class="flex flex-row justify-between items-start gap-4 md:hidden mb-4">
+                <div class="text-left flex-1">
+                    <h4 class="text-white text-sm font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                    <p class="text-xs leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+                </div>
+                
+                <div class="text-left flex-1 text-right">
+                    <div class="contact-info">
+                        <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
+                        <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
+                        <p class="text-xs leading-tight scroll-reveal-text">14/17 Lateef Eletu,<br>Off Olowu Eletu Street,<br>Awoyaya, Lagos</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile: Logo and icons in one row below content -->
-        <div class="flex flex-row justify-between items-center md:hidden">
-            <!-- Logo on left -->
-            <div class="flex justify-start">
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[80px] h-auto block scroll-reveal-text">
-            </div>
+            <div class="flex flex-row justify-between items-center md:hidden">
+                <div class="flex justify-start">
+                    <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[80px] h-auto block scroll-reveal-text">
+                </div>
 
-            <!-- Social icons on right -->
-            <div class="flex justify-end gap-3">
-                <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                    </svg>
-                </a>
-                
-                <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg> 
-                </a>
-                <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </a> 
-                <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Desktop layout - unchanged -->
-        <div class="hidden md:flex md:flex-row md:flex-wrap md:justify-between md:items-start gap-8">
-            <!-- Company info and links -->
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
-            </div>
-            
-            <!-- Contact info and social icons -->
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <div class="contact-info">
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
-                </div> 
-                <div class="flex justify-center md:justify-start gap-3 mt-2">
+                <div class="flex justify-end gap-3">
                     <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                         </svg>
                     </a>
                     
                     <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
                         </svg> 
                     </a>
                     <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                         </svg>
                     </a> 
                     <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
                 </div>
             </div>
+
+            <!-- Desktop Layout -->
+            <div class="hidden md:flex md:flex-row md:flex-wrap md:justify-between md:items-start gap-8">
+                <div class="flex-1 min-w-[200px] text-center md:text-left">
+                    <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+                </div>
+                
+                <div class="flex-1 min-w-[200px] text-center md:text-left">
+                    <div class="contact-info">
+                        <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
+                        <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
+                        <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    </div> 
+                    <div class="flex justify-center md:justify-start gap-3 mt-2">
+                        <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                        
+                        <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg> 
+                        </a>
+                        <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a> 
+                        <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
+                    <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
+                </div>
+            </div>
             
-            <!-- Desktop logo -->
-            <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
-            </div> 
+            <!-- Copyright -->
+            <div class="text-center text-xs md:text-sm text-gray-400 mt-6 md:mt-8 scroll-reveal-text">
+                &copy; 2025 Oneco Construction Enterprises. All rights reserved.
+            </div>
         </div>
-        
-        <!-- Copyright -->
-        <div class="text-center text-xs md:text-sm text-gray-400 mt-6 md:mt-8 scroll-reveal-text">
-            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
-        </div>
-    </div>
-</footer>
-<script>
-      document.addEventListener("DOMContentLoaded", function () {
-        // Options for the Intersection Observer for scroll-reveal effect
-        const observerOptions = {
-          root: null, // Use the viewport as the root
-          rootMargin: "0px", // No margin around the root
-          threshold: 0.1, // Trigger when 10% of the element is visible
-        };
+    </footer>
 
-        // Create a new Intersection Observer instance
-        const observer = new IntersectionObserver((entries, observer) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              // Handle general scroll-reveal effect
-              entry.target.classList.add("visible");
-              // Stop observing once it's visible to prevent re-triggering
-              observer.unobserve(entry.target);
-            }
-          });
-        }, observerOptions);
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Scroll Reveal Observer
+            const observerOptions = {
+                root: null,
+                rootMargin: "0px",
+                threshold: 0.1,
+            };
 
-        // Observe all elements with the 'scroll-reveal' and 'scroll-reveal-text' classes
-        document
-          .querySelectorAll(".scroll-reveal, .scroll-reveal-text")
-          .forEach((element) => {
-            observer.observe(element);
-          });
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("visible");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
 
-        // JavaScript for Mobile Menu Toggle
-        const hamburgerBtn = document.getElementById("menu-toggle");
-        const closeBtn = document.getElementById("close-toggle");
-        const mobileMenuOverlay = document.getElementById("mobile-nav-menu");
-        function button() {
-          mobileMenuOverlay.classList.add("active"); // Use 'active' class for custom CSS
-          // Hide the hamburger icon and show the close icon
-          hamburgerBtn.classList.add("hidden");
-          closeBtn.classList.remove("hidden");
-        }
+            document.querySelectorAll(".scroll-reveal, .scroll-reveal-text").forEach((element) => {
+                observer.observe(element);
+            });
 
-        if (hamburgerBtn && closeBtn && mobileMenuOverlay) {
-          // Open the mobile menu
-          hamburgerBtn.addEventListener(
-            "click",
-            button
-            //     mobileMenuOverlay.classList.add('active'); // Use 'active' class for custom CSS
-            //     // Hide the hamburger icon and show the close icon
-            //     hamburgerBtn.classList.add('hidden');
-            //     closeBtn.classList.remove('hidden');
-          );
-
-          // Close the mobile menu
-          closeBtn.addEventListener("click", () => {
-            mobileMenuOverlay.classList.remove("active"); // Remove 'active' class
-            // Show the hamburger icon and hide the close icon
-            hamburgerBtn.classList.remove("hidden");
-            closeBtn.classList.add("hidden");
-          });
-
-          // Handle resize: If screen becomes desktop size, ensure mobile menu is hidden
-          window.addEventListener("resize", () => {  const isDesktop = window.innerWidth >= 768; // Tailwind's 'md' breakpoint
-            if (isDesktop) {
-              mobileMenuOverlay.classList.remove("active"); // Hide menu on desktop
-              hamburgerBtn.classList.add("hidden"); // Ensure hamburger is hidden on desktop
-              closeBtn.classList.add("hidden"); // Ensure close button is hidden on desktop
-            } else {
-              // On mobile:
-              if (!mobileMenuOverlay.classList.contains("active")) {
-                // If menu is closed
-                hamburgerBtn.classList.remove("hidden"); // Show hamburger
-                closeBtn.classList.add("hidden"); // Hide close
-              } else {
-                // If menu is open
-                hamburgerBtn.classList.add("hidden"); // Hide hamburger
-                closeBtn.classList.remove("hidden");   } }});} });
+            // Mobile Menu Functionality
+            const menuToggle = document.getElementById("menu-toggle");
+            const mobileMenu = document.getElementById("mobile-menu");
+            const closeBtn = document.querySelector(".close-btn");
+            
+            menuToggle.addEventListener("click", function() {
+                mobileMenu.classList.add("active");
+                document.body.style.overflow = "hidden";
+            });
+            
+            closeBtn.addEventListener("click", function() {
+                mobileMenu.classList.remove("active");
+                document.body.style.overflow = "";
+            });
+            
+            const menuLinks = mobileMenu.querySelectorAll("a");
+            menuLinks.forEach(link => {
+                link.addEventListener("click", function() {
+                    mobileMenu.classList.remove("active");
+                    document.body.style.overflow = "";
+                });
+            });
+            
+            mobileMenu.addEventListener("click", function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove("active");
+                    document.body.style.overflow = "";
+                }
+            });
+            
+            document.addEventListener("keydown", function(e) {
+                if (e.key === "Escape" && mobileMenu.classList.contains("active")) {
+                    mobileMenu.classList.remove("active");
+                    document.body.style.overflow = "";
+                }
+            });
+        });
     </script>
-  </body>
+</body>
 </html>

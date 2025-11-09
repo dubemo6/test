@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" type="image/x-icon">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+  
     <style>
         /* Universal Box Sizing for consistent layout */
         *, *::before, *::after {
@@ -17,21 +18,21 @@
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
-            overflow-x: hidden; /* Prevent horizontal overflow */
+            overflow-x: hidden;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh; /* Use min-height to allow content to push body height */
-            background-color: #f2f2f2; /* Changed to #f2f2f2 */
+            min-height: 100vh;
+            background-color: #f2f2f2;
         }
 
         /* --- NAVBAR STYLES --- */
         header {
-            background-color: #f2f2f2; /* Changed to #f2f2f2 */
-            padding: 4rem 0; /* Adjusted: Reduced padding to bring it closer */
-            border-bottom: 1px solid white; /* Added thin line separator, changed to white */
-            box-shadow: none; /* No shadow as per image */
-            position: relative; /* Changed to relative to allow scrolling past it */
+            background-color: #f2f2f2;
+            padding: 3rem 0;
+            border-bottom: 1px solid white;
+            box-shadow: none;
+            position: relative;
             top: 0;
             left: 0;
             width: 100%;
@@ -41,15 +42,14 @@
         .navbar-container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px; /* Adjusted: Changed from 1.5rem to 20px to match main content padding */
-            display: flex; /* Always flex */
-            justify-content: space-between; /* Space between hamburger and call-now on mobile, and other items on desktop */
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            /* On mobile, only hamburger and call-now-text will be direct flex items visible */
         }
 
         .main-nav {
-            display: none; /* Hidden by default (mobile) */
+            display: none;
         }
 
         .main-nav ul {
@@ -61,7 +61,7 @@
         }
 
         .main-nav ul li a {
-            color: #333; /* Dark text color */
+            color: #333;
             text-decoration: none;
             font-weight: 400;
             padding: 0.5rem 0;
@@ -70,24 +70,23 @@
         }
 
         .main-nav ul li a:hover {
-            color: #f97316; /* Orange hover color */
+            color: #f97316;
         }
 
         .main-nav ul li a.active::after {
             content: '';
             position: absolute;
-            width: 100%; /* Underline for active link */
+            width: 100%;
             height: 2px;
-            background: #f97316; /* Orange underline */
+            background: #f97316;
             left: 0;
             bottom: -5px;
             transition: width 0.3s ease;
         }
 
         .call-now-text {
-            /* Default: It will be visible on mobile, positioned by flex */
             background-color: transparent;
-            color: #333; /* Dark text color */
+            color: #333;
             padding: 0;
             text-decoration: none;
             font-weight: 400;
@@ -95,58 +94,54 @@
         }
 
         .call-now-text:hover {
-            color: #f97316; /* Orange hover color */
+            color: #f97316;
         }
 
         .hamburger-btn {
-            display: block; /* Shown by default (mobile) */
-            background-color: #ececec; /* Light grey background for the button matching image */
+            display: block;
+            background: none;
             border: none;
-            color: #555555; /* Dark icon color matching image */
-            font-size: 2rem;
+            color: #333;
             cursor: pointer;
-            padding: 0.5rem 0.6rem; /* Adjusted padding to create square shape */
-            border-radius: 0.5rem; /* Rounded corners as in the image */
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            z-index: 2001;
         }
 
         .hamburger-btn:hover {
-            background-color: #d0d0d0; /* Slightly darker on hover */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow on hover */
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
         .hamburger-btn svg {
-            width: 0.1em;
-            height: 0.1em;
-            stroke: currentColor; /* Ensure SVG lines inherit button color */
-            stroke-width: 1.5;
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
         }
 
-
-        /* Mobile Menu Overlay */
+        /* Mobile Menu Overlay - Side Panel */
         .mobile-menu-overlay {
-            display: none; /* Hidden by default */
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 280px;
             height: 100%;
-            background-color: rgba(200, 200, 200, 0.95); /* Semi-transparent light grey */
+            background-color: rgba(242, 242, 242, 0.98);
             z-index: 2000;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.3s ease;
-            opacity: 0; /* Start hidden for transition */
-            pointer-events: none; /* Disable interaction when hidden */
-            overflow-y: auto;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 80px 20px 20px 20px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
 
         .mobile-menu-overlay.active {
-            display: flex; /* Show when active */
-            opacity: 1; /* Fade in */
-            pointer-events: auto; /* Enable interaction */
+            display: flex;
+            transform: translateX(0);
         }
 
         .mobile-menu-overlay .close-btn {
@@ -155,35 +150,42 @@
             right: 1.5rem;
             background: none;
             border: none;
-            color: #333; /* Dark icon color */
-            font-size: 2rem;
+            color: #333;
+            font-size: 1.5rem;
             cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay .close-btn:hover {
+            color: #f97316;
         }
 
         .mobile-menu-overlay nav ul {
             list-style: none;
-            margin: 0;
             padding: 0;
-            text-align: center;
+            text-align: left;
+            width: 100%;
         }
 
         .mobile-menu-overlay nav ul li {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .mobile-menu-overlay nav ul li a {
-            color: #333; /* Dark text color */
+            color: #333;
             text-decoration: none;
-            font-size: 2.2rem;
-            font-weight: 700; /* Changed from 600 to 700 to make it bolder */
+            font-size: 1.3rem;
+            font-weight: 600;
             transition: color 0.3s ease;
+            display: block;
+            width: 100%;
+            padding: 8px 0;
         }
 
         .mobile-menu-overlay nav ul li a:hover {
-            color: #f97316; /* Orange hover color */
+            color: #f97316;
         }
-
-        /* --- END NAVBAR STYLES --- */
 
         /* --- HERO SECTION STYLES --- */
         #hero-section {
@@ -201,15 +203,14 @@
         #hero-section h1,
         #tailored-solutions-column h2,
         .secondary-content h2 {
-            font-size: 2.5rem; /* Increased font size for all h1 and h2 */
-            font-weight: 700; /* Bold font weight */
-            color: #333; /* Dark grey color */
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
             line-height: 1.2;
             margin-bottom: 1rem;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        /* End new H1/H2 style */
 
         .hero-content {
             max-width: 800px;
@@ -234,58 +235,55 @@
             border-radius: 0;
             box-shadow: none;
         }
-        /* --- END HERO SECTION STYLES --- */
 
         /* --- NEW MAIN LAYOUT SECTION --- */
         .main-layout-container {
             display: flex;
-            flex-direction: row; /* Default for desktop: Left and Right columns */
+            flex-direction: row;
             width: 100%;
-            max-width: 1200px; /* Constrain overall width */
-            margin: 50px auto; /* Space from sections above/below */
-            padding: 0 20px; /* Add padding to the container to control overall layout */
-            gap: 80px; /* Increased space between columns to push right column further */
-            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 0 20px;
+            gap: 80px;
+            flex-wrap: wrap;
         }
 
         #tailored-solutions-column {
-            min-width: 300px; /* Minimum width before wrapping */
+            min-width: 300px;
             text-align: left;
             color: #333;
-            padding: 20px; /* Default padding for all sides */
+            padding: 20px;
         }
 
         /* Specific styles for desktop (laptop screen) layout */
         @media (min-width: 1024px) {
             .navbar-container {
-                display: grid; /* Use grid for desktop navbar */
-                grid-template-columns: 1fr auto 1fr; /* Flexible left, auto width for nav, flexible right */
-                justify-content: unset; /* Reset flex alignment */
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                justify-content: unset;
             }
             .main-nav {
-                display: flex; /* Show desktop nav */
-                grid-column: 2; /* Place in the middle column */
-                justify-self: center; /* Center horizontally within its grid cell */
+                display: flex;
+                grid-column: 2;
+                justify-self: center;
             }
             .call-now-text {
-                display: block; /* Ensure it's block on desktop */
-                grid-column: 3; /* Place in the right column */
-                justify-self: end; /* Align to the end of the grid cell */
+                display: block;
+                grid-column: 3;
+                justify-self: end;
             }
             .hamburger-btn {
-                display: none; /* Hide hamburger on desktop */
+                display: none;
             }
 
             #tailored-solutions-column {
-                flex: 1; /* Make product details column equal width */
-                border-right: 1px solid white; /* White thin line divider */
-                /* Adjusted padding for desktop */
-                padding: 20px 40px 20px 0; /* top, right (gap from divider), bottom, left (no padding) */
+                flex: 1;
+                border-right: 1px solid white;
+                padding: 20px 40px 20px 0;
             }
             #product-details-column {
-                flex: 1; /* Make product details column equal width */
-                /* Adjusted padding for desktop */
-                padding: 20px 0 20px 40px; /* top, right (no padding), bottom, left (gap from divider) */
+                flex: 1;
+                padding: 20px 0 20px 40px;
             }
         }
 
@@ -295,24 +293,24 @@
         }
 
         #tailored-solutions-column .content-image {
-            width: 100%; /* Make image responsive within its column */
-            height: 350px; /* Consistent height */
-            max-width: 537px; /* Limit max width for desktop */
-            margin: 20px 0; /* Space above and below image */
-            border-radius: 8px; /* Rounded corners for the image */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Increased shadow */
-            object-fit: cover; /* Ensure image covers the area */
+            width: 100%;
+            height: 350px;
+            max-width: 537px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            object-fit: cover;
         }
 
         #product-details-column {
-            min-width: 300px; /* Minimum width before wrapping */
+            min-width: 300px;
             display: flex;
-            flex-direction: column; /* Stack content inside this column */
-            align-items: flex-start; /* Align content to the left */
+            flex-direction: column;
+            align-items: flex-start;
             text-align: left;
             color: #333;
-            padding: 20px; /* Default padding for all sides */
-            background-color: #f2f2f2; /* Same background as body */
+            padding: 20px;
+            background-color: #f2f2f2;
         }
 
         #product-details-column h3 {
@@ -325,29 +323,29 @@
         #product-details-column > p:first-of-type { 
             font-size: 1.1rem;
             line-height: 1.5;
-            margin-bottom: 0.5rem; /* Reduced margin to bring "Our range includes" closer */
+            margin-bottom: 0.5rem;
         }
-        #product-details-column p span { /* Style for the plus sign */
+        #product-details-column p span {
             font-weight: bold;
-            margin-right: 0.25em; /* Space between plus and text */
+            margin-right: 0.25em;
         }
 
         #scene-container-wrapper {
-            width: 70%; /* Adjusted width to be square relative to its column, and allow some padding */
-            height: unset; /* Remove fixed height */
-            aspect-ratio: 1 / 1; /* Force 1:1 aspect ratio */
-            margin: 0 auto 20px auto; /* Center horizontally and add bottom margin */
+            width: 70%;
+            height: unset;
+            aspect-ratio: 1 / 1;
+            margin: 0 auto 20px auto;
             display:flex;
             justify-content: center;
             align-items: center;
-            background-color: #e0e0e0; /* Light grey background for 3D area */
-            border-radius: 8px; /* Rounded corners for the container */
-            overflow: hidden; /* Hide anything outside the container */
+            background-color: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         #scene-container {
-            width: 100%; /* Make canvas fill the wrapper */
-            height: 100%; /* Make canvas fill the wrapper */
+            width: 100%;
+            height: 100%;
         }
 
         #product-details-column h4 {
@@ -359,62 +357,58 @@
 
         .measurements-grid {
             display: grid;
-            grid-template-columns: auto auto auto; /* Three columns: Label, 9 inches, 6 inches */
-            gap: 1px; /* Minimal gap for borders */
+            grid-template-columns: auto auto auto;
+            gap: 1px;
             font-size: 1rem;
-            margin-bottom: 30px; /* Space before the button */
-            width: 100%; /* Ensure the grid takes full width of its container */
-            border: 1px solid #ccc; /* Outer border for the grid */
-            border-radius: 8px; /* Rounded corners for the grid */
-            overflow: hidden; /* Ensures borders and background clip correctly to border-radius */
-        }
-        /* Style for all cells within the grid */
-        .measurements-grid > div {
-            padding: 8px; /* Padding for cell content */
-            border: 1px solid #eee; /* Inner borders for cells */
-            background-color: #f9f9f9; /* Light background for cells */
-            display: flex; /* Use flex to center content if needed */
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            text-align: center; /* Default text alignment for data */
+            margin-bottom: 30px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        /* Style for the header row of the grid */
+        .measurements-grid > div {
+            padding: 8px;
+            border: 1px solid #eee;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
         .measurements-grid .grid-header {
             font-weight: 675;
-            background-color: #e0e0e0; /* Slightly darker background for headers */
+            background-color: #e0e0e0;
         }
-        /* Style for the first column (labels) of the grid */
+
         .measurements-grid .grid-label {
             font-weight: 575;
-            text-align: left; /* Align labels to the left */
-            justify-content: flex-start; /* Align content to the start for labels */
-        }
-        /* Style for the data cells */
-        .measurements-grid .grid-data {
-            text-align: center; /* Center the data values */
+            text-align: left;
+            justify-content: flex-start;
         }
 
+        .measurements-grid .grid-data {
+            text-align: center;
+        }
 
         .place-order-link-wrapper {
-            align-self: center; /* Center the link itself within the flex column parent */
-            text-decoration: none; /* Ensure no underline on the link wrapper */
+            align-self: center;
+            text-decoration: none;
         }
 
         .place-order-btn {
-            background-color: #4a4a4a; /* Dark grey button */
+            background-color: #4a4a4a;
             color: #fff;
             padding: 1rem 2rem;
-            text-decoration: none; /* Keep text-decoration: none on button */
+            text-decoration: none;
             font-weight: 600;
-            border-radius: 9999px; /* Fully rounded corners */
+            border-radius: 9999px;
             transition: background-color 0.3s ease;
             white-space: nowrap;
             border: none;
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            /* Removed display: block; and margin: 0 auto; from here */
-            /* align-self is now on the parent link, so it's not needed here */
         }
 
         .place-order-btn:hover {
@@ -423,43 +417,42 @@
 
         /* --- END NEW MAIN LAYOUT SECTION --- */
 
-
         /* New section below main-content - renamed and repurposed from engineered-section */
-        #secondary-content-section { /* Renamed from engineered-section */
+        #secondary-content-section {
             width: 100%;
-            background-color: #f2f2f2; /* Changed to #f2f2f2 */
+            background-color: #f2f2f2;
             padding: 50px 20px;
             display: flex;
-            flex-direction: row; /* Default to row for desktop */
-            align-items: flex-start; /* Changed from center to flex-start for top alignment */
-            justify-content: space-between; /* Distribute space between items */
-            gap: 40px; /* Space between image and text */
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 40px;
         }
 
-        .secondary-image-container { /* Renamed from engineered-image-container */
-            flex: 0 0 40%; /* Flex-grow: 0, flex-shrink: 0, flex-basis: 40% */
+        .secondary-image-container {
+            flex: 0 0 40%;
             display: flex;
-            justify-content: flex-start; /* Align image to the left within its container */
+            justify-content: flex-start;
             align-items: center;
-            max-width: 40%; /* Ensure it doesn't grow beyond 40% */
+            max-width: 40%;
         }
 
         .secondary-image-container img {
-            width: 100%; /* Ensure image fits within its container */
-            height: 350px; /* Reduced height for laptop and matches mobile request */
-            object-fit: cover; /* Ensure image covers the area */
-            border-radius: 8px; /* Rounded corners for the image */
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .secondary-content { /* Renamed from engineered-content */
-            flex: 0 0 55%; /* Flex-grow: 0, flex-shrink: 0, flex-basis: 55% (leaving 5% for gap/padding) */
+        .secondary-content {
+            flex: 0 0 55%;
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Align text to the left */
+            align-items: flex-start;
             text-align: left;
             color: #333;
-            max-width: 55%; /* Limit content width */
+            max-width: 55%;
         }
         .secondary-content h2{
             margin-bottom: 3.5rem;
@@ -467,16 +460,16 @@
         .secondary-content p {
             font-size: 1.1rem;
             line-height: 1.6;
-            margin-bottom: 3.5rem; /* Space between text and button */
+            margin-bottom: 3.5rem;
         }
 
-        .secondary-button { /* Renamed from engineered-button */
-            background-color: #4a4a4a; /* Dark grey button */
+        .secondary-button {
+            background-color: #4a4a4a;
             color: #fff;
             padding: 1rem 2rem;
             text-decoration: none;
             font-weight: 600;
-            border-radius: 9999px; /* Fully rounded corners */
+            border-radius: 9999px;
             transition: background-color 0.3s ease;
             white-space: nowrap;
             border: none;
@@ -489,121 +482,146 @@
         }
 
         /* Media queries for responsiveness */
-        @media (max-width: 1023px) { /* Apply these styles on screens smaller than 1024px */
+        @media (max-width: 1023px) {
             .main-nav {
-                display: none; /* Hide desktop nav on mobile */
+                display: none;
             }
             .hamburger-btn {
-                display: block; /* Show hamburger on mobile */
+                display: block;
             }
             
             #hero-section {
-                padding: 10px 0; /* Adjusted: Removed horizontal padding for mobile */
-                margin-top: 0; /* Removed margin-top as navbar is no longer fixed */
+                padding: 10px 0;
+                margin-top: 0;
             }
-            /* Applying the new H1/H2 style for mobile responsiveness */
+
             #hero-section h1,
             #tailored-solutions-column h2,
             .secondary-content h2 {
-                font-size: 2.2rem; /* Adjusted smaller font size for mobile */
+                font-size: 2.2rem;
                 white-space: normal;
                 text-overflow: clip;
-                padding: 0 10px; /* Adjust padding for mobile */
-                text-align: center; /* Center on mobile for better readability */
+                padding: 0 10px;
+                text-align: center;
                 margin-bottom: 1.9rem; 
             }
-            /* Mobile styles for construction detail image */
+
             #tailored-solutions-column .content-image {
-                width: 100%; /* Changed from fixed pixel to 100% for responsiveness */
-                height: auto; /* Changed from fixed pixel to auto for responsiveness */
-                max-width: 470px; /* Set a max-width to control size on larger mobile screens */
-                margin: 20px auto; /* Center horizontally */
-                object-fit: cover; /* Make the image fill the square area, cropping if necessary */
+                width: 100%;
+                height: auto;
+                max-width: 470px;
+                margin: 20px auto;
+                object-fit: cover;
             }
             .secondary-content p {
                 font-size: 1.1rem;
                 line-height: 1.6;
-                margin-bottom: 2rem; /* Space between text and button */
+                margin-bottom: 2rem;
             }
-            /* End new H1/H2 style for mobile */
 
             .hero-content p {
-                font-size: 1.0rem; /* Smaller paragraph on mobile */
+                font-size: 1.0rem;
             }
 
             .main-layout-container {
-                flex-direction: column; /* Stack columns vertically on mobile */
+                flex-direction: column;
                 gap: 30px;
                 margin-top: 20px;
             }
             #tailored-solutions-column,
             #product-details-column {
-                min-width: unset; /* Remove min-width on mobile */
-                width: 100%; /* Full width on mobile */
-                padding: 15px 0; /* Adjusted: 15px top/bottom, 0px left/right */
-                align-items: center; /* Center content when stacked */
+                min-width: unset;
+                width: 100%;
+                padding: 15px 0;
+                align-items: center;
                 text-align: center;
             }
-/* CSS for the <br> tag in headings on desktop */
-#tailored-solutions-column h2 br {
-    display: none; /* Hide the line break on desktop */
-}
 
-/* Media queries for responsiveness */
-@media (max-width: 1023px) { /* Apply these styles on screens smaller than 1024px */
-    /* Specific mobile style for tailored construction solutions h2 */
-    #tailored-solutions-column h2 {
-        font-size: 1.8rem; /* Reduced font size for mobile */
-        white-space: normal; /* Allow wrapping on mobile */
-        text-overflow: clip; /* No ellipsis on wrapping text */
-        padding: 0 10px;
-        text-align: center;
-        margin-bottom: 1.9rem;
-    }
-    #tailored-solutions-column h2 br {
-        display: block; /* Make the line break visible on mobile */
-    }
-}
+            #tailored-solutions-column h2 br {
+                display: none;
+            }
+
             #product-details-column ul {
-                text-align: left; /* Keep list items left-aligned within centered container */
-                margin: 0 auto; /* Center the ul itself */
+                text-align: left;
+                margin: 0 auto;
             }
 
             #product-details-column .place-order-btn {
-                align-self: center; /* Ensure button is centered on mobile too */
+                align-self: center;
             }
 
             #secondary-content-section {
-                flex-direction: column; /* Stack vertically on mobile */
-                padding: 30px 20px; /* Adjust padding for mobile */
-                align-items: center; /* Added to center content horizontally */
+                flex-direction: column;
+                padding: 30px 20px;
+                align-items: center;
             }
             .secondary-image-container {
-                max-width: 100%; /* Full width on mobile */
-                flex-basis: auto; /* Reset flex-basis */
-                justify-content: center; /* Center image on mobile */
+                max-width: 100%;
+                flex-basis: auto;
+                justify-content: center;
             }
-            /* Mobile styles for construction mixer image */
+
             .secondary-image-container img {
-                height: auto; /* Changed from fixed pixel to auto for responsiveness */
-                width: 100%; /* Changed from fixed pixel to 100% for responsiveness */
-                max-width: 400px; /* Set a max-width to control size on larger mobile screens */
-                object-fit: cover; /* Make the image fill the square area, cropping if necessary */
+                height: auto;
+                width: 100%;
+                max-width: 400px;
+                object-fit: cover;
             }
             .secondary-content {
-                align-items: center; /* Center text content on mobile */
+                align-items: center;
                 text-align: center;
-                max-width: 100%; /* Full width on mobile */
-                flex-basis: auto; /* Reset flex-basis */
+                max-width: 100%;
+                flex-basis: auto;
+            }
+
+            /* Mobile navbar adjustments */
+            .navbar-container {
+                padding: 0 15px;
+            }
+            
+            .call-now-text {
+                font-size: 0.9rem;
+                padding: 8px 0;
+            }
+            
+            .hamburger-btn {
+                margin-right: auto;
             }
 
             /* Responsive font size for very small phones on mobile menu */
             @media (max-width: 480px) {
+                .mobile-menu-overlay {
+                    width: 250px;
+                }
                 .mobile-menu-overlay nav ul li a {
-                    font-size: 1.8rem;
+                    font-size: 1.1rem;
+                }
+                
+                .call-now-text {
+                    font-size: 0.8rem;
                 }
             }
-            
+        }
+
+        /* CSS for the <br> tag in headings on desktop */
+        #tailored-solutions-column h2 br {
+            display: none;
+        }
+
+        /* Media queries for responsiveness */
+        @media (max-width: 1023px) {
+            /* Specific mobile style for tailored construction solutions h2 */
+            #tailored-solutions-column h2 {
+                font-size: 1.8rem;
+                white-space: normal;
+                text-overflow: clip;
+                padding: 0 10px;
+                text-align: center;
+                margin-bottom: 1.9rem;
+            }
+            #tailored-solutions-column h2 br {
+                display: block;
+            }
         }
 
         /* Scroll Reveal Animation Styles */
@@ -634,7 +652,7 @@
         <div class="navbar-container">
             <!-- Hamburger button on the left for mobile -->
             <button class="hamburger-btn" aria-label="Toggle Navigation">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 0.8em; height: 0.8em;">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </button>
@@ -651,19 +669,21 @@
         </div>
     </header>
 
-    <div class="mobile-menu-overlay">
+    <!-- Mobile Menu Overlay - Side Panel -->
+    <div id="mobile-menu" class="mobile-menu-overlay">
         <button class="close-btn" aria-label="Close Navigation">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.5em; height: 1.5em;">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="scroll-reveal-text">Home</a></li>
-                <li><a href="product.html" class="scroll-reveal-text">Products</a></li>
-                <li><a href="about.html" class="scroll-reveal-text">About Us</a></li>
-                <li><a href="contact.html" class="scroll-reveal-text">Contact</a></li>
-                <li><a href="tel:+2347030326642" class="scroll-reveal-text">Call Us Anytime+2347030326642</a></li>
+            </svg>
+        </button>
+        
+        <nav class="w-full mt-8">
+            <ul class="list-none p-0 text-left w-full">
+                <li class="mb-6"><a href="index.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Home</a></li>
+                <li class="mb-6"><a href="product.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Products</a></li>
+                <li class="mb-6"><a href="about.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">About Us</a></li>
+                <li class="mb-6"><a href="contact.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Contact</a></li>
+                <li class="mt-8"><a href="tel:+2347030326642" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500 text-lg">Call Us Now<br><span class="text-orange-500">+2347030326642</span></a></li>
             </ul>
         </nav>
     </div>

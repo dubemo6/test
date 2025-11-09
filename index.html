@@ -1,186 +1,265 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>  <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONECO Construction</title> 
-    <link rel="preconnect" href="https://fonts.googleapis.com"> 
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <title>ONECO Construction</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="shortcut icon" href="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>  
-        body { font-family: 'Poppins', sans-serif; /* Keep Poppins font */ }
-        .main-nav ul li a::after {  
-            content: '';  position: absolute; width: 0;height: 2px; 
-            background: #f97316;left: 0;bottom: -5px;transition: width 0.3s ease;
-        }  
-        .main-nav ul li a.active::after {   width: 100%; }
-
-        /* Hero Image Container Shape */
-        .hero-main-image-container {     
-            border-top-left-radius: 50% 100%;    
-            border-top-right-radius: 50% 100%; 
+    <style>
+        body { font-family: 'Poppins', sans-serif; }
+        
+        .main-nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #f97316;
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease;
+        }
+        
+        .main-nav ul li a.active::after {
+            width: 100%;
         }
 
-        /* Scroll Reveal Animation */
+        .hero-main-image-container {
+            border-top-left-radius: 50% 100%;
+            border-top-right-radius: 50% 100%;
+        }
+
         .scroll-reveal-text {
             opacity: 0;
-            transform: translateY(20px); 
-            transition: opacity 1s ease-out, transform 1s ease-out; /* Reduced transition time for smoother app experience */
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
         }
-        .scroll-reveal-text.animated {   
-            opacity: 1; 
+        
+        .scroll-reveal-text.animated {
+            opacity: 1;
             transform: translateY(0);
         }
 
-        /* --- Custom Responsive Headline Typography (For all devices) --- */
         .headline-top-line { letter-spacing: 0.05em; display: block; }
-        .headline-bottom-line { letter-spacing: -0.01em; display: block; white-space: nowrap; } 
+        .headline-bottom-line { letter-spacing: -0.01em; display: block; white-space: nowrap; }
 
-        /* Adjustments for Very Small Phones (< 400px) - Ensures iPhone 6/SE is perfect */
         @media (max-width: 400px) {
             .hero-logo-box {
-                margin-top: -3rem !important; /* Less aggressive negative margin */
-                margin-bottom: -2rem !important; 
+                margin-top: -3rem !important;
+                margin-bottom: -2rem !important;
             }
         }
 
-        /* Mobile Screens (Default, up to 639px) */
-        @media (max-width: 639px) {  
-            .headline-top-line {  font-size: 2.2rem;  letter-spacing: 0.03em; }
-            .headline-bottom-line { font-size: 2.2rem;   letter-spacing: -0.02em; white-space: normal; }
-        } 
+        @media (max-width: 639px) {
+            .headline-top-line { font-size: 2.2rem; letter-spacing: 0.03em; }
+            .headline-bottom-line { font-size: 2.2rem; letter-spacing: -0.02em; white-space: normal; }
+        }
 
-        /* Small (sm) Screens (>= 640px) */
-        @media (min-width: 640px) {  
-            .headline-top-line {font-size: 3.5rem;  letter-spacing: 0.04em; }
+        @media (min-width: 640px) {
+            .headline-top-line { font-size: 3.5rem; letter-spacing: 0.04em; }
             .headline-bottom-line { font-size: 3.5rem; letter-spacing: -0.01em; }
         }
 
-        /* Medium (md) Screens (>= 768px) - Tablets/Small Laptops */
-        @media (min-width: 768px) {  
-            .headline-top-line {  font-size: 4rem;  letter-spacing: 0.03em; } 
-            .headline-bottom-line {  font-size: 4rem; letter-spacing: 0.005em; }   
-        } 
-        
-        /* Large (lg) Screens (>= 1024px) - Laptops */
-        @media (min-width: 1024px) { 
-            .headline-top-line {letter-spacing: 0.02em;font-size: 4.8rem; } 
-            .headline-bottom-line {  letter-spacing: -0.015em;font-size: 4.8rem; }  
-        } 
-        
-        /* Extra Large (xl) Screens (>= 1280px) - Large Laptops/Monitors */
-        @media (min-width: 1280px) { 
-            .headline-top-line {   letter-spacing: 0.01em;   font-size: 6rem; } 
-            .headline-bottom-line {  letter-spacing: -0.025em;  font-size: 6rem; }  
+        @media (min-width: 768px) {
+            .headline-top-line { font-size: 4rem; letter-spacing: 0.03em; }
+            .headline-bottom-line { font-size: 4rem; letter-spacing: 0.005em; }
         }
 
-        /* Double Extra Large (2xl) Screens (>= 1536px) - Large Monitors / TV Screens */
-        @media (min-width: 1536px) { 
-            .headline-top-line {   letter-spacing: 0.01em;   font-size: 7rem; } 
-            .headline-bottom-line {  letter-spacing: -0.03em;  font-size: 7rem; }  
+        @media (min-width: 1024px) {
+            .headline-top-line { letter-spacing: 0.02em; font-size: 4.8rem; }
+            .headline-bottom-line { letter-spacing: -0.015em; font-size: 4.8rem; }
         }
 
-
-        /* Sub-Text Responsiveness */
-        .hero-content .sub-text {   
-            text-align: center; line-height: 1.4; margin-left: auto; margin-right: auto; font-size: 1.125rem;
-            max-width: 60ch; /* Added for readability on large screens */
-        }  
-        @media (min-width: 768px) {   
-            .hero-content .sub-text { font-size: 1.25rem; } 
+        @media (min-width: 1280px) {
+            .headline-top-line { letter-spacing: 0.01em; font-size: 6rem; }
+            .headline-bottom-line { letter-spacing: -0.025em; font-size: 6rem; }
         }
-        @media (min-width: 1024px) { 
-            .hero-content .sub-text {font-size: 1.5rem; } 
-        } 
-        @media (min-width: 1280px) { 
-            .hero-content .sub-text { font-size: 1.875rem; }  
-        }
-        @media (max-width: 375px) { 
-            .hero-content .sub-text { font-size: 0.9rem } 
-        } 
 
-        /* Mobile Menu Styles */
+        @media (min-width: 1536px) {
+            .headline-top-line { letter-spacing: 0.01em; font-size: 7rem; }
+            .headline-bottom-line { letter-spacing: -0.03em; font-size: 7rem; }
+        }
+
+        .hero-content .sub-text {
+            text-align: center;
+            line-height: 1.4;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.125rem;
+            max-width: 60ch;
+        }
+
+        @media (min-width: 768px) {
+            .hero-content .sub-text { font-size: 1.25rem; }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content .sub-text { font-size: 1.5rem; }
+        }
+
+        @media (min-width: 1280px) {
+            .hero-content .sub-text { font-size: 1.875rem; }
+        }
+
+        @media (max-width: 375px) {
+            .hero-content .sub-text { font-size: 0.9rem }
+        }
+
         .mobile-menu-overlay {
-           display: none;   position: fixed; top: 0; left: 0;width: 100%;height: 100%; 
-           background-color: rgba(200, 200, 200, 0.95);  z-index: 2000;
-           flex-direction: column; align-items: center; justify-content: center; 
-           transition: opacity 0.3s ease; opacity: 0; pointer-events: none;  
-        } 
-        .mobile-menu-overlay.active { 
-            display: flex; opacity: 1; pointer-events: auto; 
-        }   
-        .mobile-menu-overlay .close-btn { 
-            position: absolute; top: 1.5rem;right: 1.5rem;background: none; border: none;
-            color: #333; font-size: 2rem; cursor: pointer;
-        } 
-        .mobile-menu-overlay nav ul { 
-            list-style: none; padding: 0;  text-align: center;   
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 280px;
+            height: 100%;
+            background-color: rgba(242, 242, 242, 0.98);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding: 80px 20px 20px 20px;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
         }
-        .mobile-menu-overlay nav ul li {    
-            margin-bottom: 2rem;
-        } 
-        .mobile-menu-overlay nav ul li a {  
-            color: #333;text-decoration: none;font-size: 2.2rem;font-weight: 600;transition: color 0.3s ease;
+
+        .mobile-menu-overlay.active {
+            display: flex;
+            transform: translateX(0);
         }
-        .mobile-menu-overlay nav ul li a:hover { 
+
+        .mobile-menu-overlay .close-btn {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #333;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-menu-overlay .close-btn:hover {
             color: #f97316;
-        } 
-        @media (max-width: 480px) {
-            .mobile-menu-overlay nav ul li a {    font-size: 1.8rem;}  
         }
-        @media (max-width: 1022px) {
-            .hamburger-btn {
-                display: block;  background-color: #ececec; color: #555555; font-size: 2rem;cursor: pointer;
-                padding: 0.5rem 0.6rem;  border-radius: 0.5rem;  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-                transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+
+        .mobile-menu-overlay nav ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+            width: 100%;
+        }
+
+        .mobile-menu-overlay nav ul li {
+            margin-bottom: 1.5rem;
+        }
+
+        .mobile-menu-overlay nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            display: block;
+            width: 100%;
+            padding: 8px 0;
+        }
+
+        .mobile-menu-overlay nav ul li a:hover {
+            color: #f97316;
+        }
+
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: #333;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            z-index: 2001;
+        }
+
+        .hamburger-btn:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .hamburger-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        @media (max-width: 1023px) {
+            .hamburger-btn { display: block; }
+            header .max-w-\[1200px\] {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-            .hamburger-btn:hover {
-                background-color: #d0d0d0;  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); 
-            } 
-            .hamburger-btn svg { 
-                width: 1.1em;height: 1.1em; stroke: currentColor;  stroke-width: 1.5;  
-            } 
+            .call-us-btn {
+                font-size: 0.875rem;
+                padding: 8px 12px;
+                white-space: nowrap;
+                margin-left: auto;
+            }
         }
-        
-        /* --- MOBILE ACCORDION STYLES (Revised for Text/Image Reveal) --- */
-        
-        /* The content is initially collapsed purely using max-height */
+
+        @media (max-width: 480px) {
+            .mobile-menu-overlay { width: 250px; }
+            .mobile-menu-overlay nav ul li a { font-size: 1.1rem; }
+            .call-us-btn {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            header .max-w-\[1200px\] {
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            .call-us-btn {
+                font-size: 0.75rem;
+                padding: 5px 8px;
+            }
+            .hamburger-btn { padding: 6px; }
+        }
+
         .accordion-item .accordion-content {
             padding-top: 0;
-            max-height: 0; /* Start collapsed */
-            transition: max-height 0.5s ease-out; 
-            overflow: hidden; /* Ensure content is clipped during transition */
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+            overflow: hidden;
         }
-        
-        /* When active on mobile, max-height is set by JS */
-        /* The text/content will reveal as max-height increases */
-        
-        /* Icon rotation */
+
         .accordion-item .accordion-icon {
             transform: rotate(0deg);
             transition: transform 0.3s ease;
         }
+        
         .accordion-item.active .accordion-icon {
             transform: rotate(180deg);
         }
-        
-        /* Desktop/Tablet override (md: >= 768px) */
+
         @media (min-width: 768px) {
-            /* Force content open and visible on desktop */
             .accordion-item .accordion-content {
-                height: auto !important; 
-                max-height: none !important; /* Disable max-height animation limit */
+                height: auto !important;
+                max-height: none !important;
                 opacity: 1 !important;
                 overflow: visible !important;
                 padding-top: 0.5rem;
             }
-            /* Hide the mobile toggle icon on desktop */
             .accordion-item .accordion-icon {
                 display: none;
             }
         }
-
     </style>
 </head>
 <body class="min-h-screen flex flex-col bg-[#f2f2f2] text-[#4A4A4A] text-center bg-cover bg-center bg-fixed">
@@ -188,127 +267,109 @@
     <!-- Header -->
     <header class="bg-[#f2f2f2] py-12 border-b border-white z-50" id="main-header">
         <div class="max-w-[1200px] mx-auto px-6 flex items-center justify-between relative">
-            
-            <!-- Hamburger Button (Visible on Mobile/Tablet) -->
-            <button id="menu-toggle" class="hamburger-btn lg:hidden" aria-label="Toggle Navigation">
+            <button id="menu-toggle" class="hamburger-btn" aria-label="Toggle Navigation">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
-            </button> 
+            </button>
             
-            <!-- Desktop Navigation Menu (Hidden on Mobile/Tablet) -->
-            <nav class="main-nav hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2"> 
+            <nav class="main-nav hidden lg:flex lg:absolute lg:left-1/2 lg:-translate-x-1/2">
                 <ul class="list-none m-0 p-0 flex gap-8">
-                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 ">Home</a></li>
-                    <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300 ">Products</a></li>
+                    <li><a href="index.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Home</a></li>
+                    <li><a href="product.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Products</a></li>
                     <li><a href="about.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">About Us</a></li>
                     <li><a href="contact.html" class="text-[#333] no-underline font-normal py-2 relative transition-colors duration-300">Contact</a></li>
-                </ul>   
-            </nav>  
+                </ul>
+            </nav>
             
-            <!-- Call to Action -->
-            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base lg:ml-auto hover:text-orange-500 transition-colors duration-300">
+            <a href="tel:+2347030326642" class="call-us-btn bg-transparent text-black px-0 py-0 no-underline font-normal whitespace-nowrap text-sm md:text-base hover:text-orange-500 transition-colors duration-300 lg:ml-auto">
                 Call Us Anytime +2347030326642
             </a>
-        </div>  
-    </header> 
+        </div>
+    </header>
     
     <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay hidden fixed inset-0 w-full h-full z-40 flex-col items-center justify-center transition-opacity duration-300 opacity-0 pointer-events-none">
-        <button class="close-btn absolute top-6 right-6 bg-none border-none text-[#4A4A4A] text-4xl cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /> 
+    <div id="mobile-menu" class="mobile-menu-overlay">
+        <button class="close-btn" aria-label="Close Navigation">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
             </svg>
         </button>
-        <nav> 
-            <ul class="list-none p-0 text-center">
-                <li class="mb-8"><a href="index.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Home</a></li>
-                <li class="mb-8"><a href="product.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Products</a></li>
-                <li class="mb-8"><a href="about.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">About Us</a></li>
-                <li class="mb-8"><a href="contact.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Contact</a></li>
-                <li class="mb-8"><a href="tel:+2347030326642" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Call Us Anytime<br>+2347030326642</a></li>
+        
+        <nav class="w-full mt-8">
+            <ul class="list-none p-0 text-left w-full">
+                <li class="mb-6"><a href="index.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Home</a></li>
+                <li class="mb-6"><a href="product.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Products</a></li>
+                <li class="mb-6"><a href="about.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">About Us</a></li>
+                <li class="mb-6"><a href="contact.html" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500">Contact</a></li>
+                <li class="mt-8"><a href="tel:+2347030326642" class="text-[#333] no-underline font-semibold transition-colors duration-300 hover:text-orange-500 text-lg">Call Us Now<br><span class="text-orange-500">+2347030326642</span></a></li>
             </ul>
         </nav>
     </div>
-    
-    <main class="hero-section mx-auto
-             px-4 pt-12 pb-2  sm:px-6 sm:py-4  md:px-8 md:py-8 lg:px-8 lg:py-6.5  flex flex-col justify-center items-center flex-grow">
-    
-        <!-- Logo Box (Uses negative margin to sit over the content) -->
+
+    <!-- Hero Section -->
+    <main class="hero-section mx-auto px-4 pt-12 pb-2 sm:px-6 sm:py-4 md:px-8 md:py-8 lg:px-8 lg:py-6.5 flex flex-col justify-center items-center flex-grow">
         <div class="hero-logo-box text-center scroll-reveal-text mt-[-4rem] md:mt-[-4rem] md:mb-[0.5rem] mb-[-3rem]">
-            <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="w-[200px] h-[200px] mx-auto md:mb-[-4rem] md:w-[250px] md:h-[250px] ">
-        </div> 
+            <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="w-[200px] h-[200px] mx-auto md:mb-[-4rem] md:w-[250px] md:h-[250px]">
+        </div>
         
-        <!-- Hero Content -->
         <div class="hero-content w-full">
             <h1 class="headline font-extrabold text-[#4A4A4A] leading-tight mb-1 uppercase text-5xl sm:text-6xl md:text-7xl scroll-reveal-text text-center">
-                <span class="headline-top-line">BUILDING A</span> 
+                <span class="headline-top-line">BUILDING A</span>
                 <span class="headline-bottom-line">CONCRETE FUTURE</span>
-            </h1>  
+            </h1>
             
-            <!-- Sub-text for Desktop/Tablet -->
             <p class="sub-text font-light text-[#555555] leading-relaxed mb-8 scroll-reveal-text hidden md:block">
                 Oneco Construction is your reliable partner for all<br>
                 block brick construction needs. We offer tailored building solutions<br>
                 to meet your specific requirements while ensuring top-notch quality on every project.
-            </p> 
+            </p>
             
-            <!-- Sub-text for Mobile -->
             <p class="sub-text font-light text-[#555555] leading-relaxed mb-8 scroll-reveal-text md:hidden">
-                Oneco Construction is your reliable  <br>
-               partner for all block brick construction <br>
-               needs. We offer tailored building <br>
-             solutions to meet your specific  <br>
-             requirements while  ensuring top-notch <br>
-              quality on every project.
-            </p>  
+                Oneco Construction is your reliable partner for all block brick construction needs. We offer tailored building solutions to meet your specific requirements while ensuring top-notch quality on every project.
+            </p>
             
-            <!-- Button -->
             <a href="product.html" class="btn inline-block bg-[#4A4A4A] text-white px-7 py-3 rounded-lg shadow-md no-underline transition-colors duration-300 cursor-pointer font-semibold text-base sm:px-8 sm:py-4 sm:text-lg md:px-9 md:py-4 md:text-xl hover:bg-[#333333]">
-                Explore Products  
-            </a>  
-        </div> 
-    </main>  
+                Explore Products
+            </a>
+        </div>
+    </main>
     
-    <!-- Hero Image Section -->
+    <!-- Hero Image -->
     <div class="hero-main-image-container w-screen h-[calc(100vw/1.8)] max-h-[550px] mx-auto overflow-hidden rounded-b-none shadow-lg flex justify-center items-center bg-gray-300 relative">
         <img src="images/renco-lego-building-blocks-construction_dezeen_2364_hero-1704x959.webp" alt="Construction Site" class="hero-main-image w-full h-auto block object-cover scroll-reveal-text">
     </div>
     
+    <!-- Specialised Services -->
     <section id="specialised-services" class="bg-[#f2f2f2] py-12 w-full box-border text-[#333] text-left">
         <div class="section-inner-container max-w-[1400px] mx-auto px-6 w-full box-border">
             <h2 class="text-4xl font-bold mb-10 text-[#333] text-left">Our Specialised Services</h2>
             <div class="services-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
-                
-                <!-- Concrete Block Type -->
                 <div class="service-block bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left h-full">
                     <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64 64V416H224V160H64zm384 0H288V416H448V160z"/>
-                    </svg>  
+                    </svg>
                     <h3 class="text-lg font-semibold mt-0 mb-3 leading-tight">Concrete Block Type</h3>
                     <p class="text-base font-semibold leading-normal m-0 mb-2">6'' Hollow & 9'' Hollow</p>
                     <p class="text-sm leading-normal m-0">All-purpose blocks for construction solutions meeting your unique needs.</p>
                 </div>
                 
-                <!-- Quality Workmanship -->
                 <div class="service-block bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left h-full">
                     <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64 64V416H224V160H64zm384 0H288V416H448V160z"/>
-                    </svg>   
+                    </svg>
                     <h3 class="text-lg font-semibold mt-0 mb-3 leading-tight">Quality Workmanship</h3>
                     <p class="text-sm leading-normal m-0">Committed to delivering superior block brick construction services.</p>
-                </div>    
+                </div>
                 
-                <!-- Structural Durability -->
                 <div class="service-block bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left h-full">
                     <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64 64V416H224V160H64zm384 0H288V416H448V160z"/>
-                    </svg>   
+                    </svg>
                     <h3 class="text-lg font-semibold mt-0 mb-3 leading-tight">Structural Durability</h3>
                     <p class="text-sm leading-normal m-0">Ensuring the strength and stability of your block brick projects.</p>
                 </div>
                 
-                <!-- Innovative Approaches -->
                 <div class="service-block bg-[#666] text-white p-6 rounded-lg shadow-xl flex flex-col items-start text-left h-full">
                     <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                         <path d="M0 96C0 60.7 28.7 32 64 32H448c35.3 0 64 28.7 64 64V416c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V96zm64 64V416H224V160H64zm384 0H288V416H448V160z"/>
@@ -320,65 +381,61 @@
         </div>
     </section>
     
-    <!-- Engineered Section (Text and Image) -->
+    <!-- Engineered Section -->
     <section id="engineered-section" class="w-full bg-[#f2f2f2] py-12 md:py-20 flex items-start justify-start gap-10 box-border">
         <div class="max-w-[1200px] mx-auto px-5 flex flex-col md:flex-row justify-start items-start w-full box-border gap-10">
-            <!-- Text Content -->
             <div class="engineered-content flex flex-col items-start text-left text-[#333] w-full md:w-1/2 md:max-w-[55%]">
                 <p class="text-base mt-0 mb-2 scroll-reveal-text">24/7 Block Brick Construction Services</p>
                 <h2 class="text-5xl font-bold leading-tight mt-0 mb-2">Serving Local Clients</h2>
                 <p class="text-base mt-0 mb-6 scroll-reveal-text">Let's build something great together. Count on us today to get started on your next project. Our dedicated team is ready to deliver exceptional quality and reliability for your next construction endeavour.</p>
-                <a href="contact.html"> 
+                <a href="contact.html">
                     <button class="bg-[#4a4a4a] text-white px-8 py-4 no-underline font-semibold rounded-full transition-colors duration-300 whitespace-nowrap border-none cursor-pointer shadow-md mt-6 hover:bg-[#222]">
                         Get in Touch
                     </button>
                 </a>
-            </div> 
-            <!-- Image Container -->
+            </div>
             <div class="engineered-image-container flex justify-start items-start w-full md:w-1/2 md:max-w-[40%]">
                 <img src="images/IMG_5055.JPG" alt="Construction Mixer" class="max-w-full h-auto rounded-lg shadow-md">
-            </div>   
-        </div>
-    </section> 
-    
-    <!-- Our Expertise Section -->
-  <section id="our-expertise" class="bg-[#f2f2f2] py-12 w-full box-border text-[#333]">
-    <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border">
-        <div class="header-container flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
-            <h2 class="text-4xl font-bold text-[#333] text-left mb-4 md:mb-0 scroll-reveal-text">Our Expertise</h2>
-            <p class="text-base text-[#333] text-left md:text-right w-full md:w-auto scroll-reveal-text">
-                Where We Excel:<br >Proven expertise in delivering exceptional block brick construction<br class="hidden md:inline"> solutions.
-            </p>
-        </div>  
-        <div class="expertise-grid grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
-            
-            <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-                    <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
-                </svg>
-                <h3 class="text-xl font-semibold mb-2">Residential Projects</h3>
-                <p class="text-base leading-normal">Dedicated to creating ideal living spaces with block brick construction.</p>
-            </div>   
-            
-            <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-                    <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
-                </svg> 
-                <h3 class="text-xl font-semibold mb-2">Commercial Projects</h3>
-                <p class="text-base leading-normal">Enhancing commercial spaces with innovative block brick solutions.</p>
-            </div> 
-            
-            <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
-                <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
-                    <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
-                </svg>   
-                <h3 class="text-xl font-semibold mb-2">Infrastructure Development</h3>
-                <p class="text-base leading-normal">Contributing to the advancement of infrastructure through block brick construction.</p>
             </div>
-        </div>  
-    </div> 
-</section>
-
+        </div>
+    </section>
+    
+    <!-- Our Expertise -->
+    <section id="our-expertise" class="bg-[#f2f2f2] py-12 w-full box-border text-[#333]">
+        <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border">
+            <div class="header-container flex flex-col md:flex-row justify-between items-start md:items-end mb-12">
+                <h2 class="text-4xl font-bold text-[#333] text-left mb-4 md:mb-0 scroll-reveal-text">Our Expertise</h2>
+                <p class="text-base text-[#333] text-left md:text-right w-full md:w-auto scroll-reveal-text">
+                    Where We Excel:<br>Proven expertise in delivering exceptional block brick construction<br class="hidden md:inline"> solutions.
+                </p>
+            </div>
+            <div class="expertise-grid grid grid-cols-1 md:grid-cols-3 gap-5 w-full">
+                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
+                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+                        <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Residential Projects</h3>
+                    <p class="text-base leading-normal">Dedicated to creating ideal living spaces with block brick construction.</p>
+                </div>
+                
+                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
+                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+                        <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Commercial Projects</h3>
+                    <p class="text-base leading-normal">Enhancing commercial spaces with innovative block brick solutions.</p>
+                </div>
+                
+                <div class="expertise-card bg-[#666] text-white py-12 px-6 rounded-lg shadow-xl flex flex-col items-start text-left scroll-reveal-text w-11/12 mx-auto sm:max-w-sm md:w-full">
+                    <svg class="icon w-10 h-10 fill-current mb-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" fill="currentColor">
+                        <path d="M575.8 255.6c-.3-.2-.5-.3-.8-.5L512 196V32c0-17.7-14.3-32-32-32s-32 14.3-32 32V108.5L287.9 44.5c-.2-.1-.5-.3-.8-.5-.3-.1-.6-.2-.9-.2s-.6-.1-.9-.1c-.4 0-.9 0-1.3 .2l-.2 .1c-.2 .1-.4 .2-.6 .3-.2 .1-.4 .2-.6 .3l-.2 .1L3.9 255.6c-.2 .1-.5 .3-.8 .5-.3 .2-.5 .3-.8 .5-.7 .4-1.3 .8-1.9 1.4s-1.1 1.2-1.6 1.8c-.4 .7-.7 1.4-1 2.2c-.2 .8-.4 1.7-.4 2.6c0 1.2 .3 2.5 .8 3.6s1.2 2.2 2.2 3.2l.2 .1 1.4 1.2 .2 .2 .1 .1c.2 .2 .4 .4 .6 .6L256 464V352c0-17.7 14.3-32 32-32s32 14.3 32 32V464L575.8 265.5c.3-.2 .5-.3 .8-.5 .7-.4 1.3-.8 1.9-1.4s1.1-1.2 1.6-1.8c.4-.7 .7-1.4 1-2.2c.2-.8 .4-1.7 .4-2.6c0-1.2-.3-2.5-.8-3.6s-1.2-2.2-2.2-3.2z"/>
+                    </svg>
+                    <h3 class="text-xl font-semibold mb-2">Infrastructure Development</h3>
+                    <p class="text-base leading-normal">Contributing to the advancement of infrastructure through block brick construction.</p>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Partner With Us Section -->
     <section id="partner-with-us" class="bg-[#f2f2f2] py-4 md:py-8 w-full box-border text-[#333] flex flex-col items-center justify-center">
         <div class="section-inner-container max-w-[1200px] mx-auto px-5 w-full box-border flex flex-col gap-8 md:gap-10">
@@ -473,7 +530,7 @@
                              <!-- Image revealed on click (Mobile Only) -->
                             <div class="p-3 bg-white border border-gray-200 rounded-xl shadow-lg md:hidden">
                                 <!-- Placeholder 5: Ready for your new image -->
-                                <img src="images/Screenshot 2025-11-07 at 14.26.34.png" alt="Partnership handshake" class="w-full h-auto rounded-lg object-cover">
+                                <img src="images/WhatsApp Image 2025-11-08 at 18.02.51.jpeg" alt="Partnership handshake" class="w-full h-auto rounded-lg object-cover">
                             </div>
                         </div>
                     </div> 
@@ -505,256 +562,246 @@
             </div>  
         </div>
     </section>
-  <footer class="bg-[#333] text-white py-5 px-4 w-full">
-    <div class="container mx-auto">
-        <!-- Mobile: Content side by side at top -->
-        <div class="flex flex-row justify-between items-start gap-4 md:hidden mb-4">
-            <!-- Company info - left side -->
-            <div class="text-left flex-1">
-                <h4 class="text-white text-sm font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
-            </div>
-            
-            <!-- Contact info - moved to right side -->
-            <div class="text-left flex-1 text-right">
-                <div class="contact-info">
-                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs leading-tight scroll-reveal-text">14/17 Lateef Eletu,<br>Off Olowu Eletu Street,<br>Awoyaya, Lagos</p>
+
+    <!-- Footer -->
+    <footer class="bg-[#333] text-white py-5 px-4 w-full">
+        <div class="container mx-auto">
+            <div class="flex flex-row justify-between items-start gap-4 md:hidden mb-4">
+                <div class="text-left flex-1">
+                    <h4 class="text-white text-sm font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                    <p class="text-xs leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                    <p class="text-xs leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+                </div>
+                
+                <div class="text-left flex-1 text-right">
+                    <div class="contact-info">
+                        <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
+                        <p class="text-xs leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
+                        <p class="text-xs leading-tight scroll-reveal-text">14/17 Lateef Eletu,<br>Off Olowu Eletu Street,<br>Awoyaya, Lagos</p>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Mobile: Logo and icons in one row below content -->
-        <div class="flex flex-row justify-between items-center md:hidden">
-            <!-- Logo on left -->
-            <div class="flex justify-start">
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[80px] h-auto block scroll-reveal-text">
-            </div>
+            <div class="flex flex-row justify-between items-center md:hidden">
+                <div class="flex justify-start">
+                    <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[80px] h-auto block scroll-reveal-text">
+                </div>
 
-            <!-- Social icons on right -->
-            <div class="flex justify-end gap-3">
-                <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                    </svg>
-                </a>
-                
-                <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg> 
-                </a>
-                <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                    </svg>
-                </a> 
-                <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Desktop layout - unchanged -->
-        <div class="hidden md:flex md:flex-row md:flex-wrap md:justify-between md:items-start gap-8">
-            <!-- Company info and links -->
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
-                <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
-                <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
-            </div>
-            
-            <!-- Contact info and social icons -->
-            <div class="flex-1 min-w-[200px] text-center md:text-left">
-                <div class="contact-info">
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
-                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
-                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
-                </div> 
-                <div class="flex justify-center md:justify-start gap-3 mt-2">
+                <div class="flex justify-end gap-3">
                     <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
                         </svg>
                     </a>
                     
                     <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                        </svg> 
+                        </svg>
                     </a>
                     <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                             <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
                             <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
                         </svg>
-                    </a> 
+                    </a>
                     <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                         </svg>
                     </a>
                 </div>
             </div>
+
+            <div class="hidden md:flex md:flex-row md:flex-wrap md:justify-between md:items-start gap-8">
+                <div class="flex-1 min-w-[200px] text-center md:text-left">
+                    <h4 class="text-white text-base md:text-lg font-bold mb-1 scroll-reveal-text">Oneco Construction<br>Enterprises</h4>
+                    <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Privacy Policy</a></p>
+                    <p class="text-xs md:text-sm leading-tight scroll-reveal-text"><a href="#" class="text-white hover:text-gray-300 transition duration-300">Accessibility Statement</a></p>
+                </div>
+                
+                <div class="flex-1 min-w-[200px] text-center md:text-left">
+                    <div class="contact-info">
+                        <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">+234 7030326642</p>
+                        <p class="text-xs md:text-sm leading-tight mb-0.5 scroll-reveal-text">oneco.exec@gmail.com</p>
+                        <p class="text-xs md:text-sm leading-tight scroll-reveal-text">14/17 Lateef Eletu, Off Olowu Eletu Street, Awoyaya, Lagos</p>
+                    </div>
+                    <div class="flex justify-center md:justify-start gap-3 mt-2">
+                        <a href="#" aria-label="Facebook" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                            </svg>
+                        </a>
+                        
+                        <a href="#" aria-label="LinkedIn" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.761 0 5-2.239 5-5v-14c0-2.761-2.239-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="X (Twitter)" class="text-white hover:text-gray-300 transition duration-300 scroll-reveal-text">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
+                    <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
+                </div>
+            </div>
             
-            <!-- Desktop logo -->
-            <div class="flex-none w-full md:w-auto flex justify-center md:justify-end">
-                <img src="images/F5287BAA-3E9F-4ADE-A3C4-E31D66AEAA8D.png" alt="ONECO Logo" class="max-w-[150px] h-[128px] md:h-auto block scroll-reveal-text">
-            </div> 
+            <div class="text-center text-xs md:text-sm text-gray-400 mt-6 md:mt-8 scroll-reveal-text">
+                &copy; 2025 Oneco Construction Enterprises. All rights reserved.
+            </div>
         </div>
-        
-        <!-- Copyright -->
-        <div class="text-center text-xs md:text-sm text-gray-400 mt-6 md:mt-8 scroll-reveal-text">
-            &copy; 2025 Oneco Construction Enterprises. All rights reserved.
-        </div>
-    </div>
-</footer>
-    <!-- JavaScript for Menu, Scroll Animation, and Mobile Accordion -->
+    </footer>
+
     <script>
-        const hamburgerBtn = document.querySelector('.hamburger-btn');
-        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay'); 
-        const closeBtn = document.querySelector('.close-btn');
-        const mainHeader = document.getElementById('main-header'); 
-        
-        // Toggle Mobile Menu
-        hamburgerBtn.addEventListener('click', () => {
-            mainHeader.classList.add('hidden'); 
-            if (mobileMenuOverlay.classList.contains('hidden')) {
-                mobileMenuOverlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
-                mobileMenuOverlay.classList.add('flex', 'opacity-100', 'pointer-events-auto');
-            } else {  
-                mainHeader.classList.remove('hidden'); 
-                mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
-            }   
-        }); 
-        
-        // Close Mobile Menu
-        closeBtn.addEventListener('click', () => { 
-            mainHeader.classList.remove('hidden'); 
-            mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-            mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto');
-        }); 
-        
-        // Close Mobile Menu when a Link is clicked
-        mobileMenuOverlay.querySelectorAll('nav ul li a').forEach(link => { 
-            link.addEventListener('click', () => {
-                if (!link.href.startsWith('tel:')) { 
-                    mainHeader.classList.remove('hidden');  
-                    mobileMenuOverlay.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-                    mobileMenuOverlay.classList.remove('flex', 'opacity-100', 'pointer-events-auto'); 
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const closeBtn = document.querySelector('.close-btn');
+            
+            menuToggle.addEventListener('click', function() {
+                mobileMenu.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                mobileMenu.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+            
+            const menuLinks = mobileMenu.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+            });
+            
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
-        });
-        
-        // Scroll Reveal Animation Logic
-        const scrollRevealElements = document.querySelectorAll('.scroll-reveal-text');
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) { 
-                    entry.target.classList.add('animated');
-                    observer.unobserve(entry.target);  
-                } 
-            }); 
-        }, { threshold: 0.1 }); // Trigger when 10% of element is visible
-
-        scrollRevealElements.forEach(element => {
-            observer.observe(element); 
-        }); 
-        
-        
-        // --- MOBILE ACCORDION LOGIC ---
-        const accordionItems = document.querySelectorAll('.accordion-item');
-
-        const toggleAccordion = (item) => {
-            // Only execute if screen width is less than 768px (md breakpoint)
-            if (window.innerWidth >= 768) {
-                return; 
-            }
-
-            const content = item.querySelector('.accordion-content');
             
-            if (item.classList.contains('active')) {
-                // Collapse the currently active item
-                item.classList.remove('active');
-                content.style.maxHeight = '0';
-                content.style.paddingTop = '0'; 
-                
-            } else {
-                // Close all other open accordion items
-                accordionItems.forEach(otherItem => {
-                    if (otherItem !== item && otherItem.classList.contains('active')) {
-                        otherItem.classList.remove('active');
-                        otherItem.querySelector('.accordion-content').style.maxHeight = '0';
-                        otherItem.querySelector('.accordion-content').style.paddingTop = '0';
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            });
+
+            const scrollRevealElements = document.querySelectorAll('.scroll-reveal-text');
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                        observer.unobserve(entry.target);
                     }
                 });
+            }, { threshold: 0.1 });
 
-                // Open the clicked item
-                item.classList.add('active');
-                // Calculate and set maxHeight for smooth transition
-                // Scroll height now includes the text and the hidden image div. We add extra margin for breathing room.
-                const extraMargin = 20; 
-                content.style.maxHeight = content.scrollHeight + extraMargin + 'px';
-                content.style.paddingTop = '0.5rem'; 
+            scrollRevealElements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        // --- MOBILE ACCORDION LOGIC FOR VALUE WE OFFER SECTION ---
+const accordionItems = document.querySelectorAll('.accordion-item');
+
+const toggleAccordion = (item) => {
+    // Only execute if screen width is less than 768px (md breakpoint)
+    if (window.innerWidth >= 768) {
+        return; 
+    }
+
+    const content = item.querySelector('.accordion-content');
+    
+    if (item.classList.contains('active')) {
+        // Collapse the currently active item
+        item.classList.remove('active');
+        content.style.maxHeight = '0';
+        content.style.paddingTop = '0'; 
+        
+    } else {
+        // Close all other open accordion items
+        accordionItems.forEach(otherItem => {
+            if (otherItem !== item && otherItem.classList.contains('active')) {
+                otherItem.classList.remove('active');
+                otherItem.querySelector('.accordion-content').style.maxHeight = '0';
+                otherItem.querySelector('.accordion-content').style.paddingTop = '0';
             }
-        };
+        });
 
+        // Open the clicked item
+        item.classList.add('active');
+        // Calculate and set maxHeight for smooth transition
+        const extraMargin = 20; 
+        content.style.maxHeight = content.scrollHeight + extraMargin + 'px';
+        content.style.paddingTop = '0.5rem'; 
+    }
+};
+
+// Add click event listeners to all accordion headers
+accordionItems.forEach(item => {
+    const header = item.querySelector('.accordion-header');
+    header.addEventListener('click', () => toggleAccordion(item));
+});
+
+// Initialize: Ensure desktop mode is correct and mobile is collapsed.
+window.addEventListener('load', () => {
+    if (window.innerWidth >= 768) {
+        // Ensure desktop mode content is always fully visible on load
         accordionItems.forEach(item => {
-            const header = item.querySelector('.accordion-header');
-            header.addEventListener('click', () => toggleAccordion(item));
+            item.classList.add('active');
+            const content = item.querySelector('.accordion-content');
+            content.style.maxHeight = 'none';
+            content.style.paddingTop = '0.5rem';
         });
+    } else {
+         // On mobile, ensure all are collapsed initially
+         accordionItems.forEach(item => {
+            item.classList.remove('active'); 
+            item.querySelector('.accordion-content').style.maxHeight = '0';
+            item.querySelector('.accordion-content').style.paddingTop = '0';
+        });
+    }
+});
 
-        // Initialize: Ensure desktop mode is correct and mobile is collapsed.
-        window.addEventListener('load', () => {
-            if (window.innerWidth >= 768) {
-                // Ensure desktop mode content is always fully visible on load
-                accordionItems.forEach(item => {
-                    item.classList.add('active');
-                    const content = item.querySelector('.accordion-content');
-                    content.style.maxHeight = 'none';
-                    content.style.paddingTop = '0.5rem';
-                });
+// Handle resize: Remove max-height restrictions on desktop resize.
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 768) {
+        accordionItems.forEach(item => {
+            const content = item.querySelector('.accordion-content');
+            content.style.maxHeight = 'none'; 
+            content.style.paddingTop = '0.5rem';
+        });
+    } else {
+         // If resizing back to mobile, re-apply collapsed state for non-active items
+         accordionItems.forEach(item => {
+            const content = item.querySelector('.accordion-content');
+            if (!item.classList.contains('active')) {
+               content.style.maxHeight = '0';
+               content.style.paddingTop = '0';
             } else {
-                 // On mobile, ensure all are collapsed initially
-                 accordionItems.forEach(item => {
-                    item.classList.remove('active'); 
-                    item.querySelector('.accordion-content').style.maxHeight = '0';
-                    item.querySelector('.accordion-content').style.paddingTop = '0';
-                });
+                // Recalculate max-height for the active item to prevent jumpiness
+                const extraMargin = 20; 
+                content.style.maxHeight = content.scrollHeight + extraMargin + 'px'; 
             }
         });
-
-        // Handle resize: Remove max-height restrictions on desktop resize.
-        window.addEventListener('resize', () => {
-            if (window.innerWidth >= 768) {
-                accordionItems.forEach(item => {
-                    const content = item.querySelector('.accordion-content');
-                    content.style.maxHeight = 'none'; 
-                    content.style.paddingTop = '0.5rem';
-                });
-            } else {
-                 // If resizing back to mobile, re-apply collapsed state for non-active items
-                 accordionItems.forEach(item => {
-                    const content = item.querySelector('.accordion-content');
-                    if (!item.classList.contains('active')) {
-                       content.style.maxHeight = '0';
-                       content.style.paddingTop = '0';
-                    } else {
-                        // Recalculate max-height for the active item to prevent jumpiness
-                        const extraMargin = 20; 
-                        content.style.maxHeight = content.scrollHeight + extraMargin + 'px'; 
-                    }
-                });
-            }
-        });
+    }
+});
     </script>
 </body>
 </html>
